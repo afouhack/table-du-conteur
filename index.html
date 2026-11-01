@@ -250,6 +250,8 @@ body.a-accueil{--nav-h:0px}
 .genre[aria-pressed="true"] span{color:var(--accent-ink);opacity:.85}
 .type-resume{padding:10px 14px}
 .type-resume b{font-family:var(--f-display);font-weight:400;font-size:18px}
+.adn{font-family:var(--f-small);font-size:15px;color:var(--muted);border-left:3px solid var(--th-acc);padding:4px 0 4px 12px;margin:0}
+.adn b{color:var(--ink);font-weight:600}
 
 </style>
 </head>
@@ -485,7 +487,7 @@ lieux:["une grotte ornée","un gué sur le grand fleuve","une steppe glacée","u
 commanditaires:["la vieille du clan","un chasseur blessé","le chamane","un chef d'un clan voisin","une mère dont l'enfant a disparu"],
 objets:["le feu sacré du clan","une pointe de silex parfait","le totem volé","des graines de la plaine chaude","une peau de lion blanc"],
 personnes:["l'enfant qui rêve vrai","une guérisseuse captive","le dernier chasseur d'un clan éteint","un étranger venu de la mer","le fils du chef"],
-antagonistes:["Grand-Croc, chef de horde|Il veut le territoire de chasse avant l'hiver.|lieutenant","la Chamane Cendre|Elle a vu en rêve la fin du clan et veut l'empêcher.|sorcier","l'Ours-Qui-Parle|Un esprit dans un corps d'ours.|betegeante","les Hommes du Froid|Ils fuient une famine terrible.|garde","le Mangeur d'âmes|Un ancêtre affamé.|ombre"],
+antagonistes:["Grand-Croc, chef de horde|Il veut le territoire de chasse avant l'hiver.|lieutenant","la Chamane Cendre|Elle a vu en rêve la fin du clan et veut l'empêcher.|sorcier","l'Ours-Qui-Parle|Un esprit dans un corps d'ours.|betegeante","Ours-Gris, chef des Hommes du Froid|Il fuit une famine terrible et mènera les siens au pillage s'il le faut.|lieutenant","le Mangeur d'âmes|Un ancêtre affamé.|ombre"],
 factions:["le clan du Bison|garder ses terres","le clan du Corbeau|commercer le silex","les Hommes du Froid|trouver à manger","les gardiens des pierres|honorer les esprits","les chasseurs solitaires|vivre sans chef"],
 ambiances:["le souffle des mammouths au loin","les peintures qui semblent bouger à la torche","un ciel immense et blanc","l'odeur de graisse brûlée","des hurlements dans la nuit"],
 complications:["le feu s'éteint","une tempête de neige","la harde change de route","un tabou est brisé","un rêve annonce la mort d'un membre du groupe"],
@@ -559,113 +561,319 @@ dangersGen:["un piège dissimulé","une chute","un poison","un feu","un effondre
 lieuxCampagne:["Le cœur du pouvoir","La frontière","Le refuge","Les terres sauvages","Le carrefour","Le lieu interdit","L'antre"]
 };
 
-/* Types d'aventure. Chaque type a son résumé, sa mission de campagne et cinq scènes qui s'enchaînent.
-   Repères : {comm} commanditaire, {a}/{A} antagoniste, {dea}/{aa} « de/à » + antagoniste, {sec} son secret,
-   {o} objet, {p} personne, {l0} lieu de départ, {l1}/{l} lieu final, {dl}/{jl}, {F1} {F2} factions, {amb} ambiance,
-   {comp} complication, {danger}, {rec} récompense, et les tirages propres à la scène : {indices}, {signe}, {signe2}, {salle},
-   {reperages}, {taches}, {revel}, {pnj}, {pnjsec}, {proie}, {epreuve}, {rebond}. */
+/* ==========================================================================
+   Types d'aventure, version « situations ».
+   Règles d'écriture (à respecter pour tout ajout) :
+   1. Variété : un nom propre, un lieu ou un objet n'apparaît qu'une fois par bloc ; ensuite
+      pronom ({il}, {lui}) ou synonyme ({a2}, {o2}, {comm2}, {l2}).
+   2. Pas de rails : un problème de départ, puis 3 pistes jouables dans n'importe quel ordre.
+      Chaque piste rapporte un atout utile au climax.
+   3. Antagoniste actif : au climax il agit (rituel, otage, marché, fuite), avec un compte à rebours
+      et plusieurs façons de s'en sortir autres que taper.
+   4. Grain de sable : chaque scénario a une ambiguïté morale, une trahison ou un effet secondaire.
+   5. ADN : chaque type et chaque inspiration donnent une consigne d'ambiance au Conteur.
+   Repères : {a} antagoniste (1re mention), {a2} sa désignation, {il}/{Il} son pronom, {lui} pronom tonique,
+   {dea}/{aa} « de/à » + nom ; {o}/{o2} objet ; {p} personne ; {comm}/{comm2} commanditaire ;
+   {l0} lieu de départ, {l1} lieu du climax, {lieu} lieu de la piste ; {F1} {F2} factions ;
+   {proie}, {signe}, {salle}, {danger}, {indice}, {revel}, {revelP}, {pnj}, {pnjsec}, {rec}.
+   ========================================================================== */
+const ATOUTS={
+ faiblesse:{n:"Un point faible",e:"avantage aux attaques contre {a2}, ou l'une de ses capacités spéciales annulée"},
+ allie:{n:"Un allié",e:"au climax, il occupe une partie des adversaires ou s'occupe de l'otage"},
+ passage:{n:"Un accès secret",e:"arrivée par surprise : le premier tour est aux coureurs, avec avantage et +1d4 dégâts"},
+ contre:{n:"Une contre-mesure",e:"le compte à rebours du climax gagne 2 tours"},
+ levier:{n:"Un moyen de pression",e:"il devient possible de forcer {a2} à écouter : marché, reddition ou retraite"},
+ preuve:{n:"Une preuve",e:"brandie au bon moment, elle retourne des témoins ou les hommes de main"}
+};
+const MODES={rituel:"Plan en cours",otage:"Otage",marche:"Marché corrompu",fuite:"Fuite ou survie"};
+
 const GENRES={
-enquete:{nom:"Enquête",desc:"Un mystère, des suspects, des indices",
+enquete:{nom:"Enquête",desc:"Un mystère, des témoins, des indices qui se répondent",
+ adn:"Enquête de voisinage : chaque témoin sait un petit bout de l'affaire, les indices se télescopent, et le basculement arrive quand on ne l'attend plus.",
  synopsis:[
-  "{P} a disparu à {l0}, et personne ne veut en parler. {Comm} craint le pire et engage les coureurs pour découvrir la vérité. Derrière ce silence se cache {a} : {sec} De témoin en indice, la piste mène jusqu'à {l1}. Si les coureurs traînent, une autre victime tombera.",
-  "Un cadavre a été retrouvé à {l0}, et avec lui a disparu {o}. {Comm} veut savoir qui a fait le coup avant que l'affaire ne s'ébruite. Les apparences désignent un coupable commode, mais la vérité est ailleurs. {A} a ses raisons : {sec} Pour le prouver, il faudra remonter jusqu'à {l1}.",
-  "Depuis des semaines, quelqu'un sème le trouble à {l0} : vols, menaces, incendies. {Comm} n'a plus confiance en personne et fait appel à des étrangers, les coureurs. Ils vont découvrir que {a} est derrière tout cela. {A} a ses raisons : {sec}"],
- mission:["découvrir ce qui est arrivé à {p}","trouver qui a volé {o}","démasquer celui qui terrorise {l}"],
- scenes:[
-  {t:"L'affaire",v:["À {l0}, {comm} reçoit les coureurs à l'abri des oreilles indiscrètes. {P} a disparu depuis trois jours ; la dernière fois qu'on l'a vu, il parlait de {o}.\nRécompense : {rec}, la moitié d'avance.","{Comm} attend les coureurs à {l0}. On a retrouvé un corps, et {o} a disparu. Ce qu'on attend d'eux : un nom, des preuves, et de la discrétion.\nRécompense : {rec}."]},
-  {t:"Premiers indices",v:["Trois indices mènent à la vérité ; si les joueurs en manquent un, les deux autres suffisent :\n– {indices}","Sur place et dans les environs, les coureurs peuvent trouver :\n– {indices}\nChaque indice pointe, de près ou de loin, vers {l1}."]},
-  {t:"Fausse piste",v:["Tout désigne {pnj}. Il est innocent du crime, mais il cache autre chose : il {pnjsec}. Quelqu'un a intérêt à ce qu'on l'accuse, et envoie des hommes de main pour clore l'affaire.","Un suspect idéal : {pnj}. Il fuit dès qu'il voit les coureurs. Il n'est pas le coupable, mais il {pnjsec}, et il sait qui l'est."],renc:"facile"},
-  {t:"Révélation",v:["La vérité éclate : {A} est derrière tout. {Sec}\n{Rebond}","Un dernier témoin parle, au prix de sa vie peut-être : {a} a tout orchestré. {Sec}\nComplication : {comp}."],cle:1},
-  {t:"Confrontation",v:["Dans {l1}, {a} attend, sûr de lui. Les preuves en main, les coureurs peuvent le livrer, le faire chanter… ou régler l'affaire à l'ancienne.\nPiège du lieu : {danger}.","Les coureurs surprennent {a} dans {l1}, en train d'effacer les dernières traces. Il tente de négocier, puis de fuir.\nPiège du lieu : {danger}."],renc:"final",cle:1}]},
+  "{P} s'est volatilisé à {l0}, et tout le quartier fait semblant de n'avoir rien vu. {Comm} ne croit pas à une fugue. Derrière ce silence se cache {a}, qui a ses raisons : {sec} Trois pistes, trois versions des faits, une seule vérité.",
+  "Un corps, une porte fermée de l'intérieur, et {o} qui manque à l'appel. À {l0}, chacun a un mobile, personne n'a d'alibi solide. Le coupable n'est pas celui qu'on désignera en premier."],
+ accroche:[
+  "{Comm} aborde les coureurs à voix basse, à {l0} : {p} a disparu depuis trois nuits. La garde a classé l'affaire ; la piste refroidit d'heure en heure.\nPaie : {rec}, moitié d'avance.",
+  "On a retrouvé un cadavre à {l0}, et {o} s'est envolé avec son dernier souffle. {Comm} veut un nom avant la fin de la semaine, et pas l'ombre d'un scandale.\nPaie : {rec}."],
+ horloge:["Un témoin clé quitte la ville, ou se tait pour de bon.","Les preuves disparaissent : incendie, nettoyage, faux témoignage.","{A} désigne un coupable commode, que la foule s'apprête à lyncher.","Trop tard : {il} a effacé ses traces et frappe à nouveau."],
+ pistes:[
+  {t:"Le témoin qui a peur",v:"À {lieu}, quelqu'un a tout vu et s'est barricadé. Il parlera contre une protection ou un service. Ce qu'il sait : {indice}. Des gros bras viennent le faire taire.",at:"preuve",renc:"facile"},
+  {t:"La scène du drame",v:"{Lieu} garde les traces de cette nuit-là pour qui sait regarder : {indice}. Quelqu'un d'autre fouille aussi, et n'aime pas la concurrence.",at:"faiblesse",obst:"danger"},
+  {t:"Le registre",v:"À {lieu} dorment des comptes, des lettres, des noms. Entrer sans autorisation demande de la ruse. On y lit : {indice}.",at:"levier",obst:"epreuve"},
+  {t:"Le rival",v:"{Lieu} abrite quelqu'un qui en veut à {a} autant que les coureurs. Il propose son aide, à ses conditions. Il confie : {indice}.",at:"allie",obst:"social"}],
+ climax:[
+  {mode:"otage",v:"À {l1}, acculé, {a} tient un innocent qui en sait trop, une lame sur la gorge. {Il} exige la voie libre et l'abandon de l'enquête.",opts:["Négocier : une preuve ou un moyen de pression fait vaciller l'adversaire (jet standard avec avantage).","Ruser : une diversion laisse un coureur approcher sans être vu (arts du mouvement contre 16).","Frapper : risqué, l'otage encaisse la riposte si le coup rate.","Laisser partir, et suivre à distance jusqu'au repaire."]},
+  {mode:"fuite",v:"Les coureurs surgissent à {l1} au moment où {a} brûle les dernières preuves. {Il} a prévu sa sortie : une monture sellée, un complice, une porte dérobée. 3 tours avant qu'{il} disparaisse.",opts:["Sauver les papiers des flammes (arts du mouvement, 1d8 dégâts en cas d'échec).","Couper la retraite avant qu'elle soit atteinte (jet standard).","Confondre le coupable devant témoins : ses propres hommes hésitent si une preuve est brandie."]}],
+ grains:["La personne disparue est partie de son plein gré, et ne veut surtout pas qu'on la retrouve.","{Comm2} cherche moins la vérité que les lettres que la victime gardait sur son compte."]},
 
-horreur:{nom:"Horreur",desc:"Quelque chose rôde, et la peur monte",esprit:1,
+horreur:{nom:"Horreur",desc:"Huis clos, menace invisible qui se resserre",
+ adn:"Huis clos oppressant : la menace se montre peu, se rapproche à chaque scène, et rappelle aux coureurs qu'ils ne pèsent pas grand-chose. Décris ce qu'on entend avant ce qu'on voit.",
  synopsis:[
-  "À {l0}, les gens disparaissent un à un, et ceux qui restent n'osent plus sortir la nuit. {Comm} supplie les coureurs d'agir. La vérité est pire que les rumeurs : {a} est en cause, et {sec} Plus les coureurs approchent de {l1}, plus le monde semble se déformer autour d'eux.",
-  "Une ombre s'est abattue sur {l0} : {signe}. {Comm} a vu quelque chose qu'il refuse de décrire. Les coureurs devront découvrir ce qui se cache à {l1}, et ce que {a} y a réveillé. On ne combat pas toujours la peur avec une épée.",
-  "Les coureurs arrivent à {l0} pour une affaire banale. Mais {signe}, et le soir venu, plus personne ne répond aux portes. Ils comprendront trop tard qu'ils sont tombés dans le domaine {dea}. {A} a ses raisons : {sec}"],
- mission:["mettre fin aux disparitions autour {dl}","découvrir ce qui hante {l}","survivre une nuit dans {l}"],
- scenes:[
-  {t:"L'arrivée",v:["À {l0}, tout semble calme, trop calme. {Comm} accueille les coureurs avec un soulagement qui fait peur, et promet {rec} pour régler « le problème ».\nPremier signe : {signe}.","Les coureurs arrivent à {l0} à la tombée du jour. {Comm} les attend et leur propose {rec}. On ferme les volets bien avant la nuit.\nAmbiance : {amb}."]},
-  {t:"Les signes",v:["La nuit, les choses empirent : {signe2}. Quelque chose rôde près des coureurs, et frappe pour tester leurs forces.","Un habitant raconte en tremblant ce qu'il a vu : {signe2}. Cette nuit-là, ce qui rôde vient voir les coureurs de plus près."],renc:"facile"},
-  {t:"Isolés",v:["Le piège se referme : {comp}. Les coureurs sont coupés du monde ; les torches, la nourriture et le courage s'épuisent.\nAmbiance : {amb}.","Plus moyen de repartir : {comp}. Les habitants commencent à regarder les coureurs comme la cause du malheur."]},
-  {t:"L'horreur",v:["Les coureurs découvrent l'impensable : {revel}. Chacun fait un jet standard ; en cas d'échec, il est secoué (désavantage au prochain jet), ou perd des points d'esprit si tu utilises cette règle (p. 30).","La vérité se montre enfin : {a} est au cœur de tout, et {sec} La vision demande un jet standard à chacun ; un échec coûte des points d'esprit (règle optionnelle, p. 30) ou un tour à reprendre ses esprits."],cle:1},
-  {t:"Affrontement",v:["Dans {l1}, {a} attend son heure. Le vaincre ne suffira peut-être pas : il faut aussi briser ce qui le lie à cet endroit.\nPiège du lieu : {danger}.","Tout se joue à {l1}. Fuir est une option honorable ; affronter {a} en est une autre.\nPiège du lieu : {danger}."],renc:"final",cle:1}]},
+  "À {l0}, la nuit est devenue un territoire ennemi. On compte les disparus ; les survivants murmurent. {Comm} supplie qu'on agisse, sans dire tout ce qu'il sait. Au centre de la toile se tient {a} : {sec}",
+  "Quelque chose a changé à {l0} : {signe}. Personne n'ose nommer la chose. Les coureurs vont comprendre qu'on ne l'affronte pas de face, et que {a2} n'est peut-être pas le pire de ce qui rôde."],
+ accroche:[
+  "À la tombée du jour, {comm} retrouve les coureurs à {l0}. Trois disparitions cette semaine ; la dernière, un enfant. Plus personne ne sort après le couvre-feu.\nPremier signe : {signe}.\nPaie : {rec}.",
+  "Les coureurs arrivent à {l0} pour une affaire sans histoire. Le soir même, {signe}. {Comm} les supplie de rester : seuls des étrangers oseront.\nPaie : {rec}."],
+ horloge:["Une nouvelle disparition ; la panique gagne les rues.","Les lumières faiblissent : torches, lampes et courage s'épuisent.","Un allié des coureurs est emporté.","La chose s'éveille pleinement : tout le secteur devient son domaine."],
+ pistes:[
+  {t:"Le survivant",v:"Quelqu'un est revenu de {lieu}. Il ne parle plus, il dessine, toujours la même forme. En gagnant sa confiance, on apprend que {revel}.",at:"faiblesse",obst:"social"},
+  {t:"Le nid",v:"{Lieu} empeste. Des restes, des traces, et ce silence qui n'est pas naturel. Ce qui vit ici n'est jamais loin.",at:"passage",renc:"facile"},
+  {t:"L'ancien savoir",v:"À {lieu}, un vieux texte, une comptine ou une vieille folle connaît la règle que la chose doit suivre.",at:"contre",obst:"epreuve"},
+  {t:"Les barricadés",v:"À {lieu}, des habitants se sont enfermés. Ils ont un plan pour s'en sortir… qui consiste à sacrifier quelqu'un.",at:"allie",obst:"social"}],
+ climax:[
+  {mode:"rituel",v:"À {l1}, {a} achève ce qui a été commencé : un appel, un passage, une naissance. Le rite s'accomplit en 4 tours ; à chaque tour, la réalité se tord un peu plus.",opts:["Briser le cercle ou l'objet focal (jet standard ; automatique avec une contre-mesure).","Arracher les victimes au rite (arts du mouvement contre 16, une par tour).","Fuir et sceller l'endroit : la chose reste piégée… pour un temps.","Frapper l'officiant : chaque blessure retarde le rite d'un tour."]},
+  {mode:"fuite",v:"La chose se lève à {l1}, trop vaste pour être vaincue. {A} l'a réveillée et croit pouvoir la diriger. Ce soir, gagner veut dire survivre.",opts:["Fuir en groupe : trois jets d'arts du mouvement groupés, un par étape.","Retourner la chose contre son maître (avec un point faible ou une contre-mesure).","Sacrifier quelque chose (un objet, une promesse, un allié) pour gagner du temps."]}],
+ grains:["La chose ne tue que ceux qui ont trempé dans un vieux crime du village.","{Comm2} a fait un pacte autrefois : la chose réclame son dû, et compte être payée avec les coureurs."]},
 
-exploration:{nom:"Exploration",desc:"Ruines, souterrains, terres inconnues",
+exploration:{nom:"Exploration",desc:"Course au trésor, pièges, terres inconnues",
+ adn:"Pulp et course de vitesse : le terrain est un adversaire, le rival n'est jamais loin, chaque salle a un prix. Coupe les descriptions au moment où le sol se dérobe.",
  synopsis:[
-  "On raconte que {l1} renferme {o}. Beaucoup ont tenté leur chance, peu sont revenus. {Comm} finance l'expédition et veut sa part. Mais {a} convoite le même trésor, et {l1} a ses propres gardiens.",
-  "Une carte ancienne est apparue à {l0} : elle mène à {l1}, où dormirait {o}. {Comm} l'a achetée à prix d'or et cherche des coureurs assez fous pour y aller. Ils ne seront pas seuls sur la route : {a} convoite aussi ce trésor, et {sec}"],
- mission:["explorer {l} et en rapporter {o}","retrouver l'expédition perdue dans {l}","cartographier {l} avant les autres"],
- scenes:[
-  {t:"Le départ",v:["À {l0}, {comm} déroule une carte usée. Au bout du chemin : {l1}, et {o}. Paie promise : {rec}, plus une part de ce qu'on y trouvera.","{Comm} réunit les coureurs à {l0}. Une expédition est partie vers {l1} il y a un mois ; elle n'est jamais revenue. Il faut ramener {o} ; la paie : {rec}."]},
-  {t:"Le voyage",v:["La route est rude : un ou plusieurs jets d'arts du mouvement groupés pour avancer sans perte. Ambiance : {amb}.\nEn chemin, une rencontre.","Le terrain est hostile et les vivres comptent. Complication : {comp}.\nEn chemin, une rencontre."],renc:"equilibre"},
-  {t:"L'entrée",v:["Devant {l1}, il faut passer {epreuve}.","L'entrée de {l1} est gardée par {epreuve}. Laisse les joueurs chercher : une bonne idée vaut l'avantage, ou pas de jet du tout."]},
-  {t:"Les profondeurs",v:["Plus loin, {salle}. Le danger rôde : {danger}.","Les coureurs découvrent {salle}. Mais attention : {danger}."]},
-  {t:"Le cœur",v:["Au cœur de {l1} repose {o}. {A} est arrivé le premier, ou a laissé ses gardiens.\n{Rebond}","Enfin, {o}. Mais {a} surgit, bien décidé à repartir avec. {Sec}"],renc:"final",cle:1}]},
+  "{O} dort quelque part dans {l1}, là où les cartes deviennent blanches. {Comm} finance l'expédition ; {a} aussi, avec plus d'hommes et moins de scrupules. Celui qui arrive second repart les mains vides, s'il repart.",
+  "Un passage oublié depuis des siècles s'est rouvert près de {l0}. Au bout : {l1}, et peut-être {o}. Les bâtisseurs ont laissé des gardiens, des énigmes, et un avertissement que plus personne ne sait lire."],
+ accroche:[
+  "{Comm} déroule une carte rongée sur une table de {l0}. Le trésor : {o}. Le rival : {a}, parti hier avec une longueur d'avance.\nPaie : {rec}, plus une part de la trouvaille.",
+  "Une expédition est partie de {l0} il y a un mois. Un seul porteur est revenu, à moitié fou, un fragment de carte serré dans le poing. {Comm} veut savoir ce qu'ils ont trouvé.\nPaie : {rec}."],
+ horloge:["Le rival trouve le bon chemin ; ses hommes ferment les autres.","Les intempéries, ou l'eau qui monte, coupent la voie la plus sûre.","Le rival atteint l'entrée et commence à piller.","{Il} repart avec le trésor… ou réveille ce qui le gardait."],
+ pistes:[
+  {t:"Le campement adverse",v:"{Lieu} : les tentes du rival, ses porteurs, ses cartes. Voler ses notes ferait gagner des jours.",at:"passage",renc:"facile"},
+  {t:"Le guide",v:"À {lieu}, un vieil homme connaît les vrais chemins. Il ne guide que ceux qui respectent les morts.",at:"allie",obst:"social"},
+  {t:"La salle des avertissements",v:"{Lieu} : {salle}. Les fresques expliquent comment déjouer les pièges du cœur.",at:"contre",obst:"epreuve"},
+  {t:"Les restes d'une expédition",v:"À {lieu}, un camp abandonné. Les corps racontent ce qui les a tués ({danger}). Un carnet décrit le gardien.",at:"faiblesse",obst:"danger"}],
+ climax:[
+  {mode:"rituel",v:"Au cœur de {l1}, {a} a déjà la main sur {o2} et l'arrache à son socle. Tout commence à s'effondrer : 4 tours avant que les voûtes cèdent.",opts:["Reprendre le trésor au vol (attaque pour désarmer, puis arts du mouvement).","Abandonner le rival au piège qu'il vient de déclencher, et fuir.","Bloquer le mécanisme pour gagner 2 tours (jet standard)."]},
+  {mode:"marche",v:"{A} attend à l'entrée de {l1}, entouré de ses hommes. {Il} propose un partage : la moitié du trésor contre la carte des coureurs. Bien sûr, {il} compte trahir.",opts:["Accepter, et trahir le premier (avantage avec un accès secret).","Laisser le rival passer devant, et profiter des pièges.","Le défier devant ses hommes : s'{il} tombe, ils se dispersent."]}],
+ grains:["Ce trésor est sacré pour les gens du coin : le prendre, c'est déclarer la guerre à toute la vallée.","Le trésor est maudit à petit feu : chaque nuit passée près de lui coûte un dé d'héroïsme à son porteur."]},
 
-casse:{nom:"Casse",desc:"Un coup à préparer, puis tout déraille",
+casse:{nom:"Casse",desc:"Préparer le coup, puis improviser",
+ adn:"Plan à tiroirs : chacun a son rôle, la préparation paie, et l'imprévu arrive toujours au pire moment. Laisse les joueurs planifier, puis casse un rouage.",
  synopsis:[
-  "{O} dort dans {l1}, sous la garde {dea}. {Comm} veut le récupérer sans bruit, et paiera bien. Il faudra repérer les lieux, trouver une faille, recruter un complice… et improviser quand le plan déraillera. {A} a ses raisons : {sec}",
-  "{Comm} a un compte à régler avec {a}, et le meilleur moyen de le ruiner est de lui voler {o}, gardé à {l1}. Les coureurs ont quelques jours pour monter le coup. Leur complice n'est pas tout à fait fiable."],
- mission:["voler {o} dans {l}","récupérer des preuves cachées dans {l}","faire évader {p} de {l}"],
- scenes:[
-  {t:"La commande",v:["{Comm} donne rendez-vous aux coureurs à {l0}. La cible : {o}, à {l1}. Le prix : {rec}, à condition que personne ne sache qui a fait le coup.","À {l0}, {comm} pose un plan grossier sur la table : {l1}, ses gardes, et {o} quelque part à l'intérieur. Récompense : {rec}."]},
-  {t:"Repérages",v:["Avant d'agir, les coureurs doivent apprendre :\n– {reperages}\nChaque information obtenue donnera l'avantage sur un jet pendant le coup.","Il faut connaître la place. À découvrir, par la ruse, l'argent ou la menace :\n– {reperages}"]},
-  {t:"Le complice",v:["Un complice propose ses services : {pnj}. Il est doué, mais il {pnjsec}.","Impossible sans aide de l'intérieur : {pnj} accepte de les aider. Ce que les coureurs ignorent : il {pnjsec}."]},
-  {t:"Le coup",v:["Le grand soir. Jet d'arts du mouvement groupé pour entrer sans bruit. Puis, forcément : {comp}.\n{Rebond}","Tout se passe bien… jusqu'à ce que {comp}. Les gardes donnent l'alerte."],renc:"facile",cle:1},
-  {t:"La fuite",v:["Il faut sortir de {l1} avec {o}. {A} en personne barre la route.\nPiège du lieu : {danger}.","Dehors, {a} attend : il savait. {Sec}\nPiège du lieu : {danger}."],renc:"final",cle:1}]},
+  "{O} repose à {l1}, derrière des murs, des gardes et la réputation {dea}. {Comm} veut mettre la main dessus sans bruit. Trois façons de préparer l'affaire, une seule nuit pour la tenter.",
+  "{Comm} a un compte à régler avec {a}, et rien ne lui ferait plus mal que de perdre {o}. Les coureurs ont quelques jours pour monter l'affaire. Personne ne leur a dit d'où vient cette rancune."],
+ accroche:[
+  "{Comm} donne rendez-vous dans l'arrière-salle d'un endroit sûr, à {l0}. Un plan grossier, une cible : {o}. Une condition : personne ne doit savoir qui a fait le coup.\nPaie : {rec}.",
+  "À {l0}, {comm} pose une bourse sur la table. {A} garde {o} à {l1} ; dans six jours, la prise sera déplacée.\nPaie : {rec}."],
+ horloge:["La garde est renforcée : une rumeur a filtré.","Le butin change de cachette ; tout est à refaire.","Un complice est arrêté et risque de parler.","Le transfert a lieu : maintenant ou jamais."],
+ pistes:[
+  {t:"Le personnel",v:"À {lieu}, domestiques et gardes boivent après le service. L'un d'eux, {pnj}, pourrait aider ; il {pnjsec}.",at:"allie",obst:"social"},
+  {t:"Les plans",v:"{Lieu} conserve les plans d'origine du bâtiment. Il faut les consulter ou les subtiliser sans éveiller l'attention.",at:"passage",obst:"epreuve"},
+  {t:"Le receleur",v:"À {lieu}, un receleur sait ce que vaut vraiment {o2}, et qui d'autre est sur le coup. Ses gardes du corps n'aiment pas les questions.",at:"levier",renc:"facile"},
+  {t:"La réception",v:"{Lieu} accueille une soirée où {a} se montre. Un verre de trop, une confidence, et l'on apprend ce qui {lui} fait peur.",at:"faiblesse",obst:"social"}],
+ climax:[
+  {mode:"fuite",v:"Le coup a presque réussi. À {l1}, l'alarme hurle, les portes se ferment une à une, et {a} arrive avec sa garde. 3 tours avant que la dernière issue soit bloquée.",opts:["Foncer vers la sortie repérée (arts du mouvement groupé).","Retourner la situation : prendre le maître des lieux en otage.","Se fondre parmi les gardes (jet standard, avec avantage si un complice aide)."]},
+  {mode:"marche",v:"À {l1}, devant le coffre ouvert, {a} attend les coureurs. {Il} savait tout. Une proposition : travailler pour {lui}, ou pourrir au cachot.",opts:["Accepter… et doubler tout le monde.","Révéler à ses hommes ce qu'on sait sur leur maître.","Faire jouer un moyen de pression pour sortir libres, et riches."]}],
+ grains:["La prise n'appartient pas vraiment à {a} : elle a été volée à une famille ruinée, qui la réclame.","{Comm2} a déjà revendu la prise à un tiers, et prévoit de livrer les coureurs à la garde pour effacer les traces."]},
 
-escorte:{nom:"Escorte",desc:"Mener quelqu'un à bon port",
+escorte:{nom:"Escorte",desc:"Mener quelqu'un ou quelque chose à bon port",
+ adn:"Voyage sous tension : la route use les corps, la personne escortée cache quelque chose, et la confiance se gagne ou se perd à chaque étape.",
  synopsis:[
-  "{P} doit atteindre {l1}, et {comm} confie cette tâche aux coureurs. Le chemin est long, et {a} ferait tout pour que le voyage échoue : {sec} En route, les coureurs découvriront que leur protégé n'a pas tout dit.",
-  "Les coureurs doivent conduire {p} de {l0} jusqu'à {l1}, avec {o}. Une promenade, d'après {comm}. Mais {a} a mis sa tête à prix, et le protégé a ses propres projets."],
- mission:["conduire {p} {jl}","escorter un convoi jusqu'à {l}","ramener {p} sain et sauf"],
- scenes:[
-  {t:"Le départ",v:["À {l0}, {comm} présente {p} aux coureurs. Il faut l'amener à {l1}, vivant. Récompense : {rec} à l'arrivée.","{Comm} est pressé : {p} doit quitter {l0} cette nuit et rejoindre {l1}. La paie : {rec}. Et pas de questions."]},
-  {t:"Première étape",v:["La route se complique : {comp}. Ambiance : {amb}.","Une étape tranquille, en apparence. Puis des ennuis viennent à la rencontre du groupe."],renc:"facile"},
-  {t:"Le protégé",v:["Une nuit, les coureurs découvrent la vérité sur {p} : {revelP}.","{P} se confie, ou se trahit : {revelP}. Continuer à le protéger devient un choix."],cle:1},
-  {t:"Embuscade",v:["Les hommes {dea} attaquent dans un lieu choisi avec soin. Danger du terrain : {danger}.","Embuscade ! L'ennemi connaissait l'itinéraire : quelqu'un a parlé.\n{Rebond}"],renc:"rude"},
-  {t:"L'arrivée",v:["{L1} est en vue, mais {a} attend les coureurs à la porte.\nPiège du lieu : {danger}.","À {l1}, rien ne se passe comme prévu : {a} y règne déjà. {Sec}"],renc:"final",cle:1}]},
+  "{P} doit atteindre {l1}, et beaucoup préféreraient l'en empêcher. {Comm} confie le voyage aux coureurs. En chemin, la question changera : faut-il vraiment livrer la personne qu'on protège ?",
+  "De {l0} à {l1}, la route est longue et surveillée. {A} a mis un prix sur la tête de {p}. Trois chemins s'offrent aux coureurs ; aucun n'est sûr."],
+ accroche:[
+  "Avant l'aube, à {l0}, {comm} confie {p} aux coureurs. Destination : {l1}. Pas de questions, pas de détours.\nPaie : {rec} à l'arrivée.",
+  "{Comm} attend les coureurs à {l0} avec un chariot, des vivres, et {p}. Les hommes {dea} sont déjà en ville.\nPaie : {rec}."],
+ horloge:["Les chasseurs de l'ennemi retrouvent la piste.","La personne escortée tombe malade, ou tente de fuir.","Un pont, un col ou un gué est coupé : il faut passer par le pire chemin.","{A} attend à destination : le piège est en place."],
+ pistes:[
+  {t:"La route marchande",v:"Par {lieu} : rapide, fréquentée, mais chaque relais a des yeux. Des informateurs vendent le passage du groupe.",at:"preuve",renc:"facile"},
+  {t:"Le raccourci sauvage",v:"Par {lieu} : personne ne l'emprunte, pour de bonnes raisons ({danger}). Un ermite y vit, qui connaît l'ennemi.",at:"faiblesse",obst:"danger"},
+  {t:"Le refuge",v:"À {lieu}, un vieil ami de la personne escortée offre l'asile. La nuit, il révèle que {revelP}.",at:"levier",obst:"social"},
+  {t:"Les passeurs",v:"À {lieu}, des contrebandiers promettent un chemin discret contre une faveur douteuse.",at:"passage",obst:"social"}],
+ climax:[
+  {mode:"otage",v:"Aux portes de {l1}, {a} attend. {Il} a capturé un proche de la personne escortée et propose l'échange, ici et maintenant.",opts:["Faire l'échange, puis tenter de tout récupérer.","Entrer par un autre chemin pendant qu'un coureur fait traîner les pourparlers.","Retourner les hommes de main avec une preuve des mensonges de leur chef."]},
+  {mode:"fuite",v:"L'embuscade se referme à {l1}. {A} n'est pas venu pour se battre : seule compte la personne escortée, et {il} la veut vivante.",opts:["Couvrir la fuite : un coureur retient l'ennemi 3 tours.","Provoquer une diversion par le terrain (éboulement, incendie, cohue).","Livrer la personne… si le groupe a appris ce qu'elle cache."]}],
+ grains:["La personne escortée n'est pas la victime qu'on croit : elle fuit une juste punition.","{Comm2} ne veut pas sauver la personne escortée : elle lui sert de monnaie d'échange."]},
 
 siege:{nom:"Siège",desc:"Tenir jusqu'à l'aube",
+ adn:"Tenir : chaque préparatif compte, les défenseurs doutent, l'ennemi cherche la faille. Fais sentir le temps qui passe et la fatigue qui monte.",
  synopsis:[
-  "{A} marche sur {l0}, et ses hommes seront là à la tombée de la nuit. {Comm} n'a personne d'autre que les coureurs. Il faut fortifier, armer les habitants, trouver une faiblesse chez l'ennemi… et tenir.",
-  "{L0} est encerclé. Les forces {dea} attendent que la faim fasse le reste. {Comm} confie aux coureurs une mission désespérée : tenir jusqu'à l'arrivée des renforts, ou trouver un moyen de briser le siège. On murmure que {a} a un secret : {sec}"],
- mission:["tenir {l} face aux hommes {dea}","briser le siège de {l}","évacuer les habitants de {l}"],
- scenes:[
-  {t:"L'alerte",v:["Un éclaireur arrive à {l0}, à bout de souffle : {a} approche. {Comm} offre {rec} à ceux qui resteront se battre.","À {l0}, la cloche sonne. {Comm} implore les coureurs de rester : {rec}, et la gratitude de tous."]},
-  {t:"Préparatifs",v:["Le temps manque. Les coureurs choisissent deux tâches parmi :\n– {taches}\nChaque tâche réussie (jet standard) donnera un avantage pendant l'assaut.","Quelques heures pour se préparer. À faire en priorité :\n– {taches}"]},
-  {t:"Première vague",v:["L'ennemi teste les défenses. Ambiance : {amb}.","Une première attaque, pour jauger les défenseurs. Elle arrive par là où on l'attendait le moins."],renc:"equilibre"},
-  {t:"La brèche",v:["{Rebond}","Mauvaise nouvelle : {comp}. Les défenses cèdent quelque part."],cle:1},
-  {t:"L'assaut",v:["Au cœur de la nuit, {a} lance l'assaut final sur {l1}. Si son chef tombe, l'ennemi se débande.\nDanger : {danger}.","Tout se joue maintenant, à {l1}. Abattre {a} peut renverser la bataille.\nDanger : {danger}."],renc:"final",cle:1}]},
+  "{A} marche sur {l0}, et ses hommes seront là à la nuit tombée. Ni murs dignes de ce nom ni soldats : il y a les coureurs, quelques jours, et des habitants qui n'ont jamais tenu une arme.",
+  "{L0} est encerclé ; l'ennemi attend que la faim fasse le travail. {Comm} confie aux coureurs une mission désespérée : briser l'étau ou tenir jusqu'aux renforts."],
+ accroche:[
+  "Un éclaireur s'effondre sur la place de {l0} : {a} arrive. {Comm} réunit ceux qui peuvent se battre et se tourne vers les coureurs.\nPaie : {rec}, et la gratitude d'une ville.",
+  "{Comm} reçoit les coureurs à {l0}. Les vivres tiendront cinq jours ; les renforts, s'ils viennent, en mettront sept.\nPaie : {rec}."],
+ horloge:["Les éclaireurs ennemis repèrent les points faibles.","Le puits est empoisonné, ou les vivres sabotés.","Une première brèche ; les habitants veulent se rendre.","L'assaut final est lancé."],
+ pistes:[
+  {t:"L'armurerie oubliée",v:"Sous {lieu}, des armes et de quoi tenir, si l'on ose descendre ({danger}).",at:"contre",obst:"danger"},
+  {t:"Le camp ennemi",v:"Une incursion nocturne à {lieu} : compter les hommes, saboter les machines, repérer la tente du chef.",at:"faiblesse",renc:"facile"},
+  {t:"Les déserteurs",v:"À {lieu}, des soldats adverses en ont assez. Ils changeraient de camp contre des garanties.",at:"allie",obst:"social"},
+  {t:"Le traître",v:"Depuis {lieu}, quelqu'un envoie des signaux à l'ennemi. Le démasquer permet de retourner la manœuvre.",at:"preuve",obst:"epreuve"}],
+ climax:[
+  {mode:"rituel",v:"L'assaut s'abat sur {l1}. {A} ne se bat pas en première ligne : {il} fait avancer un bélier, une machine ou une horreur qui enfoncera les défenses en 4 tours.",opts:["Détruire la machine (feu, sabotage, jet standard).","Frapper le chef par surprise (avec un accès secret).","Tenir la brèche avec les habitants : chaque allié compte."]},
+  {mode:"marche",v:"Avant l'assaut, {a} envoie un émissaire à {l1} : qu'on lui livre une seule personne, et la ville sera épargnée.",opts:["Gagner du temps en négociant (un jet standard par tour gagné).","Livrer la personne… ou un leurre.","Frapper pendant les pourparlers : déshonorant, mais efficace."]}],
+ grains:["Les habitants ont provoqué ce siège : ils ont trahi {a} il y a des années.","Les renforts attendus ont reçu l'ordre de laisser tomber la ville."]},
 
 intrigue:{nom:"Intrigue",desc:"Complots, faveurs et coups de poignard",
+ adn:"Masques et poignards : tout le monde ment un peu, les alliances tournent, une parole vaut une épée. Donne à chaque PNJ une chose qu'il veut et une chose qu'il cache.",
  synopsis:[
-  "À {l0}, {F1} et {F2} se disputent le pouvoir, et {comm} veut que les coureurs fassent pencher la balance. Mais chacun ment, et {a} tire les ficelles dans l'ombre : {sec} Ici, une parole vaut plus qu'une épée… jusqu'au moment où les épées sortent.",
-  "Une fête, des masques, des sourires : à {l0}, tout le monde complote. {Comm} engage les coureurs pour récupérer {o} avant qu'il ne tombe entre de mauvaises mains. {F1} le veut, {F2} aussi, et {a} est prêt à tout."],
- mission:["gagner le soutien de {F2}","récupérer {o} avant {F2}","déjouer le complot {dea}"],
- scenes:[
-  {t:"L'invitation",v:["{Comm} fait entrer les coureurs à {l0}, sous de faux prétextes. Leur mission : servir ses intérêts sans se faire remarquer. Récompense : {rec}.","Une invitation arrive, signée de {comm}. À {l0}, il a besoin de gens qui ne doivent rien à personne. Récompense : {rec}."]},
-  {t:"Les factions",v:["{F1} et {F2} approchent les coureurs, chacune avec une offre alléchante. Personne ne dit toute la vérité.\nAmbiance : {amb}.","Les coureurs rencontrent les meneurs de {F1} et de {F2}. Un faux pas, et c'est l'incident."]},
-  {t:"Le service",v:["Pour prouver leur valeur, on leur demande un service discret : faire parler {pnj}, qui {pnjsec}.","Un service, d'abord : récupérer une lettre auprès de {pnj}. Il n'est pas ce qu'il paraît : il {pnjsec}."],renc:"facile"},
-  {t:"Le revirement",v:["{Rebond}\n{A} sort de l'ombre : {sec}","Les alliances se renversent : {comp}. Les coureurs doivent choisir un camp, maintenant."],cle:1},
-  {t:"Le dénouement",v:["À {l1}, tout se dénoue. Les coureurs peuvent dénoncer, négocier ou frapper. {A} ne se laissera pas faire.\nPiège du lieu : {danger}.","Dernier acte à {l1} : les masques tombent. {A} tente un coup de force."],renc:"final",cle:1}]},
+  "À {l0}, {F1} et {F2} se disputent le pouvoir à coups de sourires et de poison. {Comm} veut que les coureurs fassent pencher la balance. Dans l'ombre, {a} attend que les deux camps s'épuisent.",
+  "Une soirée, des masques, des alliances qui se nouent et se défont. {Comm} engage les coureurs pour récupérer {o} avant qu'on s'en serve pour un chantage. Chaque faction le veut ; chacune a de quoi payer."],
+ accroche:[
+  "{Comm} glisse aux coureurs une invitation pour {l0} et une liste de noms. Objectif : savoir qui complote, et pour qui.\nPaie : {rec}.",
+  "Une lettre anonyme attend les coureurs à {l0} : {o} change de mains ce soir. {Comm} offre {rec} pour que la transaction tourne à son avantage."],
+ horloge:["Une rumeur salit le nom du commanditaire.","Un témoin gênant est empoisonné.","{F1} et {F2} concluent un accord sur le dos des coureurs.","{A} prend le pouvoir à la faveur du chaos."],
+ pistes:[
+  {t:"Le salon",v:"À {lieu}, les gens d'influence échangent des secrets contre des secrets. {pnj} y sait tout ; il {pnjsec}.",at:"levier",obst:"social"},
+  {t:"Les archives",v:"{Lieu} conserve contrats, dettes et testaments. Une page manque, et quelqu'un paie pour qu'elle reste introuvable.",at:"preuve",obst:"epreuve"},
+  {t:"Le bas-fond",v:"À {lieu}, les hommes de main de toutes les factions boivent ensemble. Les langues se délient, les couteaux aussi.",at:"faiblesse",renc:"facile"},
+  {t:"L'émissaire",v:"À {lieu}, un envoyé de {F2} propose aux coureurs de changer de camp. Son offre est sincère, pour l'instant.",at:"allie",obst:"social"}],
+ climax:[
+  {mode:"marche",v:"À {l1}, devant toute la cour, {a} se dévoile et offre aux coureurs une place à ses côtés. Refuser, c'est devenir l'ennemi de tous.",opts:["Le confondre en public avec une preuve.","Accepter, et trahir au moment choisi.","Retourner {F1} ou {F2} contre {lui}."]},
+  {mode:"otage",v:"Le banquet de réconciliation, à {l1}, tourne au guet-apens : portes closes, gardes en armes. {A} tient les chefs des factions à sa merci.",opts:["Libérer les otages un à un (arts du mouvement, un par tour).","Négocier au nom de tous, avec un moyen de pression.","Abattre l'instigateur dans la confusion (frappe vicieuse avec un accès secret)."]}],
+ grains:["Le camp que servent les coureurs est pire que celui qu'ils combattent.","{O} contient une vérité qui ruinerait aussi le commanditaire."]},
 
-chasse:{nom:"Chasse",desc:"Traquer une bête ou un homme",
+chasse:{nom:"Chasse",desc:"Traquer une bête, ou un homme",
+ adn:"Traque : lire les signes, choisir son terrain, et ne jamais oublier que la proie chasse aussi. Les meilleures rencontres arrivent quand le groupe est divisé.",
  synopsis:[
-  "Une créature terrorise les environs de {l0} : bétail égorgé, voyageurs disparus. {Comm} offre une prime pour la tête de la bête : {proie}. Les traces mènent vers {l1}, mais la bête n'est pas seule : {a} veille sur elle, et {sec}",
-  "{Comm} a perdu un proche, tué par la bête que tout le monde appelle {proie}. Il veut que les coureurs la traquent jusqu'à son repaire, à {l1}. La chasse sera longue, et quelqu'un, {a}, a intérêt à ce que la bête survive."],
- mission:["traquer la bête qui rôde autour {dl}","capturer vivant {p}, en fuite vers {l}","abattre ce qui hante {l}"],
- scenes:[
-  {t:"La prime",v:["À {l0}, {comm} offre {rec} pour la tête de la bête : {proie}. Les habitants racontent des histoires qui ne concordent pas.","{Comm} pose une prime sur la table : {rec}. La bête, {proie}, a encore frappé la nuit dernière."]},
-  {t:"Les traces",v:["Pister demande de la patience : un jet standard groupé par journée de traque.\nSignes : {signe}.","Les traces sont là, et d'autres choses aussi : {signe}. Complication : {comp}."]},
-  {t:"Le repaire vide",v:["Les coureurs trouvent un repaire… déserté. Il reste {salle}, et un piège : {danger}.","Un premier repaire, abandonné en hâte. Au milieu des os, un indice : la bête n'agit pas seule."]},
-  {t:"Le chasseur chassé",v:["La bête attaque, là où on ne l'attendait pas. Elle cherche à isoler un coureur.","La proie devient chasseur : elle frappe la nuit, au campement."],renc:"proie",cle:1},
-  {t:"Le maître",v:["À {l1}, les coureurs découvrent qui protège la bête : {a}. {Sec}\nPiège du lieu : {danger}.","{A} attend à {l1}. C'est lui qui lâche la bête sur la région.\n{Rebond}"],renc:"final",cle:1}]}
+  "Une bête, {proie}, ravage les alentours de {l0}. Les battues reviennent bredouilles, ou ne reviennent pas. {Comm} offre une prime. Mais la créature n'agit pas seule, et {a} a ses raisons de la protéger.",
+  "{Comm} a tout perdu à cause de {proie} et offre ce qui lui reste pour sa tête. La traque mènera les coureurs jusqu'à {l1}, et vers un secret que la région préférerait oublier."],
+ accroche:[
+  "À {l0}, {comm} cloue une prime sur la porte de l'auberge : {rec} pour {proie}. La nuit dernière, la bête a emporté un berger.",
+  "{Comm} reçoit les coureurs devant un enclos dévasté, à {l0}. Les traces sont bien trop grandes pour un loup.\nPrime : {rec}."],
+ horloge:["La bête frappe une ferme isolée.","Elle s'en prend à un hameau entier.","La foule organise une battue qui tourne au massacre.","Elle change de territoire, ou met bas."],
+ pistes:[
+  {t:"Les traces",v:"Autour de {lieu}, les signes ne mentent pas : {signe}. Un jet standard groupé pour suivre la piste sans la perdre.",at:"faiblesse",obst:"epreuve"},
+  {t:"Le vieux trappeur",v:"À {lieu} vit un chasseur qui a déjà affronté la créature. Il en garde une cicatrice et une haine tenace.",at:"allie",obst:"social"},
+  {t:"Le repaire",v:"{Lieu} : des os, une odeur de fauve… et des chaînes. La bête n'est pas sauvage.",at:"preuve",renc:"facile"},
+  {t:"L'appât",v:"À {lieu}, on peut tendre un piège : un appât, un terrain favorable. Le terrain lui-même mord ({danger}).",at:"passage",obst:"danger"}],
+ climax:[
+  {mode:"rituel",v:"À {l1}, {a} lâche la bête sur les coureurs et l'excite à chaque tour. Tant que le maître tient la laisse, elle ne fuit pas et ne recule pas.",opts:["Briser le lien : abattre le maître ou détruire l'instrument qui la commande.","Retourner la bête contre son dresseur (avec un point faible).","Fuir vers un terrain choisi d'avance (avec un accès secret)."]},
+  {mode:"fuite",v:"La proie attire les coureurs sur son territoire, à {l1}. {A} observe de loin, prêt à achever les survivants.",opts:["Déclencher le piège préparé (premier tour avec avantage).","Diviser pour régner : un coureur attire la bête, les autres frappent le maître.","Se replier et revenir avec des renforts."]}],
+ grains:["La bête protège ses petits : la tuer laisse une portée affamée dans les bois.","{Comm2} a créé la bête par accident, et veut surtout qu'on enterre l'affaire avec elle."]}
 };
+
+/* Grains de sable communs à tous les types */
+const GRAINS=[
+ "{Comm2} a menti sur un point essentiel : la paie promise n'existe pas.",
+ "Un allié des coureurs travaille en secret pour {a}.",
+ "{A} a raison sur un point, et le découvrir trouble la suite.",
+ "Ce que l'on cherche a un effet secondaire fâcheux : celui qui le garde n'en dort plus.",
+ "La victime n'est pas innocente.",
+ "Une autre équipe a été engagée pour le même travail, et elle ne fait pas de quartier.",
+ "Réussir la mission ruinera des gens qui n'ont rien demandé.",
+ "La garde locale touche sa part : elle protégera le coupable.",
+ "{Comm2} compte se débarrasser des coureurs une fois le travail fait.",
+ "Le vrai danger n'est pas {a2}, mais ce qu'{il} retient encore."];
+
+/* Le plan de l'antagoniste en campagne (compte à rebours sur plusieurs séances) */
+const HORLOGE_CAMPAGNE=["{A} gagne l'appui de {F1}, par la ruse ou la peur.","Un lieu de la région tombe sous sa coupe.","Un allié des coureurs est éliminé.","Son plan aboutit : {o} est entre ses mains."];
+
+/* Phrase de bascule quand un second type est croisé : il fournit le climax. */
+const BASCULES={
+ enquete:"Mais un détail cloche, et l'affaire tourne à l'enquête : quelqu'un ment depuis le début.",
+ horreur:"Puis vient la nuit où {signe}, et plus rien n'est comme avant.",
+ exploration:"La piste mène pourtant plus loin, vers des terres où personne n'a mis les pieds depuis des siècles.",
+ casse:"Pour en finir, il faudra pourtant monter un vol en règle, sous le nez de gardiens bien éveillés.",
+ escorte:"Il faudra bientôt mettre quelqu'un à l'abri, et lui faire traverser un pays hostile.",
+ siege:"Et l'ennemi arrive plus tôt que prévu : il faudra tenir jusqu'à l'aube.",
+ intrigue:"Derrière tout cela se joue une partie de pouvoir entre {F1} et {F2}.",
+ chasse:"Et dans les bois rôde {proie}, qu'il faudra bien affronter."
+};
+
+/* Inspirations : forme et ambiance d'une œuvre connue, transposées dans le thème ; jamais son histoire ni ses personnages.
+   adn = consigne au Conteur ; synopsis/accroche remplacent ceux du type ; piste remplace la première piste ; climax remplace le climax. */
+const INSPI={
+ huisclos:{g:"enquete",nom:"Huis clos meurtrier",ref:"Ils étaient dix, d'Agatha Christie",
+  adn:"Un groupe d'invités coupés du monde, un mort par nuit, et chacun soupçonne tout le monde. Fais tomber les suspects un à un.",
+  accroche:["Une invitation sans signature attend les coureurs à {l0} : un séjour à {l1}, tous frais payés, et {rec} pour « un service discret ». Les autres invités ont reçu la même lettre."],
+  synopsis:["Invités à {l1} par un hôte qui ne se montre jamais, les coureurs et une poignée d'inconnus se retrouvent coupés du monde. Le premier mort tombe dès la première nuit. Chacun cache une faute ancienne, et quelqu'un a décidé de les faire payer un par un."],
+  climax:{mode:"rituel",v:"La dernière nuit à {l1} : {a} se dévoile parmi les survivants et achève sa liste. Il reste 3 tours avant la prochaine victime, peut-être un coureur.",opts:["Démasquer le coupable avec les preuves réunies : les autres invités se retournent contre lui.","Protéger la victime désignée (arts du mouvement pour s'interposer).","Retourner son propre piège contre l'assassin."]}},
+ communaute:{g:"enquete",nom:"Crimes dans une communauté fermée",ref:"Le Nom de la rose, d'Umberto Eco",
+  adn:"Une communauté repliée, des règles qu'on ne discute pas, un savoir interdit au centre. Les réponses viennent par énigmes.",
+  accroche:["{Comm} reçoit les coureurs à la porte de {l0}, en baissant la voix : deux morts en une semaine, et la communauté refuse toute aide extérieure. Ils entreront comme simples visiteurs.\nPaie : {rec}."],
+  synopsis:["Dans la communauté close de {l0}, les morts se succèdent, et tous avaient approché {o}. {Comm} fait venir les coureurs à condition qu'ils respectent les règles du lieu. Ceux qui gardent le secret préféreraient tout brûler plutôt que de le livrer."],
+  climax:{mode:"rituel",v:"{A} met le feu à {l1} pour que le savoir interdit disparaisse avec {lui}. Les flammes gagnent : 4 tours avant que tout s'effondre.",opts:["Sauver {o2} des flammes (arts du mouvement, 1d8 dégâts en cas d'échec).","Arracher des aveux au coupable avant qu'il ne périsse.","Évacuer les innocents (un par tour)."]}},
+ strangerthings:{g:"enquete",nom:"Disparition de quartier et monde à l'envers",ref:"Stranger Things",
+  adn:"Une petite communauté tranquille, une disparition, des voisins qui savent des bribes, puis le basculement brutal : de l'autre côté du réel, tout est inversé. Garde un ton d'aventure, avec des PNJ attachants.",
+  accroche:["{Comm} attend les coureurs à {l0}, une photo de {p} à la main. Aucune nouvelle depuis deux nuits, pas un bruit, pas une trace. Depuis, les lampes grésillent chaque fois qu'on prononce son nom.\nPaie : {rec}."],
+  synopsis:["À {l0}, la vie suivait son cours jusqu'à la disparition de {p}. Les lumières clignotent, les chiens hurlent, et un voisin jure avoir vu une porte qui n'existe pas. {Comm} cherche de l'aide là où personne ne la cherche. Derrière la porte, un autre monde, et {a} qui veut l'ouvrir en grand."],
+  piste:{t:"La porte",v:"À {lieu}, l'air se plie. Une fissure s'ouvre la nuit sur un reflet sombre du monde. On peut y entrer… et en revenir, peut-être.",at:"passage",renc:"facile"},
+  climax:{mode:"rituel",v:"À {l1}, {a} élargit la brèche entre les deux mondes. Ce qui vit de l'autre côté se presse contre elle : 4 tours avant qu'elle ne se referme plus jamais.",opts:["Refermer la brèche de l'intérieur (jet standard, un coureur reste en arrière un tour).","Ramener la personne disparue à travers la fissure.","Briser l'objet qui maintient le passage ouvert."]}},
+ tintin:{g:"enquete",nom:"Grand reportage et piste internationale",ref:"Les Aventures de Tintin, d'Hergé",
+  adn:"Un détail intrigant lance une enquête qui fait voyager : déguisements, filatures, rebondissements en série et méchants grandiloquents. Garde le rythme vif, le danger réel mais jamais glauque.",
+  accroche:["Sur un marché de {l0}, un inconnu propose aux coureurs une somme folle pour un bibelot qu'ils viennent d'acheter. Le soir, leur chambre est fouillée. {Comm} les contacte le lendemain.\nPaie : {rec}."],
+  synopsis:["Tout commence par un détail : un objet acheté sur un marché de {l0}, que trois inconnus veulent racheter à tout prix. Le lendemain, l'un d'eux est retrouvé assommé. {Comm} met les coureurs sur la piste. Elle les mènera loin, jusqu'à {l1}, et jusqu'au réseau {dea}."],
+  piste:{t:"La filature",v:"À {lieu}, un suspect mène les coureurs en bateau : déguisements, ruelles, faux rendez-vous. Le perdre, c'est perdre des jours.",at:"preuve",obst:"epreuve"}},
+ alien:{g:"horreur",nom:"Huis clos face à une créature",ref:"Alien, de Ridley Scott",
+  adn:"Un lieu fermé, une chose qui chasse un par un, des ressources qui s'épuisent, et quelqu'un qui savait. Montre la créature le moins possible.",
+  accroche:["{Comm} engage les coureurs pour accompagner une cargaison jusqu'à {l1}, au départ de {l0}. Rien à signaler, promet-on. La caisse est scellée, et elle est tiède au toucher.\nPaie : {rec}."],
+  synopsis:["En route vers {l1}, les coureurs partagent le voyage avec une cargaison qu'on leur a dit banale. Elle ne l'est pas. Quelque chose en est sorti, et chasse dans les recoins. L'aide est à des jours. Pire : quelqu'un à bord savait ce qu'on transportait."],
+  piste:{t:"Les recoins",v:"{Lieu} : conduits, soutes, galeries trop étroites. La chose y circule. On y trouve ses mues, et ses restes de repas.",at:"faiblesse",renc:"facile"},
+  climax:{mode:"fuite",v:"La chose est partout à la fois. {A} veut la ramener vivante et a saboté les issues. Il faut quitter {l1} : 4 tours avant que tout soit verrouillé.",opts:["Larguer la créature (sas, cale, falaise) avec un appât (arts du mouvement).","Démasquer le saboteur devant les survivants.","Tout faire sauter, et fuir avec ce qui reste."]}},
+ thing:{g:"horreur",nom:"L'un de nous n'est plus humain",ref:"The Thing, de John Carpenter",
+  adn:"Isolement, paranoïa, la confiance qui s'effrite. N'importe quel PNJ peut être la chose. Rends chaque test de vérité terrifiant.",
+  accroche:["À {l0}, le dernier relais avant l'hiver, {comm} demande aux coureurs d'examiner un corps retrouvé dans la neige. Le lendemain, le corps a disparu, et un chien aussi.\nPaie : {rec}."],
+  synopsis:["À {l0}, coupés de tout, les coureurs découvrent un corps qui n'est pas mort comme il devrait. Bientôt, certains se mettent à agir étrangement. La chose prend l'apparence de ceux qu'elle dévore, et plus personne ne peut prouver qu'il est encore lui-même."],
+  piste:{t:"Le test",v:"À {lieu}, un vieux savoir donne un moyen de démasquer la chose : le feu, le sang, une question que seul le vrai connaîtrait.",at:"contre",obst:"epreuve"}},
+ lovecraft:{g:"horreur",nom:"Horreur cosmique et savoir qui rend fou",ref:"L'Appel de Cthulhu, de H. P. Lovecraft",
+  adn:"Le sentiment d'insignifiance : ce qui menace est immense, ancien, indifférent. Chaque vérité coûte un peu de raison (points d'esprit, p. 30). Victoire possible : retarder, jamais vaincre.",
+  accroche:["{Comm} reçoit les coureurs à {l0}, livide, une liasse de notes griffonnées sur les genoux. Leur auteur s'est noyé la semaine dernière en souriant.\nPaie : {rec}."],
+  synopsis:["À {l0}, les rêves de tout le monde se ressemblent depuis un mois : une cité engloutie, une voix qui appelle. {Comm} a trouvé dans les affaires d'un défunt des notes qui relient ces rêves à {l1}. {A} sait ce qui s'y prépare, et en veut sa part."],
+  climax:{mode:"rituel",v:"À {l1}, sous un ciel qui n'a plus la bonne couleur, {a} récite les derniers versets. Quelque chose d'immense répond. Il reste 4 tours ; chaque tour regardé en face coûte 1d4 points d'esprit.",opts:["Interrompre la récitation : la voix de l'officiant doit se taire.","Détruire l'idole ou le livre (contre-mesure : automatique).","Fuir sans se retourner, et brûler toutes les notes."]}},
+ indiana:{g:"exploration",nom:"Course au trésor et rival sans scrupules",ref:"Les Aventuriers de l'arche perdue",
+  adn:"Course-poursuite, pièges mortels, rivalité mesquine : le rival triche, vole, s'allie à pire que lui. Chaque scène se termine sur un danger immédiat.",
+  synopsis:["{O} a disparu il y a des siècles quelque part dans {l1}. Les coureurs ont un fragment de carte ; {a} a l'autre, une petite armée et aucun scrupule. Pièges, énigmes de bâtisseurs oubliés, et un trésor que certains feraient mieux de ne pas toucher."],
+  piste:{t:"La poursuite",v:"Sur la route de {lieu}, les hommes du rival rattrapent les coureurs : chariots, montures, ponts de corde. Celui qui garde la carte garde l'avance.",at:"passage",renc:"facile"}},
+ centre:{g:"exploration",nom:"Descente vers un monde perdu",ref:"Voyage au centre de la Terre, de Jules Verne",
+  adn:"Émerveillement et inquiétude : plus on descend, plus le monde devient étrange. Les créatures d'en bas n'ont jamais vu d'humains.",
+  synopsis:["Sous {l0} s'ouvre un passage que personne n'a emprunté depuis des générations. {Comm} est convaincu qu'il mène à un monde oublié, et à {o}. Plus les coureurs descendent, plus les règles du dessus s'effacent. Et quelqu'un les suit."],
+  piste:{t:"Le monde d'en bas",v:"Au fond de {lieu} s'étend un monde perdu : {salle}. Rien n'y suit les règles d'en haut.",at:"contre",obst:"danger"}},
+ pirates:{g:"exploration",nom:"Trésor maudit et équipage damné",ref:"Pirates des Caraïbes",
+  adn:"Panache et malédiction : duels sur des vergues, marchés de dupes, et un trésor qui transforme ceux qui l'ont volé. Garde le ton bravache, même quand la mort rôde.",
+  accroche:["Dans un tripot de {l0}, {comm} fait glisser une pièce d'or vers les coureurs. Froide comme la glace, elle ne reflète pas la lueur des bougies. Il en manque une au trésor dont elle vient.\nPaie : {rec}."],
+  synopsis:["On dit que {o} enrichit son découvreur et damne son gardien. {A} et les siens s'en sont emparés jadis ; depuis, la lune révèle ce qu'ils sont devenus. {Comm} veut le trésor ; les damnés, eux, veulent s'en libérer, à n'importe quel prix."],
+  climax:{mode:"marche",v:"À {l1}, sous la lune, {a} propose un marché : rendre la dernière pièce du trésor pour lever la malédiction, en échange d'une goutte de sang d'un coureur. Ou d'un peu plus.",opts:["Accepter en trichant sur le sang versé (jet standard).","Lever la malédiction au pire moment : les damnés redeviennent mortels en plein combat.","Garder le trésor, et la malédiction avec."]}},
+ oceans:{g:"casse",nom:"Équipe de spécialistes et plan à tiroirs",ref:"Ocean's Eleven",
+  adn:"Élégance et double fond : chacun a sa spécialité, le plan a un étage caché que seul le commanditaire connaît. Révèle le vrai plan au dernier moment.",
+  synopsis:["{O} dort à {l1}, le lieu le mieux gardé de la région, propriété {dea}. {Comm} réunit les coureurs pour le coup du siècle. Le plan a plusieurs étages, et chacun n'en connaît qu'un."]},
+ mission:{g:"casse",nom:"Infiltration, masques et trahison interne",ref:"Mission impossible",
+  adn:"Infiltration millimétrée : fausses identités, minutage serré, et une taupe dans l'équipe. Les plans parfaits sont faits pour être bousculés.",
+  synopsis:["Il faut entrer à {l1} et en ressortir avec {o}, sans laisser de trace. Déguisements, fausses identités, minutage serré. Mais l'opération a été vendue, et l'équipe ne le sait pas encore."],
+  piste:{t:"La couverture",v:"À {lieu}, on peut se procurer une couverture solide : faux papiers, uniforme, invitation. Le fournisseur pose ses conditions.",at:"passage",obst:"social"}},
+ salaire:{g:"escorte",nom:"Convoi d'une cargaison mortelle",ref:"Le Salaire de la peur",
+  adn:"Tension nerveuse : la menace est dans le chariot. Chaque cahot, chaque pont branlant est une scène. Les dés doivent faire transpirer.",
+  accroche:["{Comm} aligne {rec} par tête à {l0} pour un seul trajet : mener la cargaison jusqu'à {l1}. Les volontaires précédents n'ont pas réclamé leur paie."],
+  synopsis:["{Comm} offre une fortune pour convoyer jusqu'à {l1} une cargaison terriblement instable. Une secousse, et tout saute. La route est en ruine, et quelqu'un ferait tout pour que le convoi n'arrive jamais."],
+  piste:{t:"Le pont branlant",v:"À {lieu}, le seul passage est un ouvrage rongé. Jets d'arts du mouvement groupés : deux échecs, et la cargaison secoue tout le monde (1d8 dégâts).",at:"contre",obst:"danger"}},
+ furyroad:{g:"escorte",nom:"Fuite à toute allure, une horde aux trousses",ref:"Mad Max : Fury Road",
+  adn:"Fuite en avant : véhicules ou montures, combats en mouvement, une horde fanatique derrière. Pas de pause, pas de repos long.",
+  accroche:["Les coureurs viennent d'arracher {p} aux griffes de l'ennemi, à {l0}. Derrière eux, des cris, des cors, des moteurs ou des sabots. {Comm} les attend à {l1}, s'ils y arrivent.\nPaie : {rec}."],
+  synopsis:["Les coureurs ont libéré {p} de l'emprise {dea}, et toute la région est à leurs trousses. Il faut traverser des terres hostiles à toute allure pour atteindre {l1}, avec une horde fanatique dans le rétroviseur."],
+  climax:{mode:"fuite",v:"La horde rattrape le convoi au pire endroit. {A} mène la charge en personne. 3 tours pour atteindre {l1}, ou faire face.",opts:["Semer la horde par le terrain (arts du mouvement groupé).","Abattre le chef : sans {lui}, les fanatiques hésitent.","Sacrifier une partie du convoi pour sauver l'essentiel."]}},
+ anneau:{g:"escorte",nom:"Porter un objet qui corrompt",ref:"Le Seigneur des anneaux, de J. R. R. Tolkien",
+  adn:"Une longue route, un fardeau qui pèse sur l'âme, une compagnie qui se fissure. L'objet tente chacun avec ce qu'il désire le plus.",
+  accroche:["{Comm} confie aux coureurs un coffret de plomb à {l0}. Ne jamais l'ouvrir, ne jamais le perdre, le porter jusqu'à {l1}. Déjà, des cavaliers sombres posent des questions en ville.\nPaie : {rec}."],
+  synopsis:["Il faut porter {o} jusqu'à {l1}, le seul endroit où on peut le détruire. {Comm} le confie aux coureurs. L'objet murmure à l'oreille de son porteur, et {a} le cherche partout."],
+  piste:{t:"La tentation",v:"À {lieu}, {o2} murmure plus fort. Celui qui le porte doit réussir un jet standard ou céder à une petite trahison. Un sage du lieu sait comment le faire taire.",at:"contre",obst:"social"},
+  climax:{mode:"rituel",v:"À {l1}, au bord du gouffre où l'objet peut être détruit, {a} surgit. Le murmure devient supplication. Il faut s'en débarrasser avant que l'ennemi ne s'en empare : 3 tours.",opts:["Jeter l'objet (jet standard pour résister à son appel).","Retenir l'ennemi pendant qu'un autre coureur porte le fardeau.","Garder l'objet… et devenir le prochain antagoniste."]}},
+ septsamourais:{g:"siege",nom:"Défendre des villageois contre des pillards",ref:"Les Sept Samouraïs, d'Akira Kurosawa",
+  adn:"Des paysans qui n'ont rien, des guerriers qu'on paie mal, une confiance à bâtir. Les villageois ont aussi leurs secrets.",
+  accroche:["Trois villageois de {l0} attendent les coureurs, chapeau à la main, une bourse trop légère pour ce qu'ils demandent. La récolte est dans dix jours ; les pillards aussi.\nPaie : {rec}, et le gîte."],
+  synopsis:["Les habitants de {l0} n'ont rien, sauf leur récolte, et chaque année les hommes {dea} viennent la prendre. Cette fois, ils ont réuni quelques pièces pour engager les coureurs. Il faudra entraîner des gens qui n'ont jamais tenu une arme."]},
+ assaut:{g:"siege",nom:"Tenir un poste avec un prisonnier",ref:"Rio Bravo, de Howard Hawks",
+  adn:"Un poste isolé, un prisonnier qui nargue, des alliés de fortune. La nuit est longue et les tentations nombreuses.",
+  accroche:["Les coureurs ont livré un prisonnier à {l1}. Ils allaient repartir quand les premiers cavaliers ennemis sont apparus sur la crête. {Comm} les supplie de rester jusqu'à l'aube.\nPaie : {rec}."],
+  synopsis:["Les coureurs détiennent à {l1} un prisonnier que {a} veut libérer à tout prix. Les renforts n'arriveront qu'à l'aube. Dehors, l'ennemi encercle le bâtiment ; dedans, le prisonnier parle, menace, propose des marchés."]},
+ liaisons:{g:"intrigue",nom:"Manipulations et réputations",ref:"Les Liaisons dangereuses, de Laclos",
+  adn:"Une rumeur tue plus sûrement qu'une lame. Les lettres sont des armes, les sourires des pièges.",
+  synopsis:["À {l0}, une réputation se fait et se défait en une soirée. {Comm} engage les coureurs pour récupérer des lettres compromettantes, mais {a} joue avec tout le monde comme avec des pièces d'échecs."]},
+ trone:{g:"intrigue",nom:"Succession, alliances et banquet sanglant",ref:"Le Trône de fer, de George R. R. Martin",
+  adn:"Une succession, des maisons rivales, des mariages politiques. Personne n'est à l'abri, surtout pas les gentils.",
+  synopsis:["Le maître de {l0} se meurt, et la succession attise les appétits : {F1} et {F2} avancent leurs pions. {Comm} veut que son candidat l'emporte. Un mariage, une trahison ou un banquet peuvent tout renverser."]},
+ dents:{g:"chasse",nom:"Une bête menace une ville qui nie le danger",ref:"Les Dents de la mer, de Steven Spielberg",
+  adn:"Les autorités nient, la fête approche, la bête se montre peu. Le danger vient autant de l'aveuglement des notables que des crocs.",
+  accroche:["{Comm} accoste les coureurs loin des oreilles des notables de {l0} : la bête a encore frappé, et le bourgmestre vient de faire repeindre l'affiche de la fête.\nPrime : {rec}."],
+  synopsis:["À {l0}, la grande fête approche, et {proie} a déjà fait deux victimes. Les notables étouffent l'affaire pour ne pas faire fuir les visiteurs. {Comm} engage les coureurs en cachette."],
+  piste:{t:"La fausse bête",v:"À {lieu}, les notables exhibent une bête abattue pour rassurer la foule. Ce n'est pas la bonne, et quelqu'un le sait.",at:"preuve",obst:"social"}},
+ pacte:{g:"chasse",nom:"Une bête dressée par des hommes",ref:"Le Pacte des loups, de Christophe Gans",
+  adn:"Superstition et complot : la bête est une arme, et ceux qui la tiennent portent des titres respectables.",
+  accroche:["À {l0}, {comm} montre aux coureurs le collier d'une victime : il porte des marques de dents, et la trace d'une chaîne.\nPrime : {rec}."],
+  synopsis:["Une bête ravage la région de {l0}, et les battues ne donnent rien. {Comm} engage les coureurs, sceptiques sur la nature de la créature. Car elle n'est pas sauvage : quelqu'un la nourrit, la dresse, et la lâche sur ceux qui le gênent."]}
+};
+
+/* Tirages communs */
 /* Tirages propres aux scènes */
 Object.assign(COMMUN,{
- indices:["un témoin a vu quelqu'un rôder vers {l1} la nuit du drame","un objet appartenant à un proche {dea}, oublié sur place","une dette notée dans un registre, au nom d'un homme {dea}","un symbole gravé à la hâte, que seuls quelques initiés connaissent","une lettre à moitié brûlée qui mentionne {F1}","un alibi qui ne tient pas : quelqu'un ment sur son emploi du temps","une trace de boue ou de cendre qu'on ne trouve qu'à {l1}","un domestique terrifié qui en sait plus qu'il ne le dit","une somme d'argent versée la veille, sans raison apparente","une blessure sur la victime qui trahit l'arme du coupable"],
+ indices:["un témoin a vu quelqu'un rôder vers {l1} la nuit du drame","un objet appartenant à un proche de {a2}, oublié sur place","une dette notée dans un registre, au nom d'un homme de main de {a2}","un symbole gravé à la hâte, que seuls quelques initiés connaissent","une lettre à moitié brûlée qui mentionne {F1}","un alibi qui ne tient pas : quelqu'un ment sur son emploi du temps","une trace de boue ou de cendre qu'on ne trouve qu'à {l1}","un domestique terrifié qui en sait plus qu'il ne le dit","une somme d'argent versée la veille, sans raison apparente","une blessure sur la victime qui trahit l'arme du coupable"],
  signes:["des animaux qui fuient tous dans la même direction","un chant d'enfant sans enfant","des portes retrouvées ouvertes chaque matin","un reflet qui ne bouge pas en même temps que soi","des traces de pas qui s'arrêtent net","un habitant qui répète sans cesse la même phrase","la nourriture qui pourrit en une nuit","des noms grattés sur un mur, dont celui d'un coureur","des cris qui imitent la voix d'un proche","une odeur de terre fraîche dans toutes les maisons"],
  revelations:["les disparus ne sont pas morts : ils sont changés","le commanditaire savait depuis le début","la chose se nourrit de la peur, et elle grandit","une victime est vivante, mais ne veut pas être sauvée","ce que l'on croyait chasser est la mère de ce qui chasse vraiment"],
  revelationsP:["il porte un secret qui pourrait faire tomber {a}","il fuit sa propre famille, qui le croit mort","il est recherché pour un crime qu'il a vraiment commis","il compte trahir le groupe à l'arrivée","il est malade, et n'arrivera peut-être pas au bout"],
@@ -679,68 +887,18 @@ Object.assign(COMMUN,{
   "Tout commence par une petite affaire, à {l0}. Mais chaque mission rapproche les coureurs d'une vérité dérangeante : {a} prépare quelque chose d'énorme, et {sec} {F1}, {F2} et {F3} ont chacune une pièce du puzzle."]
 });
 
-/* Phrase de bascule : quand un second type est croisé, l'histoire glisse vers lui à la scène 4. */
-const BASCULES={
- enquete:"Mais un détail cloche : quelqu'un a menti depuis le début, et l'affaire devient une enquête.",
- horreur:"Mais rien ne se passe comme prévu : {signe}, et l'aventure tourne à l'horreur.",
- exploration:"Mais la piste mène plus loin que prévu, vers {l1}, où personne n'est allé depuis des siècles.",
- casse:"Mais pour finir le travail, il faudra voler {o}, sous le nez {dea}.",
- escorte:"Mais il faut soudain mettre {p} à l'abri et le conduire {jl}, coûte que coûte.",
- siege:"Mais l'ennemi arrive plus tôt que prévu : il faudra tenir {l1} jusqu'à l'aube.",
- intrigue:"Mais derrière tout cela se cache un jeu de pouvoir entre {F1} et {F2}.",
- chasse:"Mais une bête, {proie}, rôde autour d'eux, et c'est elle qu'il faudra abattre."
-};
-/* Inspirations : la forme et l'ambiance d'une œuvre connue, jamais son histoire ni ses personnages. */
-const INSPI={
- huisclos:{g:"enquete",nom:"Huis clos meurtrier",ref:"Ils étaient dix, d'Agatha Christie",
-  synopsis:["Invités à {l1} par un hôte qui ne se montre pas, les coureurs et une poignée d'inconnus se retrouvent coupés du monde : {comp}. Le premier mort tombe dès la première nuit. Chacun cache une faute ancienne, et {a} a décidé de les faire payer un par un : {sec}"],
-  sc:{1:["Les invités se méfient les uns des autres. Les coureurs peuvent découvrir :\n– {indices}\nChaque nuit, un invité disparaît s'ils n'avancent pas."],2:["Le suspect évident, {pnj}, est retrouvé mort à son tour. Il {pnjsec}, mais ce n'était pas lui."]}},
- communaute:{g:"enquete",nom:"Crimes dans une communauté fermée",ref:"Le Nom de la rose, d'Umberto Eco",
-  synopsis:["Dans la communauté repliée de {l0}, les morts se succèdent, et tous ont approché {o}. {Comm} fait venir les coureurs, à condition qu'ils respectent les règles du lieu. Les gardiens du secret préféreraient voir le lieu brûler plutôt que de le livrer : {a} a ses raisons, {sec}"],
-  sc:{1:["Chaque mort laisse une trace qui mène à {o} :\n– {indices}\nLes membres de la communauté répondent par énigmes et règlements."],3:["Le savoir interdit se révèle : {A} a tué pour le garder caché. {Sec}\nComplication : {comp}."]}},
- alien:{g:"horreur",nom:"Huis clos face à une créature",ref:"Alien, de Ridley Scott",
-  synopsis:["Les coureurs voyagent vers {l1} quand une chose, remontée avec la cargaison, s'éveille. Le lieu est fermé, l'aide est à des jours, et la chose chasse un par un. Pire : {a} savait ce qu'on transportait, et {sec}"],
-  sc:{1:["La chose frappe pour la première fois : il ne reste d'un membre d'équipage que des traces. Elle se cache dans les recoins, les conduits, les cales."],2:["Les ressources s'épuisent ({comp}), et quelqu'un sabote les tentatives de fuite. On découvre des ordres secrets : ramener la chose vivante."]}},
- thing:{g:"horreur",nom:"L'un de nous n'est plus humain",ref:"The Thing, de John Carpenter",
-  synopsis:["À {l0}, coupés de tout, les coureurs découvrent un corps qui n'est pas mort comme il devrait. Bientôt, certains se mettent à agir étrangement. La chose prend l'apparence de ceux qu'elle dévore, et personne ne peut prouver qu'il est encore lui-même. Derrière ce cauchemar, {a} : {sec}"],
-  sc:{1:["Un compagnon de route se comporte bizarrement : {signe2}. Est-ce la peur, ou autre chose ? Les soupçons montent, et une attaque éclate."],3:["L'épreuve de vérité : les coureurs trouvent un moyen de démasquer la chose (le feu, le sang, une question que seul le vrai connaîtrait). Le résultat glace le sang. Chacun fait un jet standard ; un échec coûte des points d'esprit si tu utilises cette règle (p. 30)."]}},
- indiana:{g:"exploration",nom:"Course au trésor et rival sans scrupules",ref:"Les Aventuriers de l'arche perdue",
-  synopsis:["{O} a été perdu il y a des siècles quelque part dans {l1}. Les coureurs ont un fragment de carte ; {a} a l'autre, une petite armée et aucun scrupule. Ce sera une course : pièges mortels, énigmes de bâtisseurs oubliés, et un trésor que certains feraient mieux de ne pas toucher, car {sec}"],
-  sc:{1:["Course-poursuite sur la route de {l1} : les hommes {dea} ne sont jamais loin. Ambiance : {amb}."],3:["Une salle piégée garde le chemin : {danger}. Il faut deviner la logique des bâtisseurs ; un faux pas déclenche tout."]}},
- centre:{g:"exploration",nom:"Descente vers un monde perdu",ref:"Voyage au centre de la Terre, de Jules Verne",
-  synopsis:["Sous {l0} s'ouvre un passage que personne n'a emprunté depuis des générations. {Comm} est convaincu qu'il mène à un monde oublié, et à {o}. Plus les coureurs descendent, plus le monde devient étrange. Et quelqu'un les suit : {a}, car {sec}"],
-  sc:{1:["La descente commence : cordes, galeries étroites, eau souterraine. Un jet d'arts du mouvement groupé à chaque étape. Les créatures d'en bas n'ont jamais vu d'humains."],3:["Un monde perdu s'ouvre sous leurs yeux : {salle}. Rien ici ne suit les règles du dessus. Danger : {danger}."]}},
- oceans:{g:"casse",nom:"Équipe de spécialistes et plan à tiroirs",ref:"Ocean's Eleven",
-  synopsis:["{O} dort dans {l1}, le lieu le mieux gardé de la région, propriété {dea}. {Comm} réunit les coureurs pour le coup du siècle. Le plan a plusieurs étages, et chacun ne connaît que sa part. Ce que {a} ignore : {comm} a une revanche personnelle à prendre. Ce que les coureurs ignorent : {sec}"],
-  sc:{2:["Chaque coureur a son rôle : diversion, entrée, coffre, sortie. Il manque un spécialiste : {pnj}. Il est le meilleur, mais il {pnjsec}."],3:["Le plan se déroule… puis {comp}. Sauf que ce contretemps faisait peut-être partie du plan : le commanditaire n'avait pas tout dit."]}},
- mission:{g:"casse",nom:"Infiltration, masques et trahison interne",ref:"Mission impossible",
-  synopsis:["Les coureurs doivent entrer à {l1} et en ressortir avec {o}, sans laisser de trace. Déguisements, fausses identités, minutage serré. Mais l'opération a été vendue : {a} attend l'équipe, car {sec}"],
-  sc:{1:["Pour entrer, il faut une couverture solide : de faux papiers, un uniforme, une invitation. À découvrir :\n– {reperages}"],3:["En pleine opération, un membre du réseau trahit l'équipe : {rebond}"]}},
- salaire:{g:"escorte",nom:"Convoi d'une cargaison mortelle",ref:"Le Salaire de la peur",
-  synopsis:["{Comm} offre une fortune pour convoyer une cargaison terriblement instable jusqu'à {l1}. Une secousse, et tout saute. La route est en ruine, les dangers nombreux, et {a} ferait tout pour que le convoi n'arrive jamais : {sec}"],
-  sc:{1:["Premier passage difficile : une route effondrée, un pont fragile. Jets d'arts du mouvement groupés ; un échec secoue la cargaison (1d8 dégâts à tous si deux échecs)."],2:["La cargaison commence à fuir, ou à s'échauffer. Il faut décider : continuer, réparer, ou abandonner une partie de la récompense."]}},
- furyroad:{g:"escorte",nom:"Fuite à toute allure, une horde aux trousses",ref:"Mad Max : Fury Road",
-  synopsis:["Les coureurs ont libéré {p} des griffes {dea}, et maintenant tout le pays est à leurs trousses. Il faut traverser {l0} à toute allure pour atteindre {l1}, avec une horde derrière. Mais {p} a un secret, et {a} une raison de ne jamais lâcher : {sec}"],
-  sc:{1:["La poursuite commence : véhicules, montures ou jambes, l'ennemi gagne du terrain. Combat en mouvement : les chutes font mal (1d8)."],3:["La horde rattrape le convoi au pire endroit. Un combat désespéré, en pleine course. Danger : {danger}."]}},
- septsamourais:{g:"siege",nom:"Défendre des villageois contre des pillards",ref:"Les Sept Samouraïs, d'Akira Kurosawa",
-  synopsis:["Les habitants de {l0} n'ont rien, sauf leur récolte, et chaque année les hommes {dea} viennent la prendre. Cette fois, ils ont réuni quelques pièces pour engager les coureurs. Il faudra entraîner des gens qui n'ont jamais tenu une arme, et apprendre que les villageois cachent eux aussi des choses. {A} a ses raisons : {sec}"],
-  sc:{1:["Les coureurs organisent la défense. À répartir :\n– {taches}\nLes villageois se méfient d'eux autant que des pillards."],3:["Un villageois a vendu le plan de défense aux pillards, par peur. {Rebond}"]}},
- assaut:{g:"siege",nom:"Tenir un poste avec un prisonnier",ref:"Rio Bravo, de Howard Hawks",
-  synopsis:["Les coureurs détiennent à {l1} un prisonnier que {a} veut libérer à tout prix. Les renforts n'arriveront qu'à l'aube. Dehors, les hommes de l'ennemi encerclent le bâtiment. Dedans, le prisonnier parle, menace, propose des marchés, car {sec}"],
-  sc:{1:["Le prisonnier, {pnj}, nargue les coureurs. Il {pnjsec}. Il faut barricader, rationner, surveiller toutes les portes."],3:["Une proposition arrive de dehors : rendre le prisonnier, et tout le monde vit. Au même moment, {comp}."]}},
- liaisons:{g:"intrigue",nom:"Manipulations et réputations",ref:"Les Liaisons dangereuses, de Laclos",
-  synopsis:["À {l0}, une réputation se fait et se défait en une soirée. {Comm} engage les coureurs pour récupérer des lettres compromettantes, mais {a} joue avec tout le monde comme avec des pièces d'échecs, car {sec} Ici, une rumeur tue plus sûrement qu'une lame."],
-  sc:{1:["Un bal, des sourires, des billets glissés dans les mains. {F1} et {F2} font chacun une offre aux coureurs, et chacun ment."],3:["Les lettres circulent : quelqu'un les a lues, et s'en sert. {A} sort de l'ombre : {sec}"]}},
- trone:{g:"intrigue",nom:"Succession, alliances et banquet sanglant",ref:"Le Trône de fer, de George R. R. Martin",
-  synopsis:["Le maître de {l0} est mourant, et la succession attise les appétits : {F1} et {F2} placent leurs pions. {Comm} veut que son candidat l'emporte. Mais un mariage, une trahison ou un banquet peuvent tout renverser, et {a} attend son heure : {sec}"],
-  sc:{2:["Un mariage scellerait une alliance. Les coureurs doivent protéger l'un des futurs époux, {pnj}, qui {pnjsec}."],3:["Le banquet de réconciliation tourne au massacre : les portes sont fermées, les musiciens sont armés. {Rebond}"]}},
- dents:{g:"chasse",nom:"Une bête menace une ville qui nie le danger",ref:"Les Dents de la mer, de Steven Spielberg",
-  synopsis:["À {l0}, la grande fête approche, et une bête, {proie}, a déjà fait deux victimes. Les notables étouffent l'affaire pour ne pas faire fuir les visiteurs. {Comm} engage les coureurs en cachette. Il faudra traquer la bête et convaincre une ville qui ne veut rien entendre, d'autant que {a} a intérêt au silence : {sec}"],
-  sc:{1:["Les autorités nient tout. Les coureurs trouvent pourtant des signes : {signe}. Une fausse bête est abattue et exhibée pour rassurer la foule."],3:["En pleine fête, la vraie bête frappe. Panique, foule, cris : il faut l'affronter au milieu de la cohue."]}},
- pacte:{g:"chasse",nom:"Une bête dressée par des hommes",ref:"Le Pacte des loups, de Christophe Gans",
-  synopsis:["Une bête ravage la région de {l0}, et les battues ne donnent rien. {Comm} engage les coureurs, sceptiques sur la nature de la créature. Car la bête n'est pas sauvage : quelqu'un la nourrit, la dresse, et la lâche sur ceux qui le gênent. {A} est derrière tout cela : {sec}"],
-  sc:{2:["Le repaire de la bête révèle l'impensable : des chaînes, une armure faite pour elle, des restes de repas servis par des mains humaines."],4:["À {l1}, les coureurs affrontent le maître de la bête : {a}. Il lâche sa créature une dernière fois.\nPiège du lieu : {danger}."]}}
-};
+
+/* Missions courtes, pour les chapitres de campagne */
+const MISSIONS={
+ enquete:["découvrir ce qui est arrivé à {p}","trouver qui a volé {o}","démasquer celui qui terrorise {l}"],
+ horreur:["mettre fin aux disparitions autour {dl}","découvrir ce qui hante {l}","survivre une nuit dans {l}"],
+ exploration:["explorer {l} et en rapporter {o}","retrouver l'expédition perdue dans {l}","cartographier {l} avant les autres"],
+ casse:["voler {o} dans {l}","récupérer des preuves cachées dans {l}","faire évader {p} de {l}"],
+ escorte:["conduire {p} {jl}","escorter un convoi jusqu'à destination, par {l}","ramener {p} à bon port"],
+ siege:["tenir {l} face aux hommes {dea}","briser le siège {dl}","évacuer les habitants {dl}"],
+ intrigue:["gagner le soutien de {F2}","récupérer {o} avant {F2}","déjouer le complot {dea}"],
+ chasse:["traquer la bête qui rôde autour {dl}","capturer vivant {p}, en fuite vers {l}","abattre ce qui hante {l}"]};
+Object.keys(MISSIONS).forEach(k=>{GENRES[k].mission=MISSIONS[k]});
 
 "use strict";
 /* ============ Outils ============ */
@@ -795,7 +953,7 @@ function syncGroupe(p){if(!p.groupe)p.groupe=groupeNeuf(p.joueurs||4,p.niveau||1
 Object.values(DB.parties).forEach(syncGroupe);
 if(!DB.parties[DB.cur])DB.cur=Object.keys(DB.parties)[0]||null;
 const P=()=>DB.parties[DB.cur];
-function puissance(){const a=P().groupe.filter(c=>c.actif);return Math.max(1,a.reduce((s,c)=>s+c.niv,0))}
+function puissance(){const a=P().groupe.filter(c=>c.actif);return Math.max(1,a.reduce((s,c)=>s+Math.pow(c.niv,.7),0))}
 function texteGroupe(p){p=p||P();const a=p.groupe.filter(c=>c.actif);if(!a.length)return "aucun coureur présent";
   const nv=[...new Set(a.map(c=>c.niv))].sort((x,y)=>x-y);return `${a.length} coureur${a.length>1?"s":""}, niveau${nv.length>1?"x":""} ${nv.length>1?nv[0]+" à "+nv[nv.length-1]:nv[0]}`}
 const T=()=>TBY[P().theme]||THEMES[0];
@@ -813,7 +971,14 @@ function resoudre(ref){
   const origine=(LIVRE[b]?"D'après le bestiaire : ":"Figurant, profil : ")+base.n.toLowerCase();
   return Object.assign({},base,{nom,desc,cap:caps||base.cap,ref,b,surnat,origine:nom===base.n?(LIVRE[b]?"Bestiaire du livre":"Figurant générique"):origine});
 }
-const menace=c=>Math.pow(c.dv,1.5);
+/* Menace d'une créature : moyenne géométrique de ce qu'elle inflige et de ce qu'elle encaisse face à un coureur de niveau 1
+   (attaque d20 + 1, défense d20 + 2), corrigée par ses capacités ; 1 = un orque. Estimation maison. */
+const CAPM={"Projection de flammes":2,"Frénésie":1.15,"Éventration":1.15,"Paralysie":1.15,"Drain de vie":1.1,"Malédiction":1.1,"Balayage":1.1,"Double illusoire":1.1,"Carapace":1.05,"Vengeance acide":1.05};
+function moyDe(f){let t=0;String(f).replace(/(\d*)d(\d+)/g,(m,n,d)=>{t+=(+(n||1))*(+d+1)/2;return m});const k=String(f).match(/\+(\d+)$/);return t+(k?+k[1]:0)}
+function menaceBrute(c){const na=typeof c.na==="string"?moyDe(c.na):(c.na||1);const cl=x=>Math.min(.95,Math.max(.05,x));
+  const off=na*moyDe(c.dmg||"d6")*cl((c.att-3)/20),def=(c.pv||1)/cl((22-c.def)/20);let k=1;(c.cap||[]).forEach(x=>k*=CAPM[x]||1);return Math.sqrt(off*def)*k}
+const MENACE_ORQUE=menaceBrute({na:1,dmg:"d8",att:13,def:14,pv:6,cap:["Horde","Frénésie"]})/1.15;
+const menace=c=>1.2*menaceBrute(c)/MENACE_ORQUE;
 const DIFFS={facile:["Facile",.6],equilibre:["Équilibré",1],rude:["Rude",1.5],mortel:["Mortel",2.2]};
 function budget(diff){return puissance()*DIFFS[diff][1]}
 function niveauDe(sum){const r=sum/puissance();return r<.8?"facile":r<1.25?"equilibre":r<1.8?"rude":"mortel"}
@@ -842,8 +1007,10 @@ function effectifs(sp){
 }
 function texteRencontre(sp){const e=effectifs(sp);if(!e.length)return "—";const tot=e.reduce((s,x)=>s+menace(x.c)*x.n,0);
   return e.map(x=>`<b>${x.n>1?x.n+" × ":""}${esc(x.c.nom)}</b>`).join(" et ")+" "+badge(niveauDe(tot))}
-function rencHTML(sp,where){const e=effectifs(sp);const mort=e.length&&niveauDe(e.reduce((s,x)=>s+menace(x.c)*x.n,0))==="mortel";
-  return `<div class="renc">${texteRencontre(sp)}${mort?`<span class="small muted" style="flex-basis:100%">Trop fort pour un affrontement de face : prévois une ruse, une faiblesse, des alliés ou une issue.</span>`:""}<span style="flex:1"></span><button class="mini" data-act="vers-combat" data-where="${esc(where)}">→ Combat</button></div>`}
+function rencHTML(sp,where,atouts){const e=effectifs(sp);
+  if(atouts){const tot=e.reduce((s,x)=>s+menace(x.c)*x.n,0);const nv=[0,1,2,3].map(k=>niveauDe(tot*(1-.2*k)));
+   return `<div class="renc">${texteRencontre(sp)}<span style="flex:1"></span><button class="mini" data-act="vers-combat" data-where="${esc(where)}">→ Combat</button><span class="small" style="flex-basis:100%">Avec les atouts : ${[1,2,3].map(k=>`${k} atout${k>1?"s":""} ${badge(nv[k])}`).join(" · ")}. ${nv[0]==="mortel"?"Sans aucun atout : ruse, sabotage ou fuite.":""}</span></div>`}const mort=e.length&&niveauDe(e.reduce((s,x)=>s+menace(x.c)*x.n,0))==="mortel";
+  return `<div class="renc">${texteRencontre(sp)}${mort?`<span class="small muted" style="flex-basis:100%">Trop fort pour un affrontement direct : mise sur les atouts, la ruse, le sabotage ou la fuite.</span>`:""}<span style="flex:1"></span><button class="mini" data-act="vers-combat" data-where="${esc(where)}">→ Combat</button></div>`}
 
 /* ============ Générateurs ============ */
 function genNom(t,g){t=t||T();g=g||(R(2)?"m":"f");const pr=pick(t.noms[g]);const s=pick(t.noms.s);return pr+" "+(s.length>1?(g==="f"?s[1]:s[0]):s[0])}
@@ -865,14 +1032,20 @@ function genDanger(){const t=T(),p=P();const nv=p.niveau>=5?R(3):p.niveau>=3?R(2
 
 /* ============ Aventure ============ */
 /* Chaque bloc garde ses tirages (r) ; son texte est recomposé tant qu'il n'a pas été retouché (t). */
-function antagonisteAdapte(t,sauf){const lim=budget("mortel");let l=t.antP.filter(a=>a.nom!==sauf&&menace(BASES[a.b])<=lim);if(!l.length)l=t.antP.filter(a=>a.nom!==sauf).sort((x,y)=>BASES[x.b].dv-BASES[y.b].dv).slice(0,1);return pick(l)}
+function antagonisteAdapte(t,sauf){const ok=lim=>t.antP.filter(a=>a.nom!==sauf&&menace(BASES[a.b])<=lim);let l=ok(budget("rude"));if(l.length<2)l=l.concat(ok(budget("mortel")).filter(a=>!l.includes(a)).slice(0,2-l.length));if(!l.length)l=t.antP.filter(a=>a.nom!==sauf).sort((x,y)=>BASES[x.b].dv-BASES[y.b].dv).slice(0,1);return pick(l)}
 function ctxNeuf(t){const ant=antagonisteAdapte(t);const ls=shuffle(t.lieux);
-  return {a:Object.assign({},ant),comm:pick(t.commanditaires),o:pick(t.objets),p:pick(t.personnes),l0:ls[0],l1:ls[1],amb:pick(t.ambiances),f:shuffle(t.facP.map((_,i)=>i)).slice(0,3),lieux:ls.slice(0,7),oa:R(9),oq:R(9)}}
+  return {a:Object.assign({},ant),comm:pick(t.commanditaires),o:pick(t.objets),o2:pick(["l'objet convoité","la prise","le butin"]),p:pick(t.personnes),l0:ls[0],l1:ls[1],lp:[ls[2],ls[3],ls[4]],amb:pick(t.ambiances),f:shuffle(t.facP.map((_,i)=>i)).slice(0,3),lieux:ls.slice(0,7),oa:R(9),oq:R(9)}}
 const nomCourt=a=>a.nom.split(",")[0];
 const pick1=(a,i)=>a[i%a.length];
+const EPITHETES={sorcier:["le sorcier","la sorcière"],lieutenant:["le chef de bande","la cheffe de bande"],seigneur:["le maître des lieux","la maîtresse des lieux"],veteran:["le vieux loup","la vieille louve"],
+  chevalier:["le guerrier maudit","la guerrière maudite"],garde:["le chef des gardes","la cheffe des gardes"],golem:["la machine","la machine"],engin:["la machine","la machine"]};
+function genreAnt(a){const m=/^(Elles?|Ils?)\b/.exec(a.secret||"");return m?({Elle:"f",Elles:"fp",Il:"m",Ils:"mp"})[m[1]]:"m"}
+function designations(c){const g=genreAnt(c.a);const f=g[0]==="f",pl=g.length>1;const b=c.a.b;
+  const ep=EPITHETES[b]?EPITHETES[b][f?1:0]:(f?"l'ennemie":"l'ennemi");
+  return {a2:pl?(f?"elles":"eux"):ep,il:pl?(f?"elles":"ils"):(f?"elle":"il"),lui:pl?(f?"elles":"eux"):(f?"elle":"lui")}}
 function varsCtx(c,extra){const t=TBY[(P().av&&P().av.theme)||P().theme];const l=c.l||c.l1,a=nomCourt(c.a);const F=(c.f||[]).map(i=>t.facP[i].nom);
   const sec=c.a.secret.charAt(0).toLowerCase()+c.a.secret.slice(1);
-  return Object.assign({comm:c.comm,a,dea:deX(a),aa:aX(a),sec,o:c.o,p:c.p,l0:c.l0||(c.lieux&&c.lieux[0]),l1:c.l1,l,dl:deX(l),jl:"jusqu'"+aX(l),F1:F[0]||"",F2:F[1]||"",F3:F[2]||"",amb:c.amb,l6:c.lieux?c.lieux[6]:c.l1,proie:c.proie?`« ${c.proieNom} »`:"la bête"},extra||{})}
+  return Object.assign(designations(c),{comm:c.comm,comm2:"le commanditaire",o2:c.o2||"l'objet convoité",a,dea:deX(a),aa:aX(a),sec,o:c.o,p:c.p,l0:c.l0||(c.lieux&&c.lieux[0]),l1:c.l1,l,dl:deX(l),jl:"jusqu'"+aX(l),F1:F[0]||"",F2:F[1]||"",F3:F[2]||"",amb:c.amb,l6:c.lieux?c.lieux[6]:c.l1,proie:c.proie?`« ${c.proieNom} »`:"la bête"},extra||{})}
 function remplir(s,c,extra){const v=varsCtx(c,extra);if(c.F)v.F=c.F;let out=s;
   for(let k=0;k<3;k++){const av=out;out=out.replace(/\{(\w+)\}/g,(m,key)=>{if(v[key]!=null)return "\u0001"+v[key];const lo=key.charAt(0).toLowerCase()+key.slice(1);if(v[lo]!=null)return "\u0001"+cap(v[lo]);return m});if(av===out)break}
   return contracter(out)}
@@ -914,6 +1087,22 @@ const BLOCS={
    return r},
   texte:(r,c,t,j)=>{const sc=sceneDe(c,j);return remplir(sc.v[r.v%sc.v.length],c,Object.assign({},r.vars,{rec:`${r.rec*P().niveau} ${t.monnaie} chacun`}))},
   rencDe:(r,c,t,j)=>sceneDe(c,j).renc==="final"?{lead:{nom:cap(nomCourt(c.a)),b:c.a.b,desc:c.a.secret},troupe:r.troupe,diff:r.diff}:r.renc,renc:true},
+ acc:{titre:"Le problème",tirer:()=>({v:R(99),vars:varsTirage(),rec:recompense()}),
+  texte:(r,c,t)=>{const ins=c.inspi&&INSPI[c.inspi];const l=ins&&ins.accroche?ins.accroche:GENRES[c.genre].accroche;return remplir(l[r.v%l.length],c,Object.assign({},r.vars,{rec:`${r.rec*P().niveau} ${t.monnaie} chacun`}))}},
+ horloge:{titre:"Le compte à rebours",tirer:()=>({}),
+  texte:(r,c)=>{const l=P().av.type==="campagne"?HORLOGE_CAMPAGNE:GENRES[c.genre].horloge;return remplir("Si les coureurs traînent (repos long, détour, échec bruyant), l'adversaire avance d'un cran :\n"+l.map((x,i)=>`${i+1}. ${x}`).join("\n"),c)}},
+ piste:{titre:"Piste",tirer:(j,c,excl)=>tirerPiste(choisirPistes(c,excl)[0]),
+  texte:(r,c,t,j)=>{const d=pisteDef(r.src);const at=ATOUTS[d.at];const lieu=(c.lp||[])[j]||c.l1;
+   const obst=d.obst==="danger"?"Obstacle : le lieu lui-même est dangereux (1d8 dégâts, 2d8 si l'échec est grave)."
+    :d.obst==="epreuve"?"Obstacle : il faut passer {epreuve}."
+    :d.obst==="social"?"Obstacle : convaincre, payer ou menacer (jet standard ; une bonne idée vaut l'avantage).":"";
+   return remplir(`${d.v}\nAtout gagné : ${at.n.toLowerCase()}. ${cap(at.e)}.${obst?"\n"+obst:""}`,Object.assign({},c,{l:lieu}),Object.assign({},r.vars,{lieu}))},
+  rencDe:(r)=>r.renc||null,renc:true},
+ climax:{titre:"Le climax",tirer:(j,c)=>{const r={diff:pick(["equilibre","rude"])};r.troupe=tirerRencontre(r.diff,{lead:{b:c.a.b}}).troupe;return r},
+  texte:(r,c)=>{const d=climaxDef(c);return remplir(`${d.v}\nCe que les coureurs peuvent tenter :\n${d.opts.map(o=>"– "+o).join("\n")}\nSans atout, l'affrontement direct est un pari risqué ; chaque atout gagné sur les pistes change la donne.`,c)},
+  rencDe:(r,c)=>{const gid=mixe(c)?c.genre2:c.genre;if(gid==="chasse"&&c.proie)return {lead:c.proie,troupe:null,diff:"rude"};return {lead:{nom:cap(nomCourt(c.a)),b:c.a.b,desc:c.a.secret},troupe:r.troupe,diff:r.diff}},renc:true},
+ grain:{titre:"Le grain de sable",tirer:(j,c)=>{const g=c&&mixe(c)&&R(2)?c.genre2:(c?c.genre:null);const l=g&&R(2)?GENRES[g].grains:GRAINS;return {g:pick(l)}},
+  texte:(r,c)=>remplir(r.g+"\nGarde-le secret jusqu'au bon moment : il doit tomber comme une pierre dans l'engrenage.",c)},
  /* ---- campagne ---- */
  filrouge:{titre:"Fil rouge",tirer:()=>({o:R(99),f:R(3)}),
   texte:(r,c,t)=>{const F=t.facP[c.f[r.f%c.f.length]];return `${cap(c.a.nom)}.\n1. Son but : mettre la main sur ${t.objets[r.o%t.objets.length]}.\n2. Son secret : ${c.a.secret.charAt(0).toLowerCase()+c.a.secret.slice(1)}\n3. Son appui : ${F.nom}, dont le but est ${deX(F.veut)}.`}},
@@ -949,7 +1138,25 @@ function tableRencontres(){
   E[12]={t:"Un lieutenant de l'antagoniste, ou l'antagoniste lui-même. Quelques dés de vilenie.",sp:tirerRencontre("mortel"),ant:1};
   return E;
 }
-function sceneDe(c,j){const mix=c.genre2&&c.genre2!==c.genre&&GENRES[c.genre2];const gid=mix&&j>=3?c.genre2:c.genre;const sc=GENRES[gid].scenes[j];
+function varsTirage(){const t=T();const sg=shuffle(COMMUN.signes);const n=genPNJ(null,"m");
+  return {indice:pick(COMMUN.indices),signe:sg[0],signe2:sg[1],salle:pick(COMMUN.salles),revel:pick(COMMUN.revelations),revelP:pick(COMMUN.revelationsP),
+   pnj:`${n.nom} (${n.metier.toLowerCase()})`,pnjsec:pick(COMMUN.secretsPNJ),epreuve:pick(COMMUN.epreuves),danger:pick(t.dangers),comp:pick(t.complications),amb:pick(t.ambiances)}}
+const mixe=c=>c.genre2&&c.genre2!==c.genre&&GENRES[c.genre2];
+/* Pistes : 3 pistes aux atouts tous différents ; en cas de croisement, la 3e vient du second type ; l'inspiration remplace la 1re. */
+function pisteDef(src){const [k,g,i]=src.split(":");if(k==="i")return INSPI[g].piste;return GENRES[g].pistes[+i]}
+function choisirPistes(c,excl){excl=excl||{src:[],at:[]};const out=[];const usedAt=new Set(excl.at);const usedSrc=new Set(excl.src);
+  const cands=g=>shuffle(GENRES[g].pistes.map((p,i)=>"g:"+g+":"+i)).filter(s=>!usedSrc.has(s));
+  const ins=c.inspi&&INSPI[c.inspi]&&INSPI[c.inspi].piste&&!usedSrc.has("i:"+c.inspi)?"i:"+c.inspi:null;
+  const take=s=>{const d=pisteDef(s);if(usedAt.has(d.at))return false;usedAt.add(d.at);usedSrc.add(s);out.push(s);return true};
+  if(ins)take(ins);
+  if(mixe(c))for(const s of cands(c.genre2)){if(take(s))break}
+  for(const s of cands(c.genre)){if(out.length>=3)break;take(s)}
+  for(const g of shuffle(Object.keys(GENRES))){if(out.length>=3)break;for(const s of cands(g)){if(out.length>=3)break;take(s)}}
+  return out}
+function tirerPiste(src){const d=pisteDef(src);const r={src,vars:varsTirage()};if(d.renc)r.renc=tirerRencontre(d.renc);return r}
+function climaxDef(c){const gid=mixe(c)?c.genre2:c.genre;const ins=c.inspi&&INSPI[c.inspi];if(ins&&ins.climax&&ins.g===gid&&!c.climaxGenre)return ins.climax;
+  const l=GENRES[gid].climax;return l[(c.climaxI||0)%l.length]}
+function sceneDe(c,j){if(!GENRES[c.genre]||!GENRES[c.genre].scenes)return {t:"Scène",v:["Cette scène vient d'une ancienne version de l'appli : tire une nouvelle aventure pour profiter de la nouvelle structure."]};const mix=c.genre2&&c.genre2!==c.genre&&GENRES[c.genre2];const gid=mix&&j>=3?c.genre2:c.genre;const sc=GENRES[gid].scenes[j];
   const ins=c.inspi&&INSPI[c.inspi];const v=ins&&ins.g===gid&&ins.sc&&ins.sc[j]?ins.sc[j]:sc.v;return Object.assign({},sc,{v})}
 function libelleType(c){if(!c.genre)return "";let s=GENRES[c.genre].nom;if(c.genre2&&GENRES[c.genre2]&&c.genre2!==c.genre)s+=" × "+GENRES[c.genre2].nom;if(c.inspi&&INSPI[c.inspi])s+=", dans l'esprit de « "+INSPI[c.inspi].ref.split(",")[0]+" »";return s}
 function choisirProie(){const B=budget("rude");const pool=poolTheme().map(r=>({r,c:resoudre(r)})).filter(x=>x.c&&!(MODELES[x.c.b]&&!["bete","betegeante","engin"].includes(x.c.b)));
@@ -962,10 +1169,13 @@ function nouvelleAventure(){
   c.genre2=p.genre2&&GENRES[p.genre2]&&p.genre2!==c.genre?p.genre2:null;
   if(c.genre==="chasse"||c.genre2==="chasse"){const pr=choisirProie();if(pr){c.proie=pr;c.proieNom=resoudre(pr).nom}}
   if(p.type==="oneshot"){
-    add("synopsis");[0,1,2,3,4].forEach(j=>add("gscene",j));add("epilogue");
+    c.climaxI=R(2);
+    add("synopsis");add("acc");add("horloge");
+    choisirPistes(c).forEach((src,j)=>blocs.push({k:"piste",j,r:tirerPiste(src)}));
+    add("climax");add("grain");add("epilogue");
     add("pnj",0);add("pnj",1);
   }else{
-    add("synopsis");add("filrouge");[0,1,2].forEach(j=>add("faction",j));[0,1,2,3,4,5,6].forEach(j=>add("lieu",j));add("table");
+    add("synopsis");add("filrouge");add("horloge");add("grain");[0,1,2].forEach(j=>add("faction",j));[0,1,2,3,4,5,6].forEach(j=>add("lieu",j));add("table");
     const n=Math.max(3,Math.min(5,7-p.niveau));for(let j=0;j<n;j++){const b=add("chapitre",j);b.n=n;b.r.renc=tirerRencontre(b.r.diff);if(j===n-1)b.r.troupe=tirerRencontre("rude",{lead:{b:c.a.b}}).troupe}
     [0,1,2].forEach(j=>add("pnj",j));
   }
@@ -1070,6 +1280,7 @@ function rendreAventure(){
    <div class="bloc-h"><span class="sub">${esc(t.nom)} · ${av.type==="oneshot"?"one-shot":"campagne"} · ${texteGroupe(p)}</span>
     <span class="rangee no-print"><button class="mini" data-act="imprimer">Imprimer</button></span></div>
    <div class="scene-h"><h2 class="av-titre txt" contenteditable="plaintext-only" data-edit="titre">${esc(av.titre)}</h2></div>
+   ${c.genre&&av.type==="oneshot"?`<p class="adn"><b>Ambiance.</b> ${esc(remplir(c.inspi&&INSPI[c.inspi]?INSPI[c.inspi].adn:GENRES[c.genre].adn,c))}</p>`:""}
    ${(()=>{const si=av.blocs.findIndex(b=>b.k==="synopsis");return si>=0?sceneHTML(av.blocs[si],si,"",true,"L'histoire en bref"):""})()}
    <div class="grille2">
     ${carteCtx("Antagoniste","a",`<b>${esc(cap(c.a.nom))}</b>\n${esc(c.a.secret)}`,ficheMini(resoudre({b:c.a.b,nom:cap(nomCourt(c.a))})))}
@@ -1080,16 +1291,17 @@ function rendreAventure(){
   </div>`;
   const blocs=av.blocs;
   if(av.type==="oneshot"){
+    if(blocs.some(b=>b.k==="piste")){h+=rendreSituation(av,t,c)}else{
     h+=`<div class="bloc"><div class="bloc-h"><h2>Les scènes</h2><small>Touche 🎲 pour relancer une scène, ou un texte pour le corriger.</small></div>`;
     let n=0;blocs.forEach((b,ix)=>{if(b.k==="pnj"||b.k==="synopsis")return;n++;
       if(b.k==="gscene"){const sc=sceneDe(c,b.j);h+=sceneHTML(b,ix,String(n),!!sc.cle,sc.t)}
       else h+=sceneHTML(b,ix,b.k==="epilogue"?"":String(n),b.k==="final"||b.k==="rebond")});
-    if(c.genre==="horreur")h+=`<p class="small muted">Pour une horreur plus mordante, le livre propose les points d'esprit (p. 30) : 1d12 + 3 au niveau 1, perdus face aux visions d'horreur, presque impossibles à récupérer.</p>`;
     h+=`</div><div class="bloc"><div class="bloc-h"><h2>Figures</h2><small>Deux personnages à glisser dans l'histoire.</small></div>`;
-    blocs.forEach((b,ix)=>{if(b.k==="pnj")h+=sceneHTML(b,ix,"",false,"Figure")});h+=`</div>`;
+    blocs.forEach((b,ix)=>{if(b.k==="pnj")h+=sceneHTML(b,ix,"",false,"Figure")});h+=`</div>`;}
   }else{
     const fr=blocs.findIndex(b=>b.k==="filrouge");
-    h+=`<div class="bloc"><div class="bloc-h"><h2>Fil rouge</h2><small>Trois points clés, comme dans le Val des Corbeaux.</small></div>${sceneHTML(blocs[fr],fr,"",true,"Antagoniste majeur")}</div>`;
+    const ho=blocs.findIndex(b=>b.k==="horloge"),gi=blocs.findIndex(b=>b.k==="grain");
+    h+=`<div class="bloc"><div class="bloc-h"><h2>Fil rouge</h2><small>Trois points clés, comme dans le Val des Corbeaux.</small></div>${sceneHTML(blocs[fr],fr,"",true,"Antagoniste majeur")}${ho>=0?sceneHTML(blocs[ho],ho,"",false,"Son plan, séance après séance"):""}${gi>=0?sceneHTML(blocs[gi],gi,"",true,"Le grain de sable"):""}</div>`;
     h+=`<div class="bloc"><div class="bloc-h"><h2>Factions</h2><small>Ce que chacune veut, et ce qu'elle cache.</small></div>`;
     blocs.forEach((b,ix)=>{if(b.k==="faction")h+=sceneHTML(b,ix,"",false,cap(t.facP[c.f[b.j]].nom),"faction")});
     h+=`<div class="scene"><span class="sub">Factions cachées</span><p class="small">Quand tu improvises un figurant (tavernier, passant, garde), lance 1d12 en secret : sur 1, il appartient ${esc(aX(t.facP[c.f[0]].nom))} ; sur 2, ${esc(aX(t.facP[c.f[1]].nom))} ; sur 3, ${esc(aX(t.facP[c.f[2]].nom))}.</p><div class="rangee no-print"><button class="mini" data-act="faction-cachee">Lancer 1d12</button><span class="res" id="resCachee"></span></div></div></div>`;
@@ -1115,12 +1327,22 @@ function blocChoix(p,av){const g=p.genre||"hasard";const camp=p.type==="campagne
      <p class="small muted">${p.genre2&&GENRES[p.genre2]?(camp?`Les chapitres alterneront ${esc(GENRES[g].nom.toLowerCase())} et ${esc(GENRES[p.genre2].nom.toLowerCase())}.`:`L'aventure commence en ${esc(GENRES[g].nom.toLowerCase())}, puis bascule en ${esc(GENRES[p.genre2].nom.toLowerCase())} aux scènes 4 et 5.`):"Par exemple : un casse qui tourne à l'horreur."}</p>`:""}
    <div class="rangee fin"><button class="primary" data-act="av-neuve">${av?"Nouvelle aventure avec ce type":"Tirer l'aventure"}</button></div></div>`}
 function choixGenres(cur,attr){return `<div class="genres"><button class="genre" data-${attr}="hasard" aria-pressed="${cur==="hasard"}"><b>Au hasard</b><span>Un type tiré au sort</span></button>${Object.entries(GENRES).map(([k,g])=>`<button class="genre" data-${attr}="${k}" aria-pressed="${cur===k}"><b>${esc(g.nom)}</b><span>${esc(g.desc)}</span></button>`).join("")}</div>`}
+function rendreSituation(av,t,c){const B=av.blocs;const f=k=>B.map((b,ix)=>[b,ix]).filter(([b])=>b.k===k);let h="";
+  const [[acc,ia]]=f("acc"),[[hor,ih]]=f("horloge"),[[cl,ic]]=f("climax"),[[gr,ig]]=f("grain"),[[ep,ie]]=f("epilogue");
+  h+=`<div class="bloc"><div class="bloc-h"><h2>Le problème</h2><small>Ce qui lance l'aventure, et ce qui arrive si personne n'agit.</small></div>${sceneHTML(acc,ia,"",true,"L'accroche")}${sceneHTML(hor,ih,"",false,"Le compte à rebours")}</div>`;
+  h+=`<div class="bloc"><div class="bloc-h"><h2>Trois pistes</h2><small>Dans l'ordre que choisissent les joueurs. Chacune rapporte un atout pour le climax.</small></div>`;
+  f("piste").forEach(([b,ix],k)=>{const d=pisteDef(b.r.src);h+=sceneHTML(b,ix,"ABC"[k],false,d.t)});
+  h+=`</div><div class="bloc"><div class="bloc-h"><h2>Le climax</h2><small>${esc(MODES[climaxDef(c).mode])} : l'adversaire agit, il n'attend pas.</small></div>${sceneHTML(cl,ic,"",true,"L'adversaire passe à l'action")}</div>`;
+  h+=`<div class="bloc"><div class="bloc-h"><h2>Le grain de sable</h2><small>Le détail qui trouble tout.</small></div>${sceneHTML(gr,ig,"",true,"Ce que les joueurs ignorent")}${sceneHTML(ep,ie,"",false,"Épilogue")}</div>`;
+  if(c.genre==="horreur"||c.genre2==="horreur")h+=`<p class="small muted">Pour une horreur plus mordante, le livre propose les points d'esprit (p. 30) : 1d12 + 3 au niveau 1, perdus face aux visions d'horreur, presque impossibles à récupérer.</p>`;
+  h+=`<div class="bloc"><div class="bloc-h"><h2>Figures</h2><small>Deux personnages à glisser dans l'histoire.</small></div>`;
+  f("pnj").forEach(([b,ix])=>{h+=sceneHTML(b,ix,"",false,"Figure")});return h+`</div>`}
 function carteCtx(titre,k,html,extra){return `<div class="scene cle"><div class="scene-h"><span class="sub">${titre}</span><button class="de no-print" data-act="ctx" data-k="${k}" title="Relancer" aria-label="Relancer : ${titre}">🎲</button></div><p class="txt">${html}</p>${extra||""}</div>`}
 function sceneHTML(b,ix,num,cle,titre){
   const B=BLOCS[b.k];const sp=specBloc(b);
   return `<div class="scene${cle?" cle":""}"><div class="scene-h"><span class="sub">${num?`<b>${num}</b>`:""}${esc(titre||B.titre)}</span><button class="de no-print" data-act="relancer" data-ix="${ix}" title="Relancer" aria-label="Relancer : ${esc(titre||B.titre)}">🎲</button></div>
    ${editable(texteBloc(b),`data-bloc="${ix}"`).replace('class="txt"',`class="txt${b.t!=null?" edite":""}"`)}
-   ${sp?rencHTML(sp,"bloc:"+ix):""}</div>`}
+   ${sp?rencHTML(sp,"bloc:"+ix,b.k==="climax"):""}</div>`}
 function tableHTML(b,ix,t,c){const E=b.r.e;
   let h=`<div class="bloc"><div class="bloc-h"><h2>Rencontres de la région</h2><small>1d4 + 1d8, comme dans le livre : les extrêmes sont rares et redoutables.</small></div>
   <div class="rangee no-print"><button data-act="lancer-table" data-ix="${ix}">Lancer 1d4 + 1d8</button><span class="res" id="resTable"></span><span style="flex:1"></span><button class="de" data-act="relancer" data-ix="${ix}" aria-label="Relancer la table">🎲</button></div>
@@ -1220,7 +1442,7 @@ function frapper(g,dmg){
 function rendreCombat(){
   const cb=C(),p=P();
   const ir=cb.init;
-  const enJeu=cb.grp.reduce((s,g)=>s+vivants(g)*menace(g),0);
+  const enJeu=cb.grp.reduce((s,g)=>s+vivants(g)*menace(Object.assign({},g,{pv:g.pvMax})),0);
   const face=`<div class="bloc"><div class="bloc-h"><h2>Face à ton groupe</h2>${enJeu?`<span>Ce combat : ${badge(niveauDe(enJeu))}</span>`:""}</div>
    <div class="chips">${p.groupe.map((c,i)=>`<button class="chip" data-cact="${i}" aria-pressed="${c.actif}" title="Toucher pour marquer présent ou absent">${esc(c.nom)} · ${c.niv}</button>`).join("")}<button class="chip" data-go="partie">Modifier…</button></div>
    <p class="small muted">${texteGroupe(p)}. Un coureur tombe ou quitte la table ? Touche son nom : les propositions et la jauge s'ajustent.</p>
@@ -1362,16 +1584,19 @@ document.addEventListener("click",e=>{
   if(d.ngenre){NOUV.genre=d.ngenre;if(NOUV.inspi&&INSPI[NOUV.inspi].g!==d.ngenre)NOUV.inspi="";if(NOUV.genre2===d.ngenre)NOUV.genre2="";rendreAccueil();return}
   if(d.ninspi!=null){NOUV.inspi=d.ninspi;rendreAccueil();return}
   if(d.act==="av-neuve"){if(p.av&&!confirmer(b,"Toucher encore : l'aventure actuelle sera remplacée"))return;nouvelleAventure();CHOIX_OUVERT=false;aller("aventure");return}
-  if(d.act==="relancer"){const bl=p.av.blocs[+d.ix];bl.r=BLOCS[bl.k].tirer(bl.j,p.av.c);delete bl.t;
+  if(d.act==="relancer"){const bl=p.av.blocs[+d.ix];
+    if(bl.k==="piste"){const autres=p.av.blocs.filter(x=>x.k==="piste"&&x!==bl);bl.r=BLOCS.piste.tirer(bl.j,p.av.c,{src:[bl.r.src,...autres.map(x=>x.r.src)],at:autres.map(x=>pisteDef(x.r.src).at)})}
+    else if(bl.k==="climax"){p.av.c.climaxI=(p.av.c.climaxI||0)+1;p.av.c.climaxGenre=1;bl.r=BLOCS.climax.tirer(0,p.av.c)}
+    else bl.r=BLOCS[bl.k].tirer(bl.j,p.av.c);delete bl.t;
     if(bl.k==="lieu"){bl.r.amb=1+R(4);bl.r.q=1+R(4)}
     if(bl.k==="final")bl.r.troupe=tirerRencontre(bl.r.diff,{lead:{b:p.av.c.a.b}}).troupe;
     if(bl.k==="chapitre"){bl.r.renc=tirerRencontre(bl.r.diff);if(bl.j===bl.n-1)bl.r.troupe=tirerRencontre("rude",{lead:{b:p.av.c.a.b}}).troupe}
     sauver();rendreAventure();return}
   if(d.act==="ctx"){const t=TBY[p.av.theme],c=p.av.c;
-    if(d.k==="a"){c.a=Object.assign({},antagonisteAdapte(t,c.a.nom));p.av.blocs.forEach(bl=>{if(bl.k==="final"||(bl.k==="gscene"&&sceneDe(c,bl.j).renc==="final"))bl.r.troupe=tirerRencontre(bl.r.diff||"rude",{lead:{b:c.a.b}}).troupe})}
+    if(d.k==="a"){c.a=Object.assign({},antagonisteAdapte(t,c.a.nom));p.av.blocs.forEach(bl=>{if(bl.k==="climax"||bl.k==="final"||(bl.k==="gscene"&&sceneDe(c,bl.j).renc==="final"))bl.r.troupe=tirerRencontre(bl.r.diff||"rude",{lead:{b:c.a.b}}).troupe})}
     if(d.k==="comm")c.comm=pick(t.commanditaires.filter(x=>x!==c.comm));
     if(d.k==="o"){c.o=pick(t.objets.filter(x=>x!==c.o));c.p=pick(t.personnes.filter(x=>x!==c.p))}
-    if(d.k==="l"){const ls=shuffle(t.lieux);c.l0=ls[0];c.l1=ls[1]}
+    if(d.k==="l"){const ls=shuffle(t.lieux);c.l0=ls[0];c.l1=ls[1];c.lp=[ls[2],ls[3],ls[4]]}
     sauver();rendreAventure();toast("Les scènes non retouchées suivent le changement.");return}
   if(d.act==="lancer-table"){const r=lancer("1d4+1d8");$("resTable").innerHTML=fmtJet("1d4+1d8",r);document.querySelectorAll(".table-renc tr").forEach(tr=>tr.classList.toggle("tire",+tr.dataset.n===r.total));
     const tr=document.querySelector(`.table-renc tr[data-n="${r.total}"]`);if(tr)tr.scrollIntoView({block:"nearest",behavior:"smooth"});return}
