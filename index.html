@@ -259,6 +259,18 @@ body.a-accueil{--nav-h:0px}
 .autres-univ .rangee{margin-top:6px}
 .genre:disabled,.chip:disabled{opacity:.4}
 
+/* Sections repliables */
+.tete-pli{cursor:pointer;user-select:none;border-radius:4px}
+.tete-pli:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.tete-pli > h2::before,h3.tete-pli::before,.tete-pli > h3::before{content:"";display:inline-block;width:.45em;height:.45em;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(45deg) translateY(-.15em);margin-right:.55em;color:var(--spark);transition:transform .15s}
+.pliable.replie .tete-pli > h2::before,.pliable.replie h3.tete-pli::before,.pliable.replie .tete-pli > h3::before{transform:rotate(-45deg)}
+.pliable.replie > :not(.tete-pli):not(.bloc-h){display:none!important}
+.pliable.replie > .bloc-h > :not(h2):not(h3){display:none}
+.pliable.replie{padding-top:10px;padding-bottom:10px}
+.barre-pli{display:flex;justify-content:flex-end;gap:6px;margin-bottom:-8px}
+@media (prefers-reduced-motion:reduce){.tete-pli > h2::before{transition:none}}
+@media print{.pliable.replie > *{display:revert!important}}
+
 </style>
 </head>
 <body>
@@ -600,18 +612,18 @@ enquete:{nom:"Enquête",desc:"Un mystère, des témoins, des indices qui se rép
   "{P} s'est volatilisé à {l0}, et tout le quartier fait semblant de n'avoir rien vu. {Comm} ne croit pas à une fugue. Derrière ce silence se cache {a}, qui a ses raisons : {sec} Trois pistes, trois versions des faits, une seule vérité.",
   "Un corps, une porte fermée de l'intérieur, et {o} qui manque à l'appel. À {l0}, chacun a un mobile, personne n'a d'alibi solide. Le coupable n'est pas celui qu'on désignera en premier."],
  accroche:[
-  "{Comm} aborde les coureurs à voix basse, à {l0} : {p} a disparu depuis trois nuits. La garde a classé l'affaire ; la piste refroidit d'heure en heure.\nPaie : {rec}, moitié d'avance.",
+  "{Comm} aborde les coureurs à voix basse, à {l0} : {p} a disparu depuis trois nuits. Ceux qui font la loi ici ont classé l'affaire ; la piste refroidit d'heure en heure.\nPaie : {rec}, moitié d'avance.",
   "On a retrouvé un cadavre à {l0}, et {o} s'est envolé avec son dernier souffle. {Comm} veut un nom avant la fin de la semaine, et pas l'ombre d'un scandale.\nPaie : {rec}."],
  horloge:["Un témoin clé quitte la ville, ou se tait pour de bon.","Les preuves disparaissent : incendie, nettoyage, faux témoignage.","{A} désigne un coupable commode, que la foule s'apprête à lyncher.","Trop tard : {il} a effacé ses traces et frappe à nouveau."],
  pistes:[
   {t:"Le témoin qui a peur",v:"À {lieu}, quelqu'un a tout vu et s'est barricadé. Il parlera contre une protection ou un service. Ce qu'il sait : {indice}. Des gros bras viennent le faire taire.",at:"preuve",renc:"facile"},
   {t:"La scène du drame",v:"À {lieu}, les traces de cette nuit-là attendent qui sait regarder : {indice}. Quelqu'un d'autre fouille aussi, et n'aime pas la concurrence.",at:"faiblesse",obst:"danger"},
-  {t:"Le registre",v:"À {lieu} dorment des comptes, des lettres, des noms. Entrer sans autorisation demande de la ruse. On y lit : {indice}.",at:"levier",obst:"epreuve"},
+  {t:"Les traces du coupable",v:"À {lieu} restent des traces de ses affaires : marques, comptes, messages, objets échangés. Y accéder sans permission demande de la ruse. On y découvre : {indice}.",at:"levier",obst:"epreuve"},
   {t:"Le rival",v:"Caché à {lieu}, quelqu'un en veut à {a} autant que les coureurs. Il propose son aide, à ses conditions. Il confie : {indice}.",at:"allie",obst:"social"}],
  climax:[
   {mode:"otage",v:"À {l1}, acculé, {a} tient un innocent qui en sait trop, une lame sur la gorge. {Il} exige la voie libre et l'abandon de l'enquête.",opts:["Négocier : une preuve ou un moyen de pression fait vaciller l'adversaire (jet standard avec avantage).","Ruser : une diversion laisse un coureur approcher sans être vu (arts du mouvement contre 16).","Frapper : risqué, l'otage encaisse la riposte si le coup rate.","Laisser partir, et suivre à distance jusqu'au repaire."]},
-  {mode:"fuite",v:"Les coureurs surgissent à {l1} au moment où {a} brûle les dernières preuves. {Il} a prévu sa sortie : une monture sellée, un complice, une porte dérobée. 3 tours avant qu'{il} disparaisse.",opts:["Sauver les papiers des flammes (arts du mouvement, 1d8 dégâts en cas d'échec).","Couper la retraite avant qu'elle soit atteinte (jet standard).","Confondre le coupable devant témoins : ses propres hommes hésitent si une preuve est brandie."]}],
- grains:["La personne disparue est partie de son plein gré, et ne veut surtout pas qu'on la retrouve.","{Comm2} cherche moins la vérité que les lettres que la victime gardait sur son compte."]},
+  {mode:"fuite",v:"Les coureurs surgissent à {l1} au moment où {a} brûle les dernières preuves. {Il} a prévu sa sortie : une monture sellée, un complice, une porte dérobée. 3 tours avant qu'{il} disparaisse.",opts:["Sauver les preuves des flammes (arts du mouvement, 1d8 dégâts en cas d'échec).","Couper la retraite avant qu'elle soit atteinte (jet standard).","Confondre le coupable devant témoins : ses propres hommes hésitent si une preuve est brandie."]}],
+ grains:["La personne disparue est partie de son plein gré, et ne veut surtout pas qu'on la retrouve.","{Comm2} cherche moins la vérité que les secrets que la victime détenait sur son compte."]},
 
 horreur:{nom:"Horreur",desc:"Huis clos, menace invisible qui se resserre",
  adn:"Huis clos oppressant : la menace se montre peu, se rapproche à chaque scène, et rappelle aux coureurs qu'ils ne pèsent pas grand-chose. Décris ce qu'on entend avant ce qu'on voit.",
@@ -645,7 +657,7 @@ exploration:{nom:"Exploration",desc:"Course au trésor, pièges, terres inconnue
   {t:"Le campement adverse",v:"{Lieu} : les tentes du rival, ses porteurs, ses cartes. Voler ses notes ferait gagner des jours.",at:"passage",renc:"facile"},
   {t:"Le guide",v:"À {lieu}, un vieil homme connaît les vrais chemins. Il ne guide que ceux qui respectent les morts.",at:"allie",obst:"social"},
   {t:"La salle des avertissements",v:"{Lieu} : {salle}. Les fresques expliquent comment déjouer les pièges du cœur.",at:"contre",obst:"epreuve"},
-  {t:"Les restes d'une expédition",v:"À {lieu}, un camp abandonné. Les corps racontent ce qui les a tués ({danger}). Un carnet décrit le gardien.",at:"faiblesse",obst:"danger"}],
+  {t:"Les restes d'une expédition",v:"À {lieu}, un camp abandonné. Les corps racontent ce qui les a tués ({danger}). Des marques laissées par un survivant décrivent le gardien.",at:"faiblesse",obst:"danger"}],
  climax:[
   {mode:"rituel",v:"Au cœur de {l1}, {a} a déjà la main sur {o2} et l'arrache à son socle. Tout commence à s'effondrer : 4 tours avant que les voûtes cèdent.",opts:["Reprendre le trésor au vol (attaque pour désarmer, puis arts du mouvement).","Abandonner le rival au piège qu'il vient de déclencher, et fuir.","Bloquer le mécanisme pour gagner 2 tours (jet standard)."]},
   {mode:"marche",v:"{A} attend à l'entrée de {l1}, entouré de ses hommes. {Il} propose un partage : la moitié du trésor contre la carte des coureurs. Bien sûr, {il} compte trahir.",opts:["Accepter, et trahir le premier (avantage avec un accès secret).","Laisser le rival passer devant, et profiter des pièges.","Le défier devant ses hommes : s'{il} tombe, ils se dispersent."]}],
@@ -659,12 +671,12 @@ casse:{nom:"Casse",desc:"Préparer le coup, puis improviser",
  accroche:[
   "{Comm} donne rendez-vous dans l'arrière-salle d'un endroit sûr, à {l0}. Un plan grossier, une cible : {o}. Une condition : personne ne doit savoir qui a fait le coup.\nPaie : {rec}.",
   "À {l0}, {comm} pose une bourse sur la table. {A} garde {o} à {l1} ; dans six jours, la prise sera déplacée.\nPaie : {rec}."],
- horloge:["La garde est renforcée : une rumeur a filtré.","Le butin change de cachette ; tout est à refaire.","Un complice est arrêté et risque de parler.","Le transfert a lieu : maintenant ou jamais."],
+ horloge:["Les gardes sont renforcés : une rumeur a filtré.","Le butin change de cachette ; tout est à refaire.","Un complice est arrêté et risque de parler.","Le transfert a lieu : maintenant ou jamais."],
  pistes:[
-  {t:"Le personnel",v:"À {lieu}, domestiques et gardes boivent après le service. L'un d'eux, {pnj}, pourrait aider ; il {pnjsec}.",at:"allie",obst:"social"},
-  {t:"Les plans",v:"Les plans d'origine du bâtiment dorment à {lieu}. Il faut les consulter ou les subtiliser sans éveiller l'attention.",at:"passage",obst:"epreuve"},
+  {t:"Le personnel",v:"À {lieu}, serviteurs et gardes se détendent après leur service. L'un d'eux, {pnj}, pourrait aider ; il {pnjsec}.",at:"allie",obst:"social"},
+  {t:"Les plans",v:"À {lieu}, on peut savoir comment est fait l'endroit visé : un plan, une maquette, ou quelqu'un qui l'a bâti. Il faut l'obtenir sans éveiller l'attention.",at:"passage",obst:"epreuve"},
   {t:"Le receleur",v:"À {lieu}, un receleur sait ce que vaut vraiment {o2}, et qui d'autre est sur le coup. Ses gardes du corps n'aiment pas les questions.",at:"levier",renc:"facile"},
-  {t:"La réception",v:"Une soirée se donne à {lieu}, et {a} s'y montre. Un verre de trop, une confidence, et l'on apprend ce qui {lui} fait peur.",at:"faiblesse",obst:"social"}],
+  {t:"La réception",v:"Une fête ou un festin se tient à {lieu}, et {a} s'y montre. Un verre de trop, une confidence, et l'on apprend ce qui {lui} fait peur.",at:"faiblesse",obst:"social"}],
  climax:[
   {mode:"fuite",v:"Le coup a presque réussi. À {l1}, l'alarme hurle, les portes se ferment une à une, et {a} arrive avec sa garde. 3 tours avant que la dernière issue soit bloquée.",opts:["Foncer vers la sortie repérée (arts du mouvement groupé).","Retourner la situation : prendre le maître des lieux en otage.","Se fondre parmi les gardes (jet standard, avec avantage si un complice aide)."]},
   {mode:"marche",v:"À {l1}, devant le coffre ouvert, {a} attend les coureurs. {Il} savait tout. Une proposition : travailler pour {lui}, ou pourrir au cachot.",opts:["Accepter… et doubler tout le monde.","Révéler à ses hommes ce qu'on sait sur leur maître.","Faire jouer un moyen de pression pour sortir libres, et riches."]}],
@@ -712,20 +724,20 @@ intrigue:{nom:"Intrigue",desc:"Complots, faveurs et coups de poignard",
  adn:"Masques et poignards : tout le monde ment un peu, les alliances tournent, une parole vaut une épée. Donne à chaque PNJ une chose qu'il veut et une chose qu'il cache.",
  synopsis:[
   "À {l0}, {F1} et {F2} se disputent le pouvoir à coups de sourires et de poison. {Comm} veut que les coureurs fassent pencher la balance. Dans l'ombre, {a} attend que les deux camps s'épuisent.",
-  "Une soirée, des masques, des alliances qui se nouent et se défont. {Comm} engage les coureurs pour récupérer {o} avant qu'on s'en serve pour un chantage. Chaque faction le veut ; chacune a de quoi payer."],
+  "Une fête, des sourires, des alliances qui se nouent et se défont. {Comm} engage les coureurs pour récupérer {o} avant qu'on s'en serve pour un chantage. Chaque faction le veut ; chacune a de quoi payer."],
  accroche:[
-  "{Comm} glisse aux coureurs une invitation pour {l0} et une liste de noms. Objectif : savoir qui complote, et pour qui.\nPaie : {rec}.",
-  "Une lettre anonyme attend les coureurs à {l0} : {o} change de mains ce soir. {Comm} offre {rec} pour que la transaction tourne à son avantage."],
+  "{Comm} fait entrer les coureurs à {l0} sous un prétexte et leur confie une liste de noms. Objectif : savoir qui complote, et pour qui.\nPaie : {rec}.",
+  "Un message anonyme parvient aux coureurs à {l0} : {o} change de mains ce soir. {Comm} offre {rec} pour que la transaction tourne à son avantage."],
  horloge:["Une rumeur salit le nom du commanditaire.","Un témoin gênant est empoisonné.","{F1} et {F2} concluent un accord sur le dos des coureurs.","{A} prend le pouvoir à la faveur du chaos."],
  pistes:[
-  {t:"Le salon",v:"À {lieu}, les gens d'influence échangent des secrets contre des secrets. {pnj} y sait tout ; il {pnjsec}.",at:"levier",obst:"social"},
-  {t:"Les archives",v:"À {lieu} dorment contrats, dettes et testaments. Une page manque, et quelqu'un paie pour qu'elle reste introuvable.",at:"preuve",obst:"epreuve"},
+  {t:"Le cercle des puissants",v:"À {lieu}, les gens d'influence échangent des secrets contre des secrets. {pnj} y sait tout ; il {pnjsec}.",at:"levier",obst:"social"},
+  {t:"Les dettes et les serments",v:"À {lieu} se gardent la mémoire des pactes, des dettes et des héritages. Une preuve a disparu, et quelqu'un paie pour qu'elle reste introuvable.",at:"preuve",obst:"epreuve"},
   {t:"Le bas-fond",v:"À {lieu}, les hommes de main de toutes les factions boivent ensemble. Les langues se délient, les couteaux aussi.",at:"faiblesse",renc:"facile"},
   {t:"L'émissaire",v:"À {lieu}, un envoyé de {F2} propose aux coureurs de changer de camp. Son offre est sincère, pour l'instant.",at:"allie",obst:"social"}],
  climax:[
-  {mode:"marche",v:"À {l1}, devant toute la cour, {a} se dévoile et offre aux coureurs une place à ses côtés. Refuser, c'est devenir l'ennemi de tous.",opts:["Le confondre en public avec une preuve.","Accepter, et trahir au moment choisi.","Retourner {F1} ou {F2} contre {lui}."]},
-  {mode:"otage",v:"Le banquet de réconciliation, à {l1}, tourne au guet-apens : portes closes, gardes en armes. {A} tient les chefs des factions à sa merci.",opts:["Libérer les otages un à un (arts du mouvement, un par tour).","Négocier au nom de tous, avec un moyen de pression.","Abattre l'instigateur dans la confusion (frappe vicieuse avec un accès secret)."]}],
- grains:["Le camp que servent les coureurs est pire que celui qu'ils combattent.","{O} contient une vérité qui ruinerait aussi le commanditaire."]},
+  {mode:"marche",v:"À {l1}, devant tous les notables, {a} se dévoile et offre aux coureurs une place à ses côtés. Refuser, c'est devenir l'ennemi de tous.",opts:["Le confondre en public avec une preuve.","Accepter, et trahir au moment choisi.","Retourner {F1} ou {F2} contre {lui}."]},
+  {mode:"otage",v:"Le festin de réconciliation, à {l1}, tourne au guet-apens : portes closes, gardes en armes. {A} tient les chefs des factions à sa merci.",opts:["Libérer les otages un à un (arts du mouvement, un par tour).","Négocier au nom de tous, avec un moyen de pression.","Abattre l'instigateur dans la confusion (frappe vicieuse avec un accès secret)."]}],
+ grains:["Le camp que servent les coureurs est pire que celui qu'ils combattent.","Ce que les factions se disputent cache une vérité qui ruinerait aussi le commanditaire."]},
 
 chasse:{nom:"Chasse",desc:"Traquer une bête, ou un homme",
  adn:"Traque : lire les signes, choisir son terrain, et ne jamais oublier que la proie chasse aussi. Les meilleures rencontres arrivent quand le groupe est divisé.",
@@ -756,7 +768,7 @@ const GRAINS=[
  "La victime n'est pas innocente.",
  "Une autre équipe a été engagée pour le même travail, et elle ne fait pas de quartier.",
  "Réussir la mission ruinera des gens qui n'ont rien demandé.",
- "La garde locale touche sa part : elle protégera le coupable.",
+ "Ceux qui font régner l'ordre touchent leur part : ils protégeront le coupable.",
  "{Comm2} compte se débarrasser des coureurs une fois le travail fait.",
  "Le vrai danger n'est pas {a2}, mais ce qu'{il} retient encore."];
 
@@ -879,7 +891,7 @@ const INSPI={
 /* Tirages communs */
 /* Tirages propres aux scènes */
 Object.assign(COMMUN,{
- indices:["un témoin a vu quelqu'un rôder vers {l1} la nuit du drame","un objet appartenant à un proche de {a2}, oublié sur place","une dette notée dans un registre, au nom d'un homme de main de {a2}","un symbole gravé à la hâte, que seuls quelques initiés connaissent","une lettre à moitié brûlée qui mentionne {F1}","un alibi qui ne tient pas : quelqu'un ment sur son emploi du temps","une trace de boue ou de cendre qu'on ne trouve qu'à {l1}","un domestique terrifié qui en sait plus qu'il ne le dit","une somme d'argent versée la veille, sans raison apparente","une blessure sur la victime qui trahit l'arme du coupable"],
+ indices:["un témoin a vu quelqu'un rôder vers {l1} la nuit du drame","un objet appartenant à un proche de {a2}, oublié sur place","une dette qu'un homme de main de {a2} n'a jamais remboursée","un symbole gravé à la hâte, que seuls quelques initiés connaissent","un message à moitié détruit qui mentionne {F1}","un alibi qui ne tient pas : quelqu'un ment sur son emploi du temps","une trace de boue ou de cendre qu'on ne trouve qu'à {l1}","un domestique terrifié qui en sait plus qu'il ne le dit","une somme d'argent versée la veille, sans raison apparente","une blessure sur la victime qui trahit l'arme du coupable"],
  signes:["des animaux qui fuient tous dans la même direction","un chant d'enfant sans enfant","des portes retrouvées ouvertes chaque matin","un reflet qui ne bouge pas en même temps que soi","des traces de pas qui s'arrêtent net","un habitant qui répète sans cesse la même phrase","la nourriture qui pourrit en une nuit","des noms grattés sur un mur, dont celui d'un coureur","des cris qui imitent la voix d'un proche","une odeur de terre fraîche dans toutes les maisons"],
  revelations:["les disparus ne sont pas morts : ils sont changés","le commanditaire savait depuis le début","la chose se nourrit de la peur, et elle grandit","une victime est vivante, mais ne veut pas être sauvée","ce que l'on croyait chasser est la mère de ce qui chasse vraiment"],
  revelationsP:["il porte un secret qui pourrait faire tomber {a}","il fuit sa propre famille, qui le croit mort","il est recherché pour un crime qu'il a vraiment commis","il compte trahir le groupe à l'arrivée","il est malade, et n'arrivera peut-être pas au bout"],
@@ -1109,6 +1121,54 @@ Object.assign(INSPI.trone,{climax:{mode:"otage",v:"Au banquet de noces, à {l1},
 Object.assign(INSPI.pacte,{piste:{t:"L'antre du dresseur",v:"À {lieu} : des chaînes, une armure taillée pour la bête, des restes de repas servis par des mains humaines.",at:"preuve",renc:"facile"}});
 Object.assign(INSPI.assaut2,{climax:{mode:"fuite",v:"À {l1}, les assaillants entrent par toutes les issues. {A} veut le réfugié, et rien d'autre. 3 tours avant d'être submergés.",opts:["Fuir par les égouts ou les toits avec le réfugié.","Faire exploser le stock de munitions pour couvrir la fuite.","Livrer le réfugié… si l'on a appris qu'il le mérite."]}});
 Object.assign(INSPI.zoulou,{piste:{t:"La seconde ligne",v:"À {lieu}, on peut bâtir une seconde ligne de défense avec des sacs, des caisses, des chariots. Chaque coureur qui aide fait gagner du temps au climax.",at:"contre",obst:"epreuve"}});
+/* Fallout */
+INSPI.fallout={g:"exploration",nom:"Ruines atomiques, abris et rétro-futur",ref:"Fallout",
+ adn:"Post-apo rétro-futuriste : publicités souriantes des années 50 sur des ruines radioactives, abris aux expériences douteuses, factions de survivants. On paie en capsules, on compte les radiations, on croise mutants, goules et robots d'avant-guerre. Humour noir de rigueur.",
+ accroche:["Un abri vient de rouvrir ses portes près de {l0}, pour la première fois depuis deux cents ans. {Comm} veut savoir ce qu'il contient avant les autres factions : nourriture, armes, ou une expérience qui a mal tourné.\nPaie : {rec}, en capsules sonnantes."],
+ synopsis:["Sous les ruines souriantes de l'ancien monde, un abri scellé depuis la Grande Guerre vient de rouvrir à {l1}. Les factions du désert accourent : marchands, fanatiques, pillards en armure assistée. {A} sait ce que les concepteurs de l'abri y ont vraiment testé, et compte bien en tirer profit. Dehors, les radiations ; dedans, pire."],
+ piste:{t:"Le terminal de l'abri",v:"À {lieu}, un vieux terminal grésille encore. Les journaux des résidents racontent l'expérience, jour après jour, jusqu'au dernier message. La zone autour est radioactive (1d4 PV par scène sans protection, non récupérables au repos).",at:"preuve",obst:"danger"},
+ climax:{mode:"rituel",v:"Au fond de {l1}, {a} relance le programme de l'abri : portes scellées, gaz, robots de sécurité réactivés. 4 tours avant que l'abri ne se referme pour deux cents ans de plus.",opts:["Pirater le terminal du superviseur (jet standard).","Forcer la grande porte avant qu'elle ne roule (arts du mouvement).","Libérer les résidents survivants pour qu'ils se retournent contre leur geôlier."]}};
+
+/* Bestiaire enrichi : dinosaures et créatures mythiques, construits avec la méthode du livre (p. 28-29) :
+   attaque = 12 + DV (−1 dès 5 DV, −2 dès 9 DV), défense = 10 + armure, PV = moyenne des DV,
+   2 attaques dès 5 DV, 3 dès 9 DV ; dés de vilenie pour les plus redoutables. */
+function creer(n,dv,d,arm,dmg,cap,desc,cat,vil){const att=12+dv-(dv>=9?2:dv>=5?1:0);return {n,dv,d,att,def:10+arm,pv:Math.ceil(dv*(d+1)/2),na:dv>=9?3:dv>=5?2:1,dmg,cap,desc,cat,vil:vil||0}}
+const BESTIAIRE_PLUS={
+ /* Dinosaures et monstres préhistoriques */
+ compsognathes:creer("Compsognathes",1,6,0,"d4",["Horde"],"Une nuée de petits carnassiers qui harcèlent en sautillant.","dino"),
+ raptor:creer("Raptor",2,8,2,"d8",["Horde","Éventration"],"Rapide, malin, toujours en meute ; il teste les clôtures.","dino"),
+ pterodactyle:creer("Ptérodactyle",2,6,2,"d6",["Balayage"],"Il fond du ciel, renverse et emporte ce qu'il peut.","dino"),
+ smilodon:creer("Smilodon",4,10,2,"d10",["Éventration"],"Tigre aux crocs en poignard, embusqué dans les hautes herbes.","dino"),
+ ankylosaure:creer("Ankylosaure",5,12,7,"d10",["Carapace","Balayage"],"Une forteresse vivante, dont la queue-massue broie les jambes.","dino"),
+ triceratops:creer("Tricératops",6,12,6,"d10",["Balayage","Carapace"],"Trois cornes, une collerette d'os, et une charge qui renverse tout.","dino"),
+ plesiosaure:creer("Plésiosaure",7,10,4,"d10",["Balayage","Frénésie"],"Un long cou jaillit de l'eau noire, et la barque chavire.","dino",1),
+ brontosaure:creer("Brontosaure",8,12,4,"d10",["Balayage"],"Paisible tant qu'on ne l'affole pas ; sa panique est un tremblement de terre.","dino"),
+ tyran:creer("Grand carnivore",9,12,4,"d12",["Éventration","Frénésie"],"Le roi des terres sauvages : sa mâchoire coupe un homme en deux.","dino",3),
+ /* Créatures magiques et mythiques */
+ fee:creer("Fée tordue",2,6,2,"d4",["Double illusoire","Malédiction"],"Petite, rieuse, cruelle : elle mêle les sens et les serments.","mythe"),
+ esprit:creer("Esprit hurleur",3,6,2,"d6",["Malédiction","Drain de vie"],"Une plainte dans le vent, qui glace le sang et vole le souffle.","mythe"),
+ basilic:creer("Basilic",4,8,4,"d8",["Paralysie"],"Un regard qui pétrifie ; ne jamais le croiser en face.","mythe"),
+ licorne:creer("Licorne noire",4,8,2,"d8",["Éventration"],"Belle et furieuse, elle protège une forêt maudite.","mythe"),
+ griffon:creer("Griffon",5,10,2,"d10",["Balayage","Éventration"],"Mi-aigle, mi-lion, il défend son nid jusqu'à la mort.","mythe"),
+ manticore:creer("Manticore",5,10,4,"d8",["Paralysie","Frénésie"],"Visage presque humain, queue de dards venimeux.","mythe"),
+ troll:creer("Troll",5,12,2,"d10",["Frénésie","Drain de vie"],"Il se referme sur ses blessures ; seuls le feu et l'acide l'achèvent.","mythe"),
+ eau:creer("Élémentaire d'eau",6,8,2,"d8",["Balayage"],"Une vague qui pense, et qui noie.","mythe"),
+ terre:creer("Élémentaire de terre",6,12,6,"d10",["Carapace","Balayage"],"Un éboulement qui marche.","mythe"),
+ air:creer("Élémentaire d'air",5,6,2,"d6",["Balayage","Double illusoire"],"Un tourbillon invisible qui projette et désoriente.","mythe"),
+ chimere:creer("Chimère",6,10,4,"d10",["Projection de flammes","Frénésie"],"Lion, chèvre et serpent ; elle crache le feu.","mythe",1),
+ phenix:creer("Phénix",6,8,2,"d8",["Projection de flammes","Drain de vie"],"Oiseau de flammes, qui renaît de ses cendres si on ne les disperse pas.","mythe",1),
+ jeunedragon:creer("Jeune dragon",7,10,6,"d10",["Projection de flammes","Balayage"],"Encore petit pour un dragon ; bien assez grand pour un village.","mythe",2),
+ sphinx:creer("Sphinx",8,10,6,"d10",["Malédiction","Paralysie"],"Il garde un passage et pose une énigme ; une mauvaise réponse se paie cher.","mythe",2)
+};
+Object.assign(BASES,BESTIAIRE_PLUS);
+const CAT_BESTIAIRE={dino:"Dinosaures et monstres préhistoriques",mythe:"Créatures magiques et mythiques"};
+
+/* Adversaires de ces catégories ajoutés aux univers concernés */
+TH.prehistoire.adv.push("Raptors|raptor|Ils chassent en meute à la lisière des fougères.||","Ptérodactyle|pterodactyle|Il niche sur les falaises et fond sur les enfants.||","Grand carnivore|tyran|Le roi des terres sauvages.||","Tricératops furieux|triceratops|Une charge qui renverse les huttes.||");
+TH.fantasy.adv.push("Fée tordue|fee|Elle rit en mêlant les sens.||s","Troll des ponts|troll|Il se referme sur ses blessures.||s","Griffon|griffon|Il défend son nid jusqu'à la mort.||s","Jeune dragon|jeunedragon|Bien assez grand pour un village.||s");
+TH.antiquite.adv.push("Sphinx|sphinx|Il garde un passage et pose une énigme.||s","Chimère|chimere|Lion, chèvre et serpent.||s","Basilic|basilic|Son regard pétrifie.||s");
+/* Fallout : adversaires rétro-atomiques pour le post-apocalypse */
+TH.postapo.adv.push("Cafards irradiés|compsognathes|Une marée de cafards gros comme des chats.|Horde|s","Super-mutant|ogre|Une brute verte de trois mètres, armée d'un tuyau.|Frénésie|s","Écorcheur des ruines|wiverne|Griffes de faux, cornes, et une vitesse terrifiante.|Éventration+Frénésie|s","Robot domestique détraqué|engin|Il sert encore le thé… et découpe les intrus.|Carapace+Projection de flammes","Pillard en armure assistée|chevalier|Une armure d'avant-guerre, réparée au chalumeau.|Carapace+Balayage");
 
 /* ==========================================================================
    Boîte à outils du Conteur : éléments imposés.
@@ -1329,6 +1389,14 @@ const ELT_UNIV={
 };
 Object.entries(ELT_UNIV).forEach(([th,l])=>Object.entries(l).forEach(([k,e])=>{ELEMENTS[k]=Object.assign({cat:"Univers",th},e)}));
 
+/* Éléments rétro-atomiques (Fallout) pour le post-apocalypse */
+Object.assign(ELEMENTS,{
+ abri:{nom:"l'abri antiatomique",cat:"Univers",th:"postapo",f:["il vient de rouvrir après deux siècles, et ses habitants n'ont jamais vu le ciel","c'était une expérience : ses concepteurs voulaient voir ce que deviennent les gens enfermés","son superviseur règne encore, et ne laisse sortir personne"],
+  regle:"Tout passe par le terminal : portes, lumières, robots et réserves d'air obéissent au superviseur, ou à qui le pirate.",zones:["la grande porte roulante","l'atrium et ses néons","les quartiers de l'expérience","le bureau du superviseur"],climax:"le programme de confinement se réactive : 4 tours avant le verrouillage",fin:"L'abri se scelle pour deux cents ans de plus."},
+ cratere:{nom:"la ville du cratère",cat:"Univers",th:"postapo",f:["elle est bâtie autour d'une bombe qui n'a jamais explosé, et qu'une secte vénère","on y troque tout, même les gens, sous les lettres géantes d'un casino d'avant-guerre","sa source d'eau pure attire toutes les factions du désert"],
+  regle:"La loi du shérif tient en une phrase : pas de tir en ville. La violer, c'est avoir toute la ville contre soi.",zones:["le marché de tôle","le saloon-casino","l'église de l'atome","la bombe, au centre"],climax:"quelqu'un amorce la bombe : 4 tours",fin:"La bombe explose enfin, ou change de mains."}
+});
+
 "use strict";
 /* ============ Outils ============ */
 const $=id=>document.getElementById(id);
@@ -1395,10 +1463,10 @@ function resoudre(ref){
   if(ref.p){const c=DB.perso.find(x=>x.id===ref.p);return c?Object.assign({},c,{ref,origine:"Créature maison"}):null}
   let nom,b,desc="",caps=null,surnat=false;
   if(ref.th){const t=TBY[ref.th];const a=t&&t.advP[ref.i];if(!a)return null;({nom,b,desc,caps,surnat}=a)}
-  else{b=ref.b;nom=ref.nom||BASES[b].n;desc=ref.desc||""}
+  else{b=ref.b;nom=ref.nom||BASES[b].n;desc=ref.desc||BASES[b].desc||""}
   const base=BASES[b];if(!base)return null;
   const origine=(LIVRE[b]?"D'après le bestiaire : ":"Figurant, profil : ")+base.n.toLowerCase();
-  return Object.assign({},base,{nom,desc,cap:caps||base.cap,ref,b,surnat,origine:nom===base.n?(LIVRE[b]?"Bestiaire du livre":"Figurant générique"):origine});
+  return Object.assign({},base,{nom,desc,cap:caps||base.cap,ref,b,surnat,origine:base.cat?CAT_BESTIAIRE[base.cat]+" (méthode du livre)":nom===base.n?(LIVRE[b]?"Bestiaire du livre":"Figurant générique"):origine});
 }
 /* Menace d'une créature : moyenne géométrique de ce qu'elle inflige et de ce qu'elle encaisse face à un coureur de niveau 1
    (attaque d20 + 1, défense d20 + 2), corrigée par ses capacités ; 1 = un orque. Estimation maison. */
@@ -1412,8 +1480,10 @@ const DIFFS={facile:["Facile",.6],equilibre:["Équilibré",1],rude:["Rude",1.5],
 function budget(diff){return puissance()*DIFFS[diff][1]}
 function niveauDe(sum){const r=sum/puissance();return r<.8?"facile":r<1.25?"equilibre":r<1.8?"rude":"mortel"}
 const badge=k=>`<span class="niv ${k}">${DIFFS[k][0]}</span>`;
-function vileniePar(c){return c.dv>=9?3:c.dv>=7?2:0}
-function poolTheme(){const t=T(),p=P();let l=t.advP.filter(a=>p.surnat||!a.surnat);if(!l.length)l=t.advP;return l.map(a=>({th:t.id,i:a.i}))}
+function vileniePar(c){if(c.vil)return c.vil;return c.dv>=9?3:c.dv>=7?2:0}
+function poolTheme(){const t=T(),p=P();let l=t.advP.filter(a=>p.surnat||!a.surnat);if(!l.length)l=t.advP;let r=l.map(a=>({th:t.id,i:a.i}));
+  const ins=p.inspis||[];if(ins.includes("jurassic")||ins.includes("mondeperdu"))r=r.concat(Object.keys(BESTIAIRE_PLUS).filter(k=>BESTIAIRE_PLUS[k].cat==="dino").map(b=>({b})));
+  return r}
 /* Choisit une rencontre. Renvoie {lead,troupe,diff} ; les effectifs sont recalculés à l'affichage selon le groupe. */
 function tirerRencontre(diff,opt={}){
   const B=budget(diff);const pool=(opt.pool||poolTheme()).map(r=>({r,c:resoudre(r)})).filter(x=>x.c);
@@ -1481,9 +1551,9 @@ function eltsChoisis(o){const l=(o.elts||[]).filter(k=>ELEMENTS[k]).map(k=>({id:
 function varsCtx(c,extra){const t=TBY[(P().av&&P().av.theme)||P().theme];const l=c.l||c.l1,a=nomCourt(c.a);const F=(c.f||[]).map(i=>t.facP[i].nom);
   const sec=c.a.secret.charAt(0).toLowerCase()+c.a.secret.slice(1);
   return Object.assign(designations(c),varsElt(c),{lc:c.lc||c.l1,comm:c.comm,comm2:"le commanditaire",o2:c.o2||"l'objet convoité",a,dea:deX(a),aa:aX(a),sec,o:c.o,p:c.p,l0:c.l0||(c.lieux&&c.lieux[0]),l1:c.l1,l,dl:deX(l),jl:"jusqu'"+aX(l),F1:F[0]||"",F2:F[1]||"",F3:F[2]||"",amb:c.amb,l6:c.lieux?c.lieux[6]:c.l1,proie:c.proie?`« ${c.proieNom} »`:"la bête"},extra||{})}
-function remplir(s,c,extra){if(c.l0orig&&c.l0===c.l1&&/\{l0\}|\{L0\}/.test(s)&&/\{l1\}|\{L1\}|\{lc\}/.test(s))c=Object.assign({},c,{l0:c.l0orig});if(c.elt){const k=c.l0===c.l1?"l0|l1|lieu|lc":"l1|lieu|lc";s=s.replace(new RegExp("(?<!jusqu')\\bà \\{("+k+")\\}","g"),"dans {$1}").replace(new RegExp("À \\{("+k+")\\}","g"),"Dans {$1}").replace(/sur la place de \{l0\}/g,c.l0===c.l1?"au pied de {l0}":"sur la place de {l0}")}const v=varsCtx(c,extra);if(c.F)v.F=c.F;let out=s;
+function remplir(s,c,extra,brut){if(c.l0orig&&c.l0===c.l1&&/\{l0\}|\{L0\}/.test(s)&&/\{l1\}|\{L1\}|\{lc\}/.test(s))c=Object.assign({},c,{l0:c.l0orig});if(c.elt){const k=c.l0===c.l1?"l0|l1|lieu|lc":"l1|lieu|lc";s=s.replace(new RegExp("(?<!jusqu')\\bà \\{("+k+")\\}","g"),"dans {$1}").replace(new RegExp("À \\{("+k+")\\}","g"),"Dans {$1}").replace(/sur la place de \{l0\}/g,c.l0===c.l1?"au pied de {l0}":"sur la place de {l0}")}const v=varsCtx(c,extra);if(c.F)v.F=c.F;let out=s;
   for(let k=0;k<3;k++){const av=out;out=out.replace(/\{(\w+)\}/g,(m,key)=>{if(v[key]!=null)return "\u0001"+v[key];const lo=key.charAt(0).toLowerCase()+key.slice(1);if(v[lo]!=null)return "\u0001"+cap(v[lo]);return m});if(av===out)break}
-  return contracter(out)}
+  out=contracter(out);return brut?out:out.replace(/(^|\n)(\d+\. |– )?([a-zàâçéèêëîïôûùüÿœ])/g,(m,a,b,c)=>a+(b||"")+c.toUpperCase())}
 /* « à le » → « au », « de les » → « des »… seulement devant un texte inséré (marqué \u0001). */
 function contracter(s){return s
   .replace(/(^|[\s'(])([àÀ]) \u0001le /gi,(m,a,b)=>a+(b==="À"?"Au":"au")+" ").replace(/(^|[\s'(])([àÀ]) \u0001les /gi,(m,a,b)=>a+(b==="À"?"Aux":"aux")+" ")
@@ -1566,7 +1636,7 @@ const BLOCS={
  chapitre:{titre:"Chapitre",tirer:(j,c)=>({m:tirerMission(),g:(c&&c.genreDom&&R(10)<6)?(c.genre2&&R(2)?c.genre2:c.genreDom):pick(Object.keys(GENRES)),mi:R(99),comp:R(99),l:R(99),f:R(3),diff:pick(["equilibre","rude"]),renc:null}),
   texte:(r,c,t,j,n)=>{const F=t.facP[c.f[r.f%3]];const l=c.lieux[r.l%c.lieux.length];const cc=Object.assign({},c,{l});
    if(j===n-1)return `Confrontation finale ${aX(c.lieux[6])} : ${nomCourt(c.a)} joue son va-tout. Les factions encore debout choisissent leur camp.\nComplication : ${t.complications[r.comp%t.complications.length]}.`;
-   const mis=r.g?remplir(pick1(GENRES[r.g].mission,r.mi),cc):texteMission(r.m,cc).charAt(0).toLowerCase()+texteMission(r.m,cc).slice(1);
+   const mis=r.g?remplir(pick1(GENRES[r.g].mission,r.mi),cc,null,true):texteMission(r.m,cc).charAt(0).toLowerCase()+texteMission(r.m,cc).slice(1);
    return `${r.g?GENRES[r.g].nom+" · p":"P"}our ${F.nom} : ${mis}.\nComplication : ${t.complications[r.comp%t.complications.length]}.\nFin du chapitre : tu peux faire monter les coureurs d'un niveau.`},
   rencDe:(r,c,t,j,n)=>j===n-1?{lead:{nom:cap(nomCourt(c.a)),b:c.a.b,desc:c.a.secret},troupe:r.troupe,diff:"rude"}:r.renc,renc:true}
 };
@@ -1620,7 +1690,7 @@ function nouvelleAventure(){
   if(c.genre==="chasse"||c.genre2==="chasse"){const pr=choisirProie();if(pr){c.proie=pr;c.proieNom=resoudre(pr).nom}}
   const els=eltsChoisis(p);
   if(els.length){c.elt=Object.assign(els[0],{fi:R(3)});if(els[1])c.elt2=Object.assign(els[1],{fi:R(3)});
-    const d=eltDef(c.elt);c.l1=d.nom;if(["siege","enquete","horreur","intrigue"].includes(c.genre)){c.l0orig=c.l0;c.l0=d.nom}const z=d.zones.map(x=>remplir(x,c));c.lp=[z[0],z[1],z[2]];c.lc=z[3];
+    const d=eltDef(c.elt);c.l1=d.nom;if(["siege","enquete","horreur","intrigue"].includes(c.genre)){c.l0orig=c.l0;c.l0=d.nom}const z=d.zones.map(x=>remplir(x,c,null,true));c.lp=[z[0],z[1],z[2]];c.lc=z[3];
     if(c.lieux)c.lieux[6]=d.nom}
   if(p.type==="oneshot"){
     c.climaxI=R(2);
@@ -1736,6 +1806,7 @@ function rendreAventure(){
     <span class="rangee no-print"><button class="mini" data-act="imprimer">Imprimer</button></span></div>
    <div class="scene-h"><h2 class="av-titre txt" contenteditable="plaintext-only" data-edit="titre">${esc(av.titre)}</h2></div>
    ${c.genre&&av.type==="oneshot"?`<p class="adn"><b>Ambiance.</b> ${esc(remplir([c.inspi,c.inspi2].filter(k=>k&&INSPI[k]).map(k=>INSPI[k].adn).join(" ")||GENRES[c.genre].adn,c))}</p>`:""}
+  </div><div class="bloc"><div class="bloc-h"><h2>L'histoire et ses acteurs</h2><small>Résumé, antagoniste, commanditaire, enjeu, lieux.</small></div>
    ${(()=>{const si=av.blocs.findIndex(b=>b.k==="synopsis");return si>=0?sceneHTML(av.blocs[si],si,"",true,"L'histoire en bref"):""})()}
    <div class="grille2">
     ${carteCtx("Antagoniste","a",`<b>${esc(cap(c.a.nom))}</b>\n${esc(c.a.secret)}`,ficheMini(resoudre({b:c.a.b,nom:cap(nomCourt(c.a))})))}
@@ -1836,6 +1907,7 @@ function listeBestiaire(){
   if(BEST.filtre==="theme")l=t.advP.filter(a=>p.surnat||!a.surnat).map(a=>({th:t.id,i:a.i}));
   else if(BEST.filtre==="livre")l=Object.keys(LIVRE).map(b=>({b}));
   else if(BEST.filtre==="figurants")l=Object.keys(MODELES).map(b=>({b}));
+  else if(BEST.filtre==="dino"||BEST.filtre==="mythe")l=Object.keys(BESTIAIRE_PLUS).filter(k=>BESTIAIRE_PLUS[k].cat===BEST.filtre).map(b=>({b}));
   else l=DB.perso.map(c=>({p:c.id}));
   let cs=l.map(resoudre).filter(Boolean);
   if(BEST.q){const q=BEST.q.toLowerCase();cs=cs.filter(c=>(c.nom+" "+c.desc+" "+c.cap.join(" ")).toLowerCase().includes(q))}
@@ -1866,9 +1938,10 @@ function rendreBestiaire(){
     <p class="small muted">Estimation maison : le livre ne cherche pas l'équilibre (« pas d'équilibre forcé », p. 57). Le repère sert à doser, pas à garantir l'issue.</p>
   </div>
   <div class="bloc"><div class="bloc-h"><h2>Bestiaire</h2><small>${cs.length} fiche${cs.length>1?"s":""}</small></div>
-    <div class="rangee"><div class="seg">${f("theme",esc(t.nom))}${f("livre","Livre")}${f("figurants","Figurants")}${f("perso","Mes créatures")}</div>
+    <div class="rangee"><div class="seg">${f("theme",esc(t.nom))}${f("livre","Livre")}${f("dino","Dinosaures")}${f("mythe","Mythiques")}${f("figurants","Figurants")}${f("perso","Mes créatures")}</div>
       <label style="flex:1 1 180px"><span class="sr">Chercher</span><input id="qBest" type="search" placeholder="Chercher : horde, feu, chien…" value="${esc(BEST.q)}"></label></div>
     ${BEST.filtre==="theme"?`<p class="small muted">Les adversaires du thème reprennent les profils du livre (ou des figurants construits avec sa méthode, p. 28) sous un autre habit, comme le livre le propose pour le minotaure.</p>`:""}
+    ${BEST.filtre==="dino"||BEST.filtre==="mythe"?`<p class="small muted">${esc(CAT_BESTIAIRE[BEST.filtre])} : profils construits avec la méthode du livre (attaque = 12 + DV, −1 dès 5 DV, −2 dès 9 DV ; défense = 10 + armure ; 2 attaques dès 5 DV, 3 dès 9 DV). Les plus redoutables ont des dés de vilenie.</p>`:""}
     ${BEST.filtre==="figurants"?`<p class="small muted">Profils construits avec la méthode du livre : attaque = 12 + DV (−1 dès 5 DV, −2 dès 9 DV), défense = 10 + armure.</p>`:""}
     ${cs.length?`<div class="cartes">${cs.map(ficheCrea).join("")}</div>`:`<p class="vide">${BEST.filtre==="perso"?"Aucune créature maison. Crée la première ci-dessous.":"Rien ne correspond."}</p>`}
   </div>
@@ -2010,10 +2083,29 @@ function rendreNotes(){
   </div>`;
 }
 
+/* ============ Sections repliables ============ */
+const PLI_KEY=LS+"-plies";let PLIES={};try{PLIES=JSON.parse(localStorage.getItem(PLI_KEY)||"{}")||{}}catch(e){}
+const PLI_DEFAUT=["Rappels de combat","Aide-mémoire","Inventer une créature","Appareil et sauvegarde","Journal du combat","Figures"];
+function titreBloc(b){const h=b.querySelector(":scope > .bloc-h > h2, :scope > h3, :scope > .bloc-h > h3");if(!h||h.isContentEditable)return null;return h}
+function pliables(vue){const v=$("v-"+vue);if(!v)return;const blocs=[...v.querySelectorAll(".bloc")].filter(b=>titreBloc(b));
+  blocs.forEach(b=>{const h=titreBloc(b);const k=vue+"|"+h.textContent.replace(/^\d+\s*/,"").trim();b.classList.add("pliable");b.dataset.pli=k;
+   const plie=PLIES[k]!=null?PLIES[k]:PLI_DEFAUT.includes(h.textContent.trim());b.classList.toggle("replie",plie);
+   const tete=h.closest(".bloc-h")||h;tete.classList.add("tete-pli");tete.setAttribute("role","button");tete.tabIndex=0;tete.setAttribute("aria-expanded",String(!plie))});
+  let bar=v.querySelector(":scope > .barre-pli");if(blocs.length>=3){if(!bar){bar=document.createElement("div");bar.className="barre-pli no-print";bar.innerHTML=`<button class="mini ghost" data-pliall="1">Tout replier</button><button class="mini ghost" data-pliall="0">Tout déplier</button>`;v.prepend(bar)}}else if(bar)bar.remove()}
+function basculerPli(b,etat){const plie=etat!=null?etat:!b.classList.contains("replie");b.classList.toggle("replie",plie);PLIES[b.dataset.pli]=plie;
+  const t=b.querySelector(".tete-pli");if(t)t.setAttribute("aria-expanded",String(!plie));try{localStorage.setItem(PLI_KEY,JSON.stringify(PLIES))}catch(e){}}
+document.addEventListener("click",e=>{const t=e.target.closest(".tete-pli");if(!t||e.target.closest("button,input,select,textarea,a,[contenteditable]"))return;const b=t.closest(".pliable");if(b)basculerPli(b)},true);
+document.addEventListener("keydown",e=>{if((e.key==="Enter"||e.key===" ")&&e.target.classList&&e.target.classList.contains("tete-pli")){e.preventDefault();basculerPli(e.target.closest(".pliable"))}});
+document.addEventListener("click",e=>{const b=e.target.closest("[data-pliall]");if(!b)return;const v=b.closest(".vue");v.querySelectorAll(".pliable").forEach(x=>basculerPli(x,b.dataset.pliall==="1"))});
+
+/* Toute vue redessinée (même partiellement) retrouve ses sections repliables */
+const OBS=new MutationObserver(ms=>{const vs=new Set(ms.map(m=>m.target.closest&&m.target.closest(".vue")).filter(Boolean));vs.forEach(v=>{if(!v.querySelector(".pliable")||[...v.querySelectorAll(".bloc")].some(b=>titreBloc(b)&&!b.classList.contains("pliable")))pliables(v.id.slice(2))})});
+document.querySelectorAll(".vue").forEach(v=>OBS.observe(v,{childList:true}));
+
 /* ============ Navigation et rendu ============ */
 let ONGLET="accueil";
 const RENDUS={accueil:rendreAccueil,partie:rendrePartie,aventure:rendreAventure,bestiaire:rendreBestiaire,combat:rendreCombat,outils:rendreOutils,notes:rendreNotes};
-function rendre(){if(!P()&&ONGLET!=="accueil")ONGLET="accueil";document.body.classList.toggle("a-accueil",ONGLET==="accueil");rendreResume();RENDUS[ONGLET]();
+function rendre(){if(!P()&&ONGLET!=="accueil")ONGLET="accueil";document.body.classList.toggle("a-accueil",ONGLET==="accueil");rendreResume();RENDUS[ONGLET]();pliables(ONGLET);
   document.querySelectorAll(".vue").forEach(v=>v.classList.toggle("active",v.id==="v-"+ONGLET));
   document.querySelectorAll("[data-tab]").forEach(b=>b.setAttribute("aria-current",b.dataset.tab===ONGLET?"page":"false"))}
 function aller(o){ONGLET=o;if(o!=="accueil"){P().vu=Date.now();sauver()}rendre();window.scrollTo({top:0})}
