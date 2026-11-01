@@ -270,6 +270,23 @@ body.a-accueil{--nav-h:0px}
 .barre-pli{display:flex;justify-content:flex-end;gap:6px;margin-bottom:-8px}
 @media (prefers-reduced-motion:reduce){.tete-pli > h2::before{transition:none}}
 @media print{.pliable.replie > *{display:revert!important}}
+/* Assistant de nouvelle partie : étapes qui se résument une fois faites */
+.assistant{gap:8px}
+.pas{border:1px solid var(--line);border-radius:6px;background:var(--bg)}
+.pas.ouvert{padding:12px 14px;display:flex;flex-direction:column;gap:10px;border-color:var(--accent);box-shadow:inset 3px 0 0 var(--accent)}
+.pas-h{display:flex;align-items:center;gap:10px}
+.pas-h h3{font-size:20px}
+.num{flex:none;width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font-family:var(--f-display);font-size:15px;background:var(--accent);color:var(--accent-ink);letter-spacing:0}
+.pas.ferme{width:100%;display:grid;grid-template-columns:auto minmax(0,9em) minmax(0,1fr) auto;align-items:center;gap:10px;text-align:left;padding:9px 12px;font-family:var(--f-body);letter-spacing:0;font-size:15.5px}
+.pas.ferme .num{background:var(--surface);color:var(--spark);border:1px solid var(--spark)}
+.pas-t{font-family:var(--f-label);font-size:13px;letter-spacing:.06em;color:var(--muted)}
+.pas-res{min-width:0;overflow:hidden;text-overflow:ellipsis}
+.pas-res b{font-weight:400;font-size:18px}
+.pas-mod{font-family:var(--f-small);font-size:13px;color:var(--accent)}
+.pas.ferme:hover{border-color:var(--accent)}
+@media (max-width:560px){.pas.ferme{grid-template-columns:auto minmax(0,1fr) auto}.pas-t{grid-column:2}.pas-res{grid-column:2;grid-row:2}.pas.ferme .num{grid-row:span 2}.pas-mod{grid-row:span 2;grid-column:3}}
+.pas-corps .etape > .sub:first-child{display:none}
+.lancer{margin-top:6px}
 
 </style>
 </head>
@@ -1753,23 +1770,31 @@ let NOUV=null;
 function rendreAccueil(){
   const ids=Object.keys(DB.parties).sort((a,b)=>(DB.parties[b].vu||DB.parties[b].cree)-(DB.parties[a].vu||DB.parties[a].cree));
   const v=$("v-accueil");
-  if(NOUV){const n=NOUV;
-    v.innerHTML=`<div class="bloc"><div class="bloc-h"><h2>Nouvelle partie</h2><button class="mini ghost" data-act="nouv-annuler">Annuler</button></div>
-     <div class="etape"><span class="sub"><b>1</b>Thème</span>
-      <div class="themes">${THEMES.map(x=>`<button class="theme" data-ntheme="${x.id}" aria-pressed="${x.id===n.theme}"><b style="font-family:${esc(STY[x.id][0])},var(--f-display)">${esc(x.nom)}</b><span>${esc(x.acc)}</span></button>`).join("")}</div></div>
-     <div class="grille2">
-      <div class="etape"><span class="sub"><b>2</b>Le groupe</span>
-       <div class="rangee"><span class="small">Coureurs</span><div class="stepper"><button data-nn="-1" aria-label="Un coureur de moins">−</button><output>${n.n}</output><button data-nn="1" aria-label="Un coureur de plus">＋</button></div></div>
+  if(NOUV){const n=NOUV;const camp=n.type==="campagne";const t=TBY[n.theme];
+    /* Assistant en étapes : l'étape ouverte montre ses choix ; les autres se résument en une ligne. */
+    const gs=typesDe(n),is=camp?[]:(n.inspis||[]).filter(k=>INSPI[k]),es=eltsChoisis(n).map(x=>eltDef(x).nom);
+    const etapes=[
+     {k:"theme",t:"Univers",res:`<b style="font-family:${esc(STY[n.theme][0])},var(--f-display)">${esc(t.nom)}</b> <span class="muted">· ${esc(t.acc)}</span>`,
+      corps:`<div class="themes">${THEMES.map(x=>`<button class="theme" data-ntheme="${x.id}" aria-pressed="${x.id===n.theme}"><b style="font-family:${esc(STY[x.id][0])},var(--f-display)">${esc(x.nom)}</b><span>${esc(x.acc)}</span></button>`).join("")}</div>`},
+     {k:"groupe",t:"Le groupe",res:`${n.n} coureur${n.n>1?"s":""} de niveau ${n.niv}`,
+      corps:`<div class="rangee"><span class="small">Coureurs</span><div class="stepper"><button data-nn="-1" aria-label="Un coureur de moins">−</button><output>${n.n}</output><button data-nn="1" aria-label="Un coureur de plus">＋</button></div></div>
        <div class="rangee"><span class="small">Niveau</span><div class="seg">${[1,2,3,4,5,6].map(k=>`<button data-nniv="${k}" aria-pressed="${k===n.niv}">${k}</button>`).join("")}</div></div>
-       <p class="small muted">Tu pourras nommer chaque coureur et changer son niveau ensuite.</p></div>
-      <div class="etape"><span class="sub"><b>3</b>Type de partie</span>
-       <div class="seg"><button data-ntype="oneshot" aria-pressed="${n.type==="oneshot"}">One-shot</button><button data-ntype="campagne" aria-pressed="${n.type==="campagne"}">Campagne</button></div>
-       <p class="small muted">${n.type==="oneshot"?"Une séance, de l'accroche à la confrontation.":"Plusieurs séances, avec factions et chapitres."}</p>
-       <label class="toggle"><input type="checkbox" id="nSurnat"${n.surnat?" checked":""}> Créatures surnaturelles</label></div>
-     </div>
-     <div class="etape"><span class="sub"><b>4</b>L'aventure</span>${choixComplet(n,"n",n.type==="campagne",n.theme)}</div>
-     <div class="rangee fin"><button class="primary" data-act="nouv-go">Lancer la partie →</button></div>
-     <p class="small muted">L'aventure est tirée tout de suite ; son titre se change dans l'onglet Aventure.</p></div>`;return}
+       <p class="small muted">Tu pourras nommer chaque coureur et changer son niveau ensuite.</p>`,suivant:1},
+     {k:"type",t:"Type de partie",res:`${camp?"Campagne":"One-shot"} · ${n.surnat?"avec":"sans"} surnaturel`,
+      corps:`<div class="seg"><button data-ntype="oneshot" aria-pressed="${!camp}">One-shot</button><button data-ntype="campagne" aria-pressed="${camp}">Campagne</button></div>
+       <p class="small muted">${camp?"Plusieurs séances, avec factions et chapitres.":"Une séance, de l'accroche à la confrontation."}</p>
+       <label class="toggle"><input type="checkbox" id="nSurnat"${n.surnat?" checked":""}> Créatures surnaturelles</label>`,suivant:1},
+     {k:"genres",t:"Type d'aventure",res:gs.length?gs.map(g=>esc(GENRES[g].nom)).join(" puis "):"Au hasard",corps:choixComplet(n,"n",camp,n.theme,"types"),suivant:1},
+     camp?null:{k:"oeuvres",t:"Dans l'esprit de…",res:is.length?is.map(k=>"« "+esc(INSPI[k].ref.split(",")[0])+" »").join(" et "):"Aucune œuvre",corps:choixComplet(n,"n",camp,n.theme,"oeuvres"),suivant:1},
+     {k:"elts",t:"Éléments imposés",res:es.length?es.map(esc).join(" et "):"Aucun",corps:choixComplet(n,"n",camp,n.theme,"elts"),suivant:1}
+    ].filter(Boolean);
+    if(n.ouverte==null)n.ouverte=0;if(n.ouverte>=etapes.length)n.ouverte=-1;
+    v.innerHTML=`<div class="bloc assistant"><div class="bloc-h"><h2>Nouvelle partie</h2><button class="mini ghost" data-act="nouv-annuler">Annuler</button></div>
+     ${etapes.map((e,i)=>i===n.ouverte?`<section class="pas ouvert" aria-label="${esc(e.t)}"><div class="pas-h"><span class="num">${i+1}</span><h3>${esc(e.t)}</h3></div>
+       <div class="pas-corps">${e.corps}</div>${e.suivant?`<div class="rangee fin"><button class="primary mini" data-npas="${i+1}">${i===etapes.length-1?"Terminer":"Valider"} →</button></div>`:""}</section>`
+      :`<button class="pas ferme" data-npas="${i}" aria-label="Modifier : ${esc(e.t)}"><span class="num">${i<n.ouverte||n.ouverte<0?"✓":i+1}</span><span class="pas-t">${esc(e.t)}</span><span class="pas-res">${e.res}</span><span class="pas-mod">Modifier</span></button>`).join("")}
+     <div class="rangee fin lancer"><button class="primary" data-act="nouv-go">Lancer la partie →</button></div>
+     <p class="small muted">Tu peux lancer à tout moment : les étapes non vues gardent leur valeur par défaut. L'aventure est tirée tout de suite ; son titre se change dans l'onglet Aventure.</p></div>`;return}
   v.innerHTML=`<div class="accueil">
    <button class="bloc carte-nouv" data-act="nouv"><span class="gros">＋</span><span><h2>Nouvelle partie</h2><span class="small muted">Thème, groupe, one-shot ou campagne : l'aventure est prête en trois choix.</span></span></button>
    <div class="bloc"><div class="bloc-h"><h2>Parties en cours</h2><small>${ids.length?ids.length+" partie"+(ids.length>1?"s":""):""}</small></div>
@@ -1845,23 +1870,24 @@ function rendreAventure(){
 let CHOIX_OUVERT=false;
 /* Choix au clic : types (2 au plus), œuvres (2 au plus), éléments (2 au plus). cible = "p" (partie) ou "n" (nouvelle partie). */
 function typesDe(o){let g=(o.genres||[]).filter(k=>GENRES[k]);if(!g.length)g=[...new Set((o.inspis||[]).filter(k=>INSPI[k]).map(k=>INSPI[k].g))];return g.slice(0,2)}
-function choixComplet(o,cible,camp,theme){
+function choixComplet(o,cible,camp,theme,seul){
   const gs=(o.genres||[]).filter(k=>GENRES[k]),is=(o.inspis||[]).filter(k=>INSPI[k]),es=eltsChoisis(o).map(x=>x.id);
   const listeI=Object.entries(INSPI).filter(([k,x])=>!gs.length||gs.includes(x.g));
   const libT=gs.length===2?`L'aventure commence en ${GENRES[gs[0]].nom.toLowerCase()}, puis bascule en ${GENRES[gs[1]].nom.toLowerCase()} pour le climax.`:gs.length?"Touche un second type pour les croiser.":"Aucun type choisi : il sera tiré au sort (ou déduit des œuvres choisies).";
   const univ=Object.entries(ELEMENTS).filter(([k,e])=>e.th===theme),comm=Object.entries(ELEMENTS).filter(([k,e])=>!e.th),autres=Object.entries(ELEMENTS).filter(([k,e])=>e.th&&e.th!==theme);
   const chip=([k,e])=>`<button class="chip" data-te="${k}" data-cible="${cible}" aria-pressed="${es.includes(k)}"${!es.includes(k)&&es.length>=2?" disabled":""}>${esc(cap(e.nom.replace(/^(le |la |les |l')/,"")))}</button>`;
-  return `<div class="etape"><span class="sub">Type d'aventure <span class="muted">(1 ou 2, au clic)</span></span>
+  const pT=`<div class="etape"><span class="sub">Type d'aventure <span class="muted">(1 ou 2, au clic)</span></span>
     <div class="genres">${Object.entries(GENRES).map(([k,g])=>`<button class="genre" data-tg="${k}" data-cible="${cible}" aria-pressed="${gs.includes(k)}"${!gs.includes(k)&&gs.length>=2?" disabled":""}><b>${gs.includes(k)?(gs.indexOf(k)+1)+". ":""}${esc(g.nom)}</b><span>${esc(g.desc)}</span></button>`).join("")}</div>
-    <p class="small muted">${libT}${gs.length?` <button class="mini ghost" data-tg="" data-cible="${cible}">Tout effacer</button>`:""}</p></div>
-   ${camp?"":`<div class="etape"><span class="sub">Dans l'esprit de… <span class="muted">(0 à 2 œuvres, au clic)</span></span>
+    <p class="small muted">${libT}${gs.length?` <button class="mini ghost" data-tg="" data-cible="${cible}">Tout effacer</button>`:""}</p></div>`;
+  const pO=camp?"":`<div class="etape"><span class="sub">Dans l'esprit de… <span class="muted">(0 à 2 œuvres, au clic)</span></span>
     <div class="chips">${listeI.map(([k,x])=>`<button class="chip" data-ti="${k}" data-cible="${cible}" aria-pressed="${is.includes(k)}" title="${esc(x.nom)}"${!is.includes(k)&&is.length>=2?" disabled":""}>${esc(x.ref.split(",")[0])}</button>`).join("")}</div>
-    <p class="small muted">${is.length?is.map(k=>`${esc(INSPI[k].ref.split(",")[0])} : ${esc(INSPI[k].nom.toLowerCase())}`).join(" · ")+". La forme et l'ambiance de l'œuvre, jamais son histoire ni ses personnages.":"Les œuvres donnent leur ambiance, leur accroche, une piste ou leur climax."}</p></div>`}
-   <div class="etape"><span class="sub">Éléments imposés <span class="muted">(0 à 2, au clic)</span></span>
+    <p class="small muted">${is.length?is.map(k=>`${esc(INSPI[k].ref.split(",")[0])} : ${esc(INSPI[k].nom.toLowerCase())}`).join(" · ")+". La forme et l'ambiance de l'œuvre, jamais son histoire ni ses personnages.":"Les œuvres donnent leur ambiance, leur accroche, une piste ou leur climax."}</p></div>`;
+  const pE=`<div class="etape"><span class="sub">Éléments imposés <span class="muted">(0 à 2, au clic)</span></span>
     <p class="small muted">L'élément devient le cœur de l'aventure : lieux des pistes et du climax, règle de jeu, compte à rebours.</p>
     <div class="rangee" style="align-items:baseline"><span class="small" style="min-width:7.5em"><b>${esc(TBY[theme].nom)}</b></span><div class="chips">${univ.map(chip).join("")}</div></div>
     ${["Lieux","Machines","Nature","Événements"].map(ct=>`<div class="rangee" style="align-items:baseline"><span class="small muted" style="min-width:7.5em">${ct}</span><div class="chips">${comm.filter(([k,e])=>e.cat===ct).map(chip).join("")}</div></div>`).join("")}
-    <details class="autres-univ"><summary class="small muted">Éléments des autres univers</summary>${THEMES.filter(t=>t.id!==theme).map(t=>`<div class="rangee" style="align-items:baseline"><span class="small muted" style="min-width:7.5em">${esc(t.nom)}</span><div class="chips">${autres.filter(([k,e])=>e.th===t.id).map(chip).join("")}</div></div>`).join("")}</details></div>`}
+    <details class="autres-univ"><summary class="small muted">Éléments des autres univers</summary>${THEMES.filter(t=>t.id!==theme).map(t=>`<div class="rangee" style="align-items:baseline"><span class="small muted" style="min-width:7.5em">${esc(t.nom)}</span><div class="chips">${autres.filter(([k,e])=>e.th===t.id).map(chip).join("")}</div></div>`).join("")}</details></div>`;
+  if(seul==="types")return pT;if(seul==="oeuvres")return pO;if(seul==="elts")return pE;return pT+pO+pE}
 function blocChoix(p,av){const camp=p.type==="campagne";
   if(av&&!CHOIX_OUVERT){return `<div class="bloc no-print type-resume"><div class="rangee"><span class="sub">Type d'aventure</span><b>${esc(libelleType(av.c)||"—")}</b><span style="flex:1"></span><button class="mini" data-act="choix-ouvrir">Changer</button><button class="mini" data-act="av-neuve">Nouvelle aventure</button></div></div>`}
   return `<div class="bloc no-print"><div class="bloc-h"><h2>Préparer l'aventure</h2>${av?`<button class="mini ghost" data-act="choix-fermer">Fermer</button>`:""}</div>
@@ -2126,7 +2152,8 @@ document.addEventListener("click",e=>{
   /* Accueil */
   if(d.act==="nouv"){NOUV={theme:(p&&p.theme)||"fantasy",n:4,niv:1,type:"oneshot",surnat:true,genres:[],inspis:[],elts:[]};rendreAccueil();window.scrollTo({top:0});return}
   if(d.act==="nouv-annuler"){NOUV=null;rendreAccueil();return}
-  if(d.ntheme){NOUV.theme=d.ntheme;if(d.ntheme==="medieval")NOUV.surnat=false;rendreAccueil();return}
+  if(d.ntheme){NOUV.theme=d.ntheme;if(d.ntheme==="medieval")NOUV.surnat=false;NOUV.ouverte=1;rendreAccueil();return}
+  if(d.npas!=null){NOUV.ouverte=+d.npas;rendreAccueil();const o=document.querySelector(".pas.ouvert");if(o)o.scrollIntoView({block:"start",behavior:"smooth"});else document.querySelector(".lancer")?.scrollIntoView({block:"center",behavior:"smooth"});return}
   if(d.nn){NOUV.n=Math.max(1,Math.min(8,NOUV.n+(+d.nn)));rendreAccueil();return}
   if(d.nniv){NOUV.niv=+d.nniv;rendreAccueil();return}
   if(d.ntype){NOUV.type=d.ntype;rendreAccueil();return}
