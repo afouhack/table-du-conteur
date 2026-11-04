@@ -926,8 +926,8 @@ Object.assign(COMMUN,{
  secretsPNJ:["doit de l'argent à {a}","renseigne en secret {F1}","a vu le crime et se tait par peur","cache un proche recherché","travaille pour l'antagoniste sans le savoir","est l'amant d'un membre de {F2}","a déjà trahi un employeur","garde chez lui une preuve sans en connaître la valeur"],
  synopsisCampagne:[
   "Une guerre sourde déchire la région : {F1}, {F2} et {F3} se disputent les restes d'un pouvoir qui s'effondre. Dans l'ombre, {a} attise les braises : {sec} Les coureurs arrivent au moment où tout peut basculer. Chaque faction voudra les acheter ; aucune ne dit toute la vérité.",
-  "Depuis que {a} s'est installé à {l6}, la région change : les routes deviennent dangereuses, les alliances se brisent, et {sec} {F1} tente de résister, {F2} négocie, {F3} attend son heure. Les coureurs vont devenir, qu'ils le veuillent ou non, les pièces maîtresses de ce jeu.",
-  "Tout commence par une petite affaire, à {l0}. Mais chaque mission rapproche les coureurs d'une vérité dérangeante : {a} prépare quelque chose d'énorme, et {sec} {F1}, {F2} et {F3} ont chacune une pièce du puzzle."]
+  "Depuis que {a} s'est installé{ae} à {l6}, la région change : les routes deviennent dangereuses, les alliances se brisent, et {sec} {F1c} {F1t} de résister, {F2} {F2n}, {F3} {F3a}. Les coureurs vont devenir, qu'ils le veuillent ou non, les pièces maîtresses de ce jeu.",
+  "Tout commence par une petite affaire, à {l0}. Mais chaque mission rapproche les coureurs d'une vérité dérangeante : {a} prépare quelque chose d'énorme, et {sec} {F1c}, {F2} et {F3} ont chacun une pièce du puzzle."]
 });
 
 
@@ -1550,21 +1550,21 @@ const COMPAT={
  huisclos:{n:["contemporain","annees20","uchronie","medieval"]},communaute:{n:["medieval","fantasy","antiquite"]},strangerthings:{n:["contemporain","uchronie","annees20"]},tintin:{n:["annees20","uchronie","contemporain","steampunk"]},
  sherlock:{n:["steampunk","annees20","contemporain"]},poirot:{n:["annees20","uchronie","contemporain"],x:["prehistoire"]},columbo:{n:["contemporain","uchronie","cyberpunk"],x:["prehistoire"]},rivieres:{n:["contemporain","medieval"]},
  retour:{n:["uchronie","contemporain","steampunk"],x:["prehistoire"],r:"le voyage dans le temps",t:{fantasy:"un sablier enchanté qui renvoie au jour d'un serment rompu",medieval:"une relique qui ramène les coureurs au jour d'un sacre",pirates:"une boussole maudite qui ramène au jour d'un naufrage",western:"une locomotive prise dans un orage magnétique",antiquite:"un oracle qui fait revivre la veille d'une bataille",annees20:"la machine d'un savant excentrique",cyberpunk:"un saut de conscience dans une vieille sauvegarde",scifi:"un saut hyperspatial raté qui renvoie dans le passé",spaceop:"un saut hyperspatial raté qui renvoie dans le passé",postapo:"un abri où le temps s'est figé avant la catastrophe"}},
- alien:{n:["scifi","spaceop","cyberpunk","pirates"]},thing:{n:["scifi","contemporain","postapo"]},lovecraft:{n:["annees20","contemporain","steampunk"]},it:{n:["contemporain","uchronie"]},gremlins:{n:["contemporain","uchronie"]},shining:{n:["contemporain","annees20","uchronie"]},dracula:{n:["steampunk","medieval","fantasy"]},
+ alien:{n:["scifi","spaceop","cyberpunk","pirates"]},thing:{n:["scifi","contemporain","postapo"]},lovecraft:{n:["annees20","contemporain","steampunk"],x:["prehistoire"]},it:{n:["contemporain","uchronie"]},gremlins:{n:["contemporain","uchronie"],x:["prehistoire"]},shining:{n:["contemporain","annees20","uchronie"]},dracula:{n:["steampunk","medieval","fantasy"]},
  mouche:{n:["contemporain","steampunk","scifi","annees20"],r:"l'expérience qui transforme son créateur",t:{fantasy:"un sortilège de fusion qui tourne mal",medieval:"un alchimiste et sa cornue",antiquite:"une métamorphose punie par les dieux",prehistoire:"un chaman et une potion d'esprit-animal",pirates:"un rite vaudou de possession",western:"l'élixir miracle d'un charlatan"}},
- indiana:{n:["annees20","antiquite","pirates"]},centre:{n:["steampunk","annees20","prehistoire"]},pirates:{n:["pirates","fantasy"]},mondeperdu:{n:["steampunk","annees20","prehistoire"]},tombraider:{n:["contemporain","antiquite","annees20"]},licorne:{n:["annees20","pirates","contemporain"]},planete:{n:["scifi","postapo","spaceop"]},
+ indiana:{n:["annees20","antiquite","pirates"]},centre:{n:["steampunk","annees20","prehistoire"]},pirates:{n:["pirates","fantasy"]},mondeperdu:{n:["steampunk","annees20","prehistoire"]},tombraider:{n:["contemporain","antiquite","annees20"]},licorne:{n:["annees20","pirates","contemporain"],x:["prehistoire"]},planete:{n:["scifi","postapo","spaceop"]},
  fallout:{n:["postapo","uchronie"],x:["prehistoire","antiquite"],r:"l'abri qui rouvre après la catastrophe",t:{fantasy:"une forteresse naine scellée après la guerre des mages",medieval:"un monastère fortifié rouvert après la grande peste",western:"une mine refuge rouverte après la grande sécheresse",pirates:"une île-refuge rouverte après le raz-de-marée",steampunk:"un abri à vapeur scellé après l'explosion des usines",cyberpunk:"un bunker corporatiste qui rouvre après l'effondrement",scifi:"une arche de colonie qui se réveille après la catastrophe",spaceop:"une arche de colonie qui se réveille après la catastrophe",annees20:"un abri de la dernière guerre, oublié de tous",contemporain:"un bunker de survivalistes qui rouvre après la catastrophe"}},
  jumanji:{n:["contemporain","uchronie","annees20"],r:"le jeu maudit",t:{prehistoire:"des osselets sacrés",antiquite:"un plateau de senet tiré d'un tombeau",medieval:"un jeu d'échecs ensorcelé",fantasy:"un plateau de jeu des fées",pirates:"des dés de pirate maudits",western:"un jeu de cartes gagné à un mauvais perdant",cyberpunk:"un jeu en réalité virtuelle dont on ne peut pas se déconnecter",scifi:"un jeu extraterrestre",spaceop:"un jeu extraterrestre",steampunk:"un automate joueur",postapo:"un vieux jeu de société trouvé dans les ruines"}},
  oceans:{n:["contemporain","cyberpunk","annees20","spaceop"],x:["prehistoire"]},mission:{n:["contemporain","cyberpunk","uchronie"],x:["prehistoire"]},lupin:{n:["annees20","steampunk","contemporain"],x:["prehistoire"]},cerclerouge:{n:["contemporain","uchronie","annees20"],x:["prehistoire"]},gardiens:{n:["spaceop","scifi"]},
  inception:{n:["cyberpunk","scifi","contemporain"],x:["prehistoire"],r:"les rêves partagés",t:{prehistoire:"des visions chamaniques partagées autour du feu",fantasy:"un sortilège de songe partagé",medieval:"la drogue d'un alchimiste qui ouvre les rêves",antiquite:"le temple d'Hypnos et ses dormeurs",pirates:"un rite vaudou qui ouvre les rêves",western:"une fumée de visions qui mêle les rêves",steampunk:"une machine à songes",annees20:"un hypnotiseur de music-hall",uchronie:"un programme secret de rêves dirigés",postapo:"un vieux casque de simulation d'avant-guerre",spaceop:"un réseau de sommeil cryogénique"}},
  salaire:{n:["postapo","western","contemporain"],x:["prehistoire"]},furyroad:{n:["postapo","western"]},anneau:{n:["fantasy","medieval"]},
  terminator:{n:["scifi","cyberpunk","contemporain","postapo"],x:["prehistoire"],r:"le tueur qu'on n'arrête pas",t:{fantasy:"un golem envoyé par un sorcier",medieval:"un chevalier damné qui ne meurt pas",antiquite:"un géant de bronze envoyé par les dieux",pirates:"un mort-vivant lancé par une malédiction",western:"un chasseur de primes qui ne meurt pas",steampunk:"un automate de guerre",annees20:"un tueur revenu d'entre les morts",uchronie:"un robot militaire d'un programme secret"}},
- et:{n:["contemporain","uchronie","scifi"]},starwars:{n:["spaceop","scifi"]},chevauchee:{n:["western","medieval","postapo"],x:["prehistoire"]},odyssee:{n:["antiquite","pirates","spaceop","fantasy"]},
- septsamourais:{n:["medieval","western","fantasy"]},assaut:{n:["western","contemporain"],x:["prehistoire"]},assaut2:{n:["contemporain","uchronie","western"],x:["prehistoire"]},zoulou:{n:["antiquite","western","steampunk"]},mortsvivants:{n:["contemporain","postapo","uchronie"]},jurassic:{n:["contemporain","scifi","steampunk"]},troopers:{n:["scifi","spaceop"]},
+ et:{n:["contemporain","uchronie","scifi"]},starwars:{n:["spaceop","scifi"],x:["prehistoire"]},chevauchee:{n:["western","medieval","postapo"],x:["prehistoire"]},odyssee:{n:["antiquite","pirates","spaceop","fantasy"]},
+ septsamourais:{n:["medieval","western","fantasy"]},assaut:{n:["western","contemporain"],x:["prehistoire"]},assaut2:{n:["contemporain","uchronie","western"],x:["prehistoire"]},zoulou:{n:["antiquite","western","steampunk"]},mortsvivants:{n:["contemporain","postapo","uchronie"]},jurassic:{n:["contemporain","scifi","steampunk"]},troopers:{n:["scifi","spaceop"],x:["prehistoire"]},
  titanic:{n:["steampunk","annees20","uchronie","contemporain"],x:["prehistoire"],r:"le paquebot qui sombre",t:{pirates:"un galion amiral surchargé",western:"un vapeur à aubes sur le fleuve",antiquite:"une trière d'apparat",medieval:"une nef de pèlerins",fantasy:"une cité flottante qui s'enfonce",scifi:"un vaisseau de croisière qui perd son orbite",spaceop:"un vaisseau de croisière qui perd son orbite",cyberpunk:"une arcologie flottante qui coule",postapo:"un ferry rafistolé, bondé de réfugiés"}},
- liaisons:{n:["medieval","steampunk","fantasy","annees20"],x:["prehistoire"]},trone:{n:["fantasy","medieval","spaceop"]},dune:{n:["spaceop","scifi","postapo"]},mousquetaires:{n:["medieval","fantasy","steampunk"],x:["prehistoire"]},housecards:{n:["contemporain","cyberpunk","uchronie","spaceop"],x:["prehistoire"]},
+ liaisons:{n:["medieval","steampunk","fantasy","annees20"],x:["prehistoire"]},trone:{n:["fantasy","medieval","spaceop"],x:["prehistoire"]},dune:{n:["spaceop","scifi","postapo"]},mousquetaires:{n:["medieval","fantasy","steampunk"],x:["prehistoire"]},housecards:{n:["contemporain","cyberpunk","uchronie","spaceop"],x:["prehistoire"]},
  spacejam:{n:["contemporain","uchronie"],r:"le match",t:{medieval:"un tournoi",antiquite:"des jeux du cirque",fantasy:"un tournoi contre le peuple des fées",western:"un rodéo",pirates:"une régate",prehistoire:"une grande chasse rituelle",postapo:"une course de bolides",cyberpunk:"un match en réalité virtuelle",annees20:"un match de base-ball truqué",steampunk:"une course de dirigeables",scifi:"un match en gravité zéro",spaceop:"un match en gravité zéro"}},
- dents:{n:["contemporain","pirates","prehistoire"]},pacte:{n:["medieval","fantasy","steampunk"]},predator:{n:["contemporain","scifi","prehistoire","western"]},mobydick:{n:["pirates","steampunk","spaceop"]},fugitif:{n:["contemporain","western","uchronie"],x:["prehistoire"]},
+ dents:{n:["contemporain","pirates","prehistoire"]},pacte:{n:["medieval","fantasy","steampunk"],x:["prehistoire"]},predator:{n:["contemporain","scifi","prehistoire","western"]},mobydick:{n:["pirates","steampunk","spaceop"]},fugitif:{n:["contemporain","western","uchronie"],x:["prehistoire"]},
  bladerunner:{n:["cyberpunk","scifi","spaceop"],x:["prehistoire","antiquite","medieval"],r:"les êtres artificiels qui veulent vivre",t:{fantasy:"des golems de chair qui veulent vivre",steampunk:"des automates qui veulent vivre",contemporain:"des clones évadés d'un laboratoire",postapo:"des androïdes d'avant-guerre",annees20:"les homoncules d'un savant",uchronie:"des robots domestiques devenus conscients",western:"des automates de foire évadés",pirates:"des marins de cire animés par un sorcier"}}
 };
 function compat(k,th){const c=COMPAT[k]||{};if((c.n||[]).includes(th))return "n";if((c.x||[]).includes(th))return "x";return "t"}
@@ -1819,7 +1819,7 @@ const VOCAB={
   cargaison:"un coffre scellé tiré d'une tombe ancienne",cargC:"le coffre",appel:"la cloche du col",appelPanne:"corde tranchée",issue:"le pont de corde au-dessus du gouffre",arme:"le feu et l'argent (torches, lames bénites)",armeC:"le feu ou l'argent",secours:"les gardes du col",lumieres:"les lanternes",lampe:"sa lanterne",
   ordres:"une lettre scellée de la guilde : « Ramenez le spécimen vivant. Les autres sont sacrifiables. »",vehicule:"un chariot renversé",energie:"la pierre-cœur qui alimente les runes",energieC:"la pierre-cœur",cloture:"les barrières de runes",embryons:"les œufs de chimère",embryonsC:"les œufs",orage:"une tempête magique",
   poison:"un poison d'alchimiste",message:"une lettre faite de mots découpés dans un livre : « Le compte est soldé. »",messageC:"la lettre",sourceMsg:"les mots ont été découpés dans un ouvrage rare, enchaîné à son pupitre",surnom:"« le Maître »",avert:"un billet glissé sous leur porte : « Arrêtez. »",entree:"une fenêtre forcée de l'extérieur",
-  tresor:"le trésor d'un roi nain",relique:"une couronne qui murmure",fete:"le grand bal du duc",coffre:"la chambre forte de la banque des nains",convoi:"un convoi de tributs",monture:"un chariot léger",document:"un traité scellé",
+  tresor:"le trésor d'un roi nain",relique:"une couronne ensorcelée",fete:"le grand bal du duc",coffre:"la chambre forte de la banque des nains",convoi:"un convoi de tributs",monture:"un chariot léger",document:"un traité scellé",
   monstre:{nom:"Engeance du coffre",b:["fee","scorpion","basilic","manticore","araignee"]},meute:{nom:"Molosses de l'archimage",b:["loups","chien"]},
   geant:{nom:"Chimère",u:"une chimère",l:"la chimère",b:["sanglier","griffon","chimere","jeunedragon"]},
   mortVivant:{nom:"Morts-vivants",b:["zombie","goule"]},tueur:{nom:"Le chevalier damné",b:["veteran","chevalier","golem"]},bete:{nom:"La bête",b:["loups","ours","griffon","manticore","wiverne"]}},
@@ -1994,7 +1994,7 @@ const OEUVRES_H={
   a2:"Plus rien ne retient les bêtes. Les coureurs doivent rejoindre {centre} pour tout remettre en marche.",
   prep:[
    {t:"Les visiteurs perdus",voir:"{Vehicule} sous la pluie, des cris : des visiteurs sont coincés près de l'enclos de la meute.",qui:"Parmi les visiteurs, {allieD} a travaillé à la construction et connaît les raccourcis.",gagne:"{allieN} guide désormais les coureurs par les raccourcis.",rate:"la meute attaque ; un visiteur est perdu.",renc:{k:"meute",diff:"facile"}},
-   {t:"Le saboteur",voir:"{SaboteurN} s'enfuit avec {embryons}, et quelque chose l'a pris en chasse.",qui:"{SaboteurN}, terrorisé{saboteurE}, propose de tout dire contre la vie sauve.",gagne:"{saboteurN} explique comment relancer {energieC}.",rate:"une bête rattrape {saboteurN}. Il faudra relancer {energieC} sans savoir comment (jet difficile)."},
+   {t:"Le traître",voir:"{SaboteurN} s'enfuit avec {embryons}, et quelque chose l'a pris en chasse.",qui:"{SaboteurN}, terrorisé{saboteurE}, propose de tout dire contre la vie sauve.",gagne:"{saboteurN} explique comment relancer {energieC}.",rate:"une bête rattrape {saboteurN}. Il faudra relancer {energieC} sans savoir comment (jet difficile)."},
    {t:"L'enclos vide",voir:"La clôture de la meute est intacte… mais l'enclos est vide. Des traces mènent vers {centreC}.",qui:"{PaleoN} a étudié la meute : elle chasse en tenaille et teste les portes une à une.",gagne:"{paleoN} explique comment chasse la meute : en tenaille, par deux portes à la fois.",rate:"la meute était déjà là : elle tend une embuscade.",renc:{k:"meute",diff:"equilibre",siRate:1}}],
   a3:"En route vers {centreC}, {geantL} surgit dans la nuit. Ce n'est pas un combat qu'on gagne : il faut se cacher, la distraire, ou courir. La bête ne voit bien que ce qui bouge.",r3:{k:"geant",diff:"rude"},r3txt:"À éviter plutôt qu'à combattre.",
   a4:"Les coureurs atteignent {centreC}. Il faut relancer {energieC} pendant que la meute force les portes, et {proprioN} refuse d'abandonner son œuvre.",
@@ -2074,7 +2074,7 @@ Object.assign(OEUVRES_H,{
 
  tintin:{g:"enquete",t:["Le secret de l'objet","Les trois messages","Le trésor oublié"],
   pitch:"{MarchandD} vend aux coureurs un vieil objet pour une bouchée de pain. Le soir même, quelqu'un tente de le voler, et le vendeur disparaît. Dans l'objet est caché un message qui mène à {tresor}, et {chefGangD} est prêt à tout pour mettre la main dessus.",
-  a1:"Au {marche}, les coureurs achètent un vieil objet chez {marchandN}. La nuit suivante, on fouille leur logement. Le lendemain, la boutique est vide et {marchandN} a disparu. Dans un double fond de l'objet : un fragment de message.\nRécompense : une part du trésor.",
+  a1:"À {marche}, les coureurs achètent un vieil objet chez {marchandN}. La nuit suivante, on fouille leur logement. Le lendemain, l'endroit est vide et {marchandN} a disparu. Dans un double fond de l'objet : un fragment de message.\nRécompense : une part du trésor.",
   a2:"Le message est incomplet, et {chefGangN} a une longueur d'avance.",
   prep:[
    {t:"Les autres fragments",voir:"Deux autres objets identiques existent. L'un appartient à un collectionneur, dans {lieuRiche}.",qui:"Le collectionneur, flatté qu'on s'intéresse à lui, refuse de vendre mais accepte de montrer.",gagne:"le message complet : l'endroit exact du trésor.",rate:"{chefGangN} l'a volé avant eux ; les coureurs n'ont qu'une partie du chemin."},
@@ -2109,7 +2109,7 @@ Object.assign(OEUVRES_H,{
   a1:"{ClientN} raconte : {victimeN} menaçait de révéler les affaires {dnobleN}. Deux jours plus tard, l'accident. {NobleN} reçoit les condoléances avec un sourire, et un alibi parfait : présent à {fete}, devant cent témoins.\nPaie : {rec}.",
   a2:"Le coupable est connu. Tout l'intérêt est de le coincer, avec patience et fausse naïveté.",
   prep:[
-   {t:"L'alibi",voir:"À {fete}, cent témoins ont vu {nobleN}. Mais pendant un quart d'heure, personne ne se souvient de l'avoir vu.",qui:"{TemoinD}, un domestique, a remarqué un détail : ses chaussures étaient mouillées à son retour.",gagne:"le trou dans l'alibi.",rate:"les témoins se contredisent, et l'alibi tient."},
+   {t:"L'alibi",voir:"À {fete}, cent témoins ont vu {nobleN}. Mais pendant un quart d'heure, personne ne se souvient de l'avoir vu.",qui:"{TemoinN}, un domestique, a remarqué un détail : ses chaussures étaient mouillées à son retour.",gagne:"le trou dans l'alibi.",rate:"les témoins se contredisent, et l'alibi tient."},
    {t:"La petite question",voir:"Revenir voir {nobleN}, encore et encore, avec une question anodine.",qui:"{NobleN} s'agace, mais répond, et finit par mentir sur un détail.",gagne:"un mensonge vérifiable : {nobleN} connaît un détail qu'on ne pouvait savoir qu'en étant sur les lieux du crime.",rate:"{nobleN} se plaint aux autorités : les coureurs doivent se faire discrets."},
    {t:"L'objet",voir:"Le crime a demandé un objet précis, qui a disparu des affaires de la victime.",qui:"{IndicD} sait où on s'en est débarrassé.",gagne:"l'objet lui-même, avec une trace du coupable.",rate:"l'objet est détruit avant qu'ils ne le trouvent.",renc:{k:"humains",diff:"facile",siRate:1}}],
   a3:"{NobleN} sent le danger et fait pression : menaces, appuis haut placés, puis un accident arrangé pour l'un des coureurs.",r3:{k:"humains",diff:"equilibre"},
@@ -2117,7 +2117,7 @@ Object.assign(OEUVRES_H,{
   si:["S'ils ont trouvé le trou dans l'alibi : {nobleN} ne peut plus dire où il était.","S'ils tiennent son mensonge : il suffit de le lui répéter devant témoin.","S'ils ont l'objet : avec les trois, {nobleN} avoue ; avec moins, il nie et appelle ses hommes."],
   opts:["Poser la dernière question, celle qui fait tomber l'alibi.","Laisser croire que l'objet a été retrouvé, et le regarder se trahir.","S'il perd son calme, l'empêcher de fuir."],
   r4:{k:"perso",role:"noble",b:["veteran","lieutenant"],troupe:"humains",diff:"rude"},
-  sec:["{ClientN} n'est pas si innocent : la victime l'avait trahi aussi.","{NobleN} n'a pas agi seul : quelqu'un de bien plus puissant a fourni l'alibi."],
+  sec:["{ClientN} n'est pas si innocent{ClientE} : la victime l'avait trahi{ClientE} aussi.","{NobleN} n'a pas agi seul : quelqu'un de bien plus puissant a fourni l'alibi."],
   fiches:[["Le coupable","noble"],["La victime","victime"],["Le domestique","temoin"],["L'indicateur","indic"]]},
 
  rivieres:{g:"enquete",t:["Les rivières pourpres","Les deux affaires","Le secret de l'élite"],
@@ -2127,7 +2127,7 @@ Object.assign(OEUVRES_H,{
   a2:"Deux affaires en parallèle. Le meurtrier frappera encore.",
   prep:[
    {t:"Le corps",voir:"Sur {lieuChute}, le corps a été mis en scène : yeux arrachés, mains coupées, un message gravé dans la pierre.",qui:"{MedecinD} a examiné le corps : le meurtrier connaît l'anatomie, et il est fort.",gagne:"le meurtrier n'en est pas à son premier corps, et il en veut à ceux qui « voient » : c'est une vengeance.",rate:"la pluie efface les traces."},
-   {t:"La tombe profanée",voir:"Au {cimetiere}, la tombe d'un enfant mort il y a vingt ans a été ouverte. Le cercueil est vide de toute photographie, de tout souvenir.",qui:"Le gardien du cimetière a vu une femme venir chaque année fleurir cette tombe.",gagne:"le nom de l'enfant, et l'existence de sa mère, que tout le monde croyait partie.",rate:"des inconnus ont fait disparaître toute trace de cette famille."},
+   {t:"La tombe profanée",voir:"À {cimetiere}, la tombe d'un enfant mort il y a vingt ans a été ouverte. Le cercueil est vide de toute photographie, de tout souvenir.",qui:"Le gardien du cimetière a vu une femme venir chaque année fleurir cette tombe.",gagne:"le nom de l'enfant, et l'existence de sa mère, que tout le monde croyait partie.",rate:"des inconnus ont fait disparaître toute trace de cette famille."},
    {t:"L'élite",voir:"Dans {palais}, l'élite de la région se protège : on ne parle pas aux étrangers.",qui:"{NobleN} reçoit les coureurs poliment, et les menace tout aussi poliment.",gagne:"la liste des membres de l'élite : on sait qui sera la prochaine victime.",rate:"les coureurs sont discrédités, et on leur retire l'enquête.",renc:{k:"humains",diff:"facile",siRate:1}}],
   a3:"Un deuxième corps est retrouvé. L'élite fait pression pour étouffer l'affaire, et des hommes de main {dnobleN} effacent les preuves.",r3:{k:"humains",diff:"equilibre"},
   a4:"Au-dessus du vide, sur {lieuChute}, {tueuseN} tient la prochaine victime. {NobleN} a envoyé ses hommes pour tout faire disparaître : la victime, la meurtrière, et les coureurs.",
@@ -2168,7 +2168,7 @@ Object.assign(OEUVRES_H,{
   a3:"La chose se révèle : l'un des survivants, {chefN} en personne, se déchire et attaque. Le chaos est total, et une partie des survivants a déjà été remplacée.",r3:{k:"monstre",diff:"equilibre",nom:"La chose (forme partielle)"},
   a4:"La chose se dirige vers {issue}. Si elle l'atteint, elle quitte {lieuIsoleC}, et rien ne l'arrêtera plus. Sous sa vraie forme, c'est une masse de chairs et de membres.",
   si:["S'ils ont le test : ils savent qui est encore humain parmi les survivants, et peuvent compter sur eux.","S'ils savent ce qu'elle veut : ils ont déjà saboté {issue}, et elle est piégée.","S'ils ont du feu : chaque coup de feu la fait reculer, et la tuer devient possible."],
-  opts:["Détruire {issue} pour qu'elle ne puisse jamais partir, quitte à rester bloqué.","La brûler sous sa vraie forme.","Faire sauter {lieuIsoleC} avec elle dedans."],
+  opts:["Détruire {issue} pour qu'elle ne puisse jamais partir, quitte à rester bloqué.","La brûler sous sa vraie forme.","Faire s'effondrer {lieuIsoleC} sur elle."],
   r4:{k:"monstre",diff:"rude",nom:"La chose (vraie forme)"},
   sec:["Un des survivants qui a réussi le test n'est plus humain : il a trompé le test.","{SavantN} veut emporter un échantillon, et il est prêt à tout pour ça."],
   fiches:[["La chose","monstre","La chose (vraie forme)"],["Le chef des lieux","chef"],["Le médecin","medecin"],["Le savant","savant"]]},
@@ -2195,7 +2195,7 @@ Object.assign(OEUVRES_H,{
   a2:"La chose se nourrit de peur. Chaque nuit, elle prend une forme nouvelle.",
   prep:[
    {t:"Les souvenirs",voir:"Dans {savoir}, les anciens récits racontent les disparitions, tous les vingt-sept ans.",qui:"{AncienD} a survécu à la chose, enfant, et sait ce qui la blesse : qu'on n'ait pas peur d'elle.",gagne:"le secret de la chose : elle s'affaiblit quand on lui rit au nez, ou qu'on refuse d'avoir peur.",rate:"les souvenirs restent flous ; les coureurs ne savent pas ce qui la blesse."},
-   {t:"Les enfants",voir:"Au parc, les enfants de {village} ont vu la chose, chacun sous une forme différente.",qui:"{TemoinD}, un enfant courageux, veut aider.",gagne:"l'entrée de son repaire, que les enfants ont trouvée.",rate:"l'enfant disparaît à son tour."},
+   {t:"Les enfants",voir:"Au parc, les enfants de {village} ont vu la chose, chacun sous une forme différente.",qui:"{TemoinN}, un enfant courageux, veut aider.",gagne:"l'entrée de son repaire, que les enfants ont trouvée.",rate:"l'enfant disparaît à son tour."},
    {t:"Les adultes",voir:"Les adultes de {village} ne voient rien, ou ne veulent rien voir. Certains servent la chose sans le savoir.",qui:"{CapitaineD} est sous son influence et menace les coureurs.",gagne:"{capitaineN} se libère de l'influence et prête main-forte.",rate:"{capitaineN} attaque les coureurs.",renc:{k:"humains",diff:"facile",siRate:1}}],
   a3:"La chose sépare les coureurs : chacun voit sa pire peur, seul. Un enfant a été emporté dans le repaire.",r3:{k:"monstre",diff:"equilibre",nom:"Une peur"},
   a4:"Sous {village}, dans {repaire}, la chose montre sa vraie forme. Les enfants disparus flottent, endormis, autour d'elle.",
@@ -2275,24 +2275,24 @@ Object.assign(OEUVRES_H,{
 /* ============ Exploration ============ */
 Object.assign(OEUVRES_H,{
  indiana:{g:"exploration",t:["Les aventuriers {druines}","La course à la relique","Ne regardez pas"],
-  persos:{rival:"un pilleur de tombes sans scrupules"},
-  pitch:"{SavantD} engage les coureurs pour retrouver {relique}, perdue au fond {druines}. {RivalD} est sur la même piste, avec les hommes {darmee} pour le protéger, et il compte bien laisser les coureurs faire le travail dangereux avant de tout leur prendre.",
-  a1:"{SavantN} montre aux coureurs un vieux texte : {relique} repose dans {ruines}, et seul un médaillon indique l'emplacement exact. {RivalN} vient de faire une offre pour ce médaillon.\nPaie : {rec}.",
+  persos:{rival:{_:"un pilleur de tombes sans scrupules",prehistoire:"un chasseur de reliques sans scrupules"}},
+  pitch:"{SavantD} engage les coureurs pour retrouver {relique}, au fond {druines}. {RivalD} est sur la même piste, avec les hommes {darmee} pour le protéger, et il compte bien laisser les coureurs faire le travail dangereux avant de tout leur prendre.",
+  a1:"{SavantN} montre aux coureurs un très vieux récit : {relique} repose dans {ruines}, et seul un médaillon indique l'emplacement exact. {RivalN} vient de faire une offre pour ce médaillon.\nPaie : {rec}.",
   a2:"Le rival a des hommes, de l'argent et une longueur d'avance.",
   prep:[
    {t:"Le médaillon",voir:"Dans {basFonds}, le médaillon est entre les mains {dmarchandN}, qui le vend au plus offrant.",qui:"{MarchandN} fait monter les enchères ; les hommes {drivalN} attendent dehors.",gagne:"le médaillon : on sait où creuser.",rate:"les hommes {drivalN} s'en emparent ; ils creuseront au bon endroit avant les coureurs.",renc:{k:"humains",diff:"facile",siRate:1}},
    {t:"Le guide",voir:"À {village}, au pied des montagnes, {allieD} est le seul à connaître la route.",qui:"{AllieN} ne partira qu'à ses conditions, et en sait plus qu'{ilallie} ne le dit sur les pièges.",gagne:"un guide qui connaît les pièges des lieux.",rate:"les coureurs partent seuls ; le premier piège leur coûtera cher."},
-   {t:"Le camp du rival",voir:"Près {druines}, le camp {drivalN} : tentes, porteurs, et de quoi tout faire sauter.",qui:"{CapitaineD}, au service du rival, n'aime pas ses méthodes.",gagne:"le plan du rival, et un allié dans son camp.",rate:"les coureurs sont repérés, et le rival double la garde."}],
+   {t:"Le camp du rival",voir:"Près {druines}, le camp {drivalN} : tentes, porteurs, et de quoi tout incendier.",qui:"{CapitaineD}, au service du rival, n'aime pas ses méthodes.",gagne:"le plan du rival, et un allié dans son camp.",rate:"les coureurs sont repérés, et le rival double la garde."}],
   a3:"Dans {ruines}, les coureurs atteignent la salle de la relique… et le rival leur tombe dessus. Il les enferme avec les serpents, les pièges, ou les morts, et emporte {relique}.",r3:{k:"humains",diff:"equilibre"},
   a4:"Le rival ouvre {relique} devant ses hommes, persuadé d'en tirer un pouvoir immense. Quelque chose s'en échappe : ceux qui regardent meurent. Les coureurs sont ligotés ou cachés tout près.",
   si:["S'ils ont le médaillon : le rival a creusé au mauvais endroit, et la vraie relique est entre les mains des coureurs.","Si le guide est avec eux : {ilallie} sait qu'il ne faut pas regarder, et le leur dit à temps.","Si {capitaineN} les aide : {ilcapitaine} les détache au moment où tout bascule."],
-  opts:["Fermer les yeux et attendre que la colère de la relique passe.","Arracher {relique} au rival avant qu'il ne l'ouvre.","Fuir les ruines pendant que les hommes du rival paniquent."],
+  opts:["Fermer les yeux et attendre que la colère de la relique passe.","Reprendre {relique} avant que le rival ne l'ouvre.","Fuir les ruines pendant que les hommes du rival paniquent."],
   r4:{k:"perso",role:"rival",b:["veteran","lieutenant"],troupe:"humains",diff:"rude"},
   sec:["{SavantN} voulait la relique pour lui seul, et compte la vendre au plus offrant.","{Relique} ne tue que ceux qui la convoitent : ceux qui ne la désirent pas sont épargnés."],
   fiches:[["Le rival","rival"],["Le commanditaire","savant"],["Le guide","allie"],["L'homme du rival","capitaine"]]},
 
  centre:{g:"exploration",t:["Voyage au centre du monde","La descente","Le monde d'en bas"],
-  pitch:"{SavantD} a déchiffré un vieux message : au fond {druines}, une faille descend jusqu'à un monde oublié. Les coureurs l'accompagnent dans la descente. En bas, sous une lumière étrange, survivent des bêtes et des peuples disparus, et la montagne gronde au-dessus de leurs têtes.",
+  pitch:"{SavantD} a retrouvé un vieux message : au fond {druines}, une faille descend jusqu'à un monde oublié. Les coureurs l'accompagnent dans la descente. En bas, sous une lumière étrange, survivent des bêtes et des peuples disparus, et la montagne gronde au-dessus de leurs têtes.",
   a1:"{SavantN}, excentrique et passionné, engage les coureurs pour une expédition que tout le monde juge folle. {AllieD} sera le guide. Le message ancien s'achève par un avertissement : « Ne remontez pas par où vous êtes descendus. »\nPaie : {rec}.",
   a2:"Plus on descend, plus il fait chaud, et plus le retour devient incertain.",
   prep:[
@@ -2314,7 +2314,7 @@ Object.assign(OEUVRES_H,{
   a2:"Il faut rejoindre l'île du trésor avant la prochaine pleine lune.",
   prep:[
    {t:"La légende",voir:"Dans {basFonds}, un vieux conteur raconte la malédiction.",qui:"{AncienD} sait comment la lever : rendre chaque pièce, et un peu du sang de son porteur.",gagne:"la façon de lever la malédiction, et de rendre les damnés mortels.",rate:"les coureurs ignorent comment vaincre des ennemis qui ne meurent pas."},
-   {t:"Le navire",voir:"Au {port}, il faut un navire rapide, ou un moyen d'atteindre l'île.",qui:"{AllieN} connaît un passage secret à travers les récifs.",gagne:"un passage secret : les coureurs arrivent par surprise.",rate:"il faut aborder par la grande baie, sous les yeux des damnés."},
+   {t:"Le navire",voir:"À {port}, il faut un navire rapide, ou un moyen d'atteindre l'île.",qui:"{AllieN} connaît un passage secret à travers les récifs.",gagne:"un passage secret : les coureurs arrivent par surprise.",rate:"il faut aborder par la grande baie, sous les yeux des damnés."},
    {t:"Les damnés",voir:"Les damnés attaquent en mer, ou sur la grève.",qui:"Un damné repenti veut lui aussi lever la malédiction.",gagne:"un allié parmi les damnés, qui sait où ils cachent le trésor.",rate:"les damnés gagnent du terrain.",renc:{k:"mortVivant",diff:"facile",nom:"Damnés"}}],
   a3:"Les damnés retrouvent les coureurs : au clair de lune, ils ne craignent plus rien. {HeritierN} va être sacrifié{heritierE}.",r3:{k:"mortVivant",diff:"equilibre",nom:"Damnés"},
   a4:"Dans la grotte du trésor, au clair de lune, {mauditN} s'apprête à verser le sang {dheritierN} sur la dernière pièce. Ses hommes, mi-chair mi-squelette, l'entourent.",
@@ -2326,7 +2326,7 @@ Object.assign(OEUVRES_H,{
 
  mondeperdu:{g:"exploration",t:["Le monde perdu","Le plateau","Les bêtes d'avant"],
   pitch:"{SavantD} affirme qu'au-delà de {lieuSauvage}, sur un plateau inaccessible, survivent des bêtes disparues. Personne ne le croit. Il engage les coureurs pour en ramener la preuve. Avec eux part {chasseurD}, qui compte bien ramener une bête vivante, quoi qu'il en coûte.",
-  a1:"{SavantN}, ridiculisé par ses pairs, monte une expédition. {ChasseurN} paie une partie des frais et ne quitte jamais son fusil, ou sa lance.\nPaie : {rec}.",
+  a1:"{SavantN}, ridiculisé par ses pairs, monte une expédition. {ChasseurN} paie une partie des frais et ne quitte jamais son arme de chasse.\nPaie : {rec}.",
   a2:"Sur le plateau, le temps s'est arrêté. Le seul chemin du retour s'effondre derrière l'expédition.",
   prep:[
    {t:"Le campement",voir:"Au bord du plateau, il faut un camp solide.",qui:"{AllieD}, porteur, connaît les bêtes.",gagne:"un camp où les bêtes n'osent pas venir.",rate:"les bêtes attaquent la nuit.",renc:{k:"meute",diff:"facile",siRate:1}},
@@ -2341,7 +2341,7 @@ Object.assign(OEUVRES_H,{
   fiches:[["La mère","geant"],["Le chasseur","chasseur"],["Le savant","savant"],["Le porteur","allie"]]},
 
  tombraider:{g:"exploration",t:["Le tombeau","Les pièges anciens","La salle du trésor"],
-  persos:{rival:"un pilleur de tombes rival"},
+  persos:{rival:{_:"un pilleur de tombes rival",prehistoire:"un chasseur de reliques rival"}},
   pitch:"Au fond {druines} repose {relique}, gardée par des pièges en série. {RivalD} vient de trouver l'entrée, avec des hommes armés. Les coureurs doivent passer les pièges plus vite que lui.",
   a1:"{MarchandD} sait que {rivalN} est parti pour {ruines} et paie les coureurs pour arriver avant lui.\nPaie : {rec}.",
   a2:"Chaque salle est un parcours d'obstacles.",
@@ -2363,7 +2363,7 @@ Object.assign(OEUVRES_H,{
   a1:"{AllieN} montre aux coureurs le message trouvé dans l'objet. La nuit même, sa maison est cambriolée. {FreresN} propose d'acheter l'objet, très poliment.\nPaie : une part du trésor.",
   a2:"Trois messages, et une course contre {freresN}.",
   prep:[
-   {t:"Le deuxième message",voir:"Un objet identique est vendu au {marche}.",qui:"Un vieux marchand, qui l'a déjà promis à {freresN}.",gagne:"le deuxième message.",rate:"{freresN} l'achète avant eux."},
+   {t:"Le deuxième message",voir:"Un objet identique est vendu à {marche}.",qui:"Un vieux marchand, qui l'a déjà promis à {freresN}.",gagne:"le deuxième message.",rate:"{freresN} l'achète avant eux."},
    {t:"Le troisième message",voir:"Le troisième objet appartient à un collectionneur assassiné ; il est chez {capitaineN}, qui enquête.",qui:"{CapitaineD}, honnête mais méfiant{capitaineE}.",gagne:"le troisième message, et le soutien {dcapitaineN}.",rate:"{capitaineN} soupçonne les coureurs."},
    {t:"Les hommes de main",voir:"Les hommes {dfreresN} suivent les coureurs.",qui:"Un homme de main, peu fidèle.",gagne:"l'endroit où {freresN} cache ce qu'il a volé.",rate:"les hommes de main attaquent.",renc:{k:"humains",diff:"facile"}}],
   a3:"{FreresN} enlève {allieN}, et exige les messages en échange.",r3:{k:"humains",diff:"equilibre"},
@@ -2381,7 +2381,7 @@ Object.assign(OEUVRES_H,{
   a2:"Personne n'est censé savoir ce qu'il y a dans la zone interdite.",
   prep:[
    {t:"La savante",voir:"Dans son cabinet d'étude, {savanteN} examine les coureurs.",qui:"{SavanteN} veut les aider, mais risque sa place.",gagne:"une alliée qui les fera évader au bon moment.",rate:"{savanteN} est arrêtée, et les coureurs perdent leur seule alliée."},
-   {t:"Le procès",voir:"Au {palais}, un procès public : les coureurs sont-ils des bêtes, ou des êtres pensants ?",qui:"{MaitreN} préside, et a déjà décidé.",gagne:"le doute dans l'esprit du peuple : une partie de la foule les soutient.",rate:"les coureurs sont condamnés."},
+   {t:"Le procès",voir:"À {palais}, un procès public : les coureurs sont-ils des bêtes, ou des êtres pensants ?",qui:"{MaitreN} préside, et a déjà décidé.",gagne:"le doute dans l'esprit du peuple : une partie de la foule les soutient.",rate:"les coureurs sont condamnés."},
    {t:"La zone interdite",voir:"Les vieux textes parlent d'une zone interdite.",qui:"{AncienD}, qui a des doutes, montre le chemin.",gagne:"le chemin vers la zone interdite.",rate:"les coureurs devront la trouver seuls."}],
   a3:"Les coureurs s'évadent, poursuivis par les chasseurs de {maitreN}.",r3:{k:"humains",diff:"equilibre"},
   a4:"Dans la zone interdite, les coureurs découvrent la vérité : des ruines de leur propre peuple, qui régnait ici autrefois. {MaitreN} les rattrape, et veut que ce secret meure avec eux.",
@@ -2397,7 +2397,7 @@ Object.assign(OEUVRES_H,{
   a1:"{ChefD} confie aux coureurs une mission vitale : trouver une pièce de rechange avant que l'eau ne manque. Ils ont 150 jours, ou beaucoup moins.\nPaie : la survie de l'abri.",
   a2:"Dehors, tout se paie, et chacun veut quelque chose.",
   prep:[
-   {t:"Le marché",voir:"Au {marche}, on vend de tout, même des pièces d'avant.",qui:"{MarchandD} sait où trouver la pièce, et la vend cher.",gagne:"l'endroit exact où trouver la pièce.",rate:"les coureurs paient trop cher, ou se font voler."},
+   {t:"Le marché",voir:"À {marche}, on vend de tout, même des pièces d'avant.",qui:"{MarchandD} sait où trouver la pièce, et la vend cher.",gagne:"l'endroit exact où trouver la pièce.",rate:"les coureurs paient trop cher, ou se font voler."},
    {t:"La faction",voir:"{Patron} garde les vieilles technologies.",qui:"Un de ses membres, {allieD}, peut aider.",gagne:"des alliés armés pour le climax.",rate:"la faction exige un service qui fait perdre du temps."},
    {t:"Les pillards",voir:"Les hommes {dchefGangN} contrôlent les routes.",qui:"Un pillard capturé parle de ce que veut son chef.",gagne:"le plan {dchefGangN} : il veut suivre les coureurs jusqu'à l'abri.",rate:"les pillards suivent les coureurs.",renc:{k:"humains",diff:"facile"}}],
   a3:"La pièce est dans {ruines}, gardée par des créatures. Les hommes {dchefGangN} attendent dehors.",r3:{k:"mortVivant",diff:"equilibre"},
@@ -2469,7 +2469,7 @@ Object.assign(OEUVRES_H,{
   prep:[
    {t:"L'invitation",voir:"Il faut une invitation à {fete}.",qui:"{HeritierD} s'ennuie et adore les gens audacieux.",gagne:"une invitation, et quelqu'un sur place pour couvrir les coureurs.",rate:"il faudra entrer par les toits."},
    {t:"Le faux",voir:"Il faut une copie parfaite de {relique}.",qui:"{MarchandD}, faussaire de génie.",gagne:"une copie : la garde surveillera le faux.",rate:"pas de copie : la garde surveille le vrai."},
-   {t:"L'inspecteur",voir:"{CapitaineN} prépare son piège.",qui:"{CapitaineN} est persuadé{capitaineE} d'avoir tout prévu.",gagne:"le plan {dcapitaineN} : on sait où sera son piège.",rate:"{capitaineN} reconnaît un coureur.",renc:{k:"humains",diff:"facile",siRate:1}}],
+   {t:"Le piège",voir:"{CapitaineN} prépare son piège.",qui:"{CapitaineN} est persuadé{capitaineE} d'avoir tout prévu.",gagne:"le plan {dcapitaineN} : on sait où sera son piège.",rate:"{capitaineN} reconnaît un coureur.",renc:{k:"humains",diff:"facile",siRate:1}}],
   a3:"Pendant {fete}, {capitaineN} referme son piège.",r3:{k:"humains",diff:"equilibre"},
   a4:"Au milieu de {fete}, {relique} disparaît… ou presque. {CapitaineN} bloque toutes les sorties.",
   si:["S'ils ont une invitation : ils sont dans la place, au-dessus de tout soupçon.","S'ils ont le faux : la garde surveille la copie.","S'ils connaissent le piège : ils le retournent contre {capitaineN}."],
@@ -2624,7 +2624,7 @@ Object.assign(OEUVRES_H,{
   a1:"Un messager confie aux coureurs {document} et un message : « Vous êtes notre seul espoir. » {AncienD} reconnaît la marque de la rébellion.\nEnjeu : la liberté.",
   a2:"Trois étapes pour traverser l'empire.",
   prep:[
-   {t:"Le transport",voir:"Au {port}, il faut un moyen de transport rapide et discret.",qui:"{MercenaireD}, contrebandier vantard, a le plus rapide du coin.",gagne:"un transport rapide, qui sème les patrouilles.",rate:"le transport est lent : les patrouilles suivent."},
+   {t:"Le transport",voir:"À {port}, il faut un moyen de transport rapide et discret.",qui:"{MercenaireD}, contrebandier vantard, a le plus rapide du coin.",gagne:"un transport rapide, qui sème les patrouilles.",rate:"le transport est lent : les patrouilles suivent."},
    {t:"Le maître",voir:"{AncienN} a été autrefois un grand guerrier.",qui:"{AncienN} accepte d'enseigner un peu de son art.",gagne:"un coureur maîtrise une technique ancienne : avantage contre {noirN}.",rate:"pas de leçon."},
    {t:"La prisonnière",voir:"{PrincesseN} est retenue dans {forteresse}.",qui:"Un garde mécontent peut aider.",gagne:"{princesseN} libérée : elle connaît le point faible de l'ennemi.",rate:"{princesseN} reste prisonnière.",renc:{k:"humains",diff:"facile"}}],
   a3:"En fuyant {forteresse}, les coureurs tombent sur {noirN}. {AncienN} reste en arrière pour l'affronter et gagner du temps ; on ne le reverra pas.",r3:{k:"humains",diff:"equilibre"},
@@ -2698,13 +2698,13 @@ Object.assign(OEUVRES_H,{
   prep:[
    {t:"L'adjoint",voir:"{AllieN} tremble, cherche à boire, et a honte. Mais avant, on {leallie} disait le meilleur tireur du pays.",qui:"{AllieN} veut se racheter, si on lui fait confiance.",gagne:"{allieN} reprend pied : un tireur d'élite sur le toit au climax.",rate:"{allieN} replonge, et passe la nuit du climax à cuver."},
    {t:"Les vivres et les munitions",voir:"Les hommes {dbaronN} empêchent toute livraison à la prison.",qui:"{MarchandD}, terrorisé, peut faire passer des vivres et des munitions par l'arrière de sa boutique.",gagne:"de quoi tenir le siège : munitions en abondance au climax.",rate:"les munitions manquent : chaque coureur ne pourra tirer que 3 fois au climax."},
-   {t:"Le plan du baron",voir:"Les hommes {dbaronN} provoquent les coureurs au saloon, à la taverne ou sur la place.",qui:"Un homme de main ivre parle trop.",gagne:"le plan {dbaronN} : il prendra un otage pour forcer un échange.",rate:"la provocation tourne à la bagarre générale.",renc:{k:"humains",diff:"facile",siRate:1}}],
+   {t:"Le plan du baron",voir:"Les hommes {dbaronN} provoquent les coureurs dans {basFonds}, ou sur la place.",qui:"Un homme de main ivre parle trop.",gagne:"le plan {dbaronN} : il prendra un otage pour forcer un échange.",rate:"la provocation tourne à la bagarre générale.",renc:{k:"humains",diff:"facile",siRate:1}}],
   a3:"{BaronN} frappe : {allieN} est capturé{allieE} dans une ruelle. Le baron fait savoir qu'il propose un échange, à l'aube, sur la grand-place.",r3:{k:"humains",diff:"equilibre"},
   a4:"À l'aube, sur la grand-place, {baronN} et ses hommes attendent avec {allieN}. Les coureurs arrivent avec le prisonnier. Tout le monde a le doigt sur la détente.",
   si:["Si {allieN} s'est racheté{allieE} avant d'être pris : {ilallie} profite de la première seconde de confusion pour se libérer et tirer.","S'ils ont des munitions : ils peuvent tenir un échange de tirs prolongé.","S'ils connaissaient le plan : {ancienN} est déjà posté{ancienE} avec {explosif} près des munitions du baron."],
   opts:["Faire l'échange, et reprendre l'otage dans la confusion.","Faire sauter les munitions du baron et charger.","Défier {baronN} en duel, devant ses hommes."],
   r4:{k:"perso",role:"baron",b:["veteran","lieutenant","seigneur"],troupe:"humains",diff:"rude"},
-  sec:["Le prisonnier est innocent : c'est {baronN} qui a commis le meurtre.","{BaronN} veut en réalité la mort de son frère, qui sait trop de choses."],
+  sec:["Le prisonnier est coupable, et {baronN} le sait : sa famille veut seulement éviter le procès, où trop de choses seraient dites.","Un témoin du meurtre a été acheté : si les juges arrivent, il se rétractera."],
   fiches:[["Le baron","baron"],["Le prisonnier","prisonnier"],["L'adjoint","allie"],["Le vieux fidèle","ancien"]]},
 
  assaut2:{g:"siege",t:["La nuit la plus longue","Le poste isolé","Assaut"],
@@ -2741,7 +2741,7 @@ Object.assign(OEUVRES_H,{
 
  mortsvivants:{g:"siege",t:["La nuit des morts","La maison barricadée","Jusqu'au matin"],
   pitch:"Les morts se relèvent et marchent. Les coureurs et une poignée d'inconnus se barricadent dans une maison isolée près de {village}. Dehors, les morts sont de plus en plus nombreux. Dedans, la peur et la discorde sont presque aussi dangereuses.",
-  a1:"Au {cimetiere}, une silhouette titubante attaque un passant. En quelques heures, les morts sont partout. Les coureurs se réfugient dans une maison avec {heritierD}, blessé{heritierE}, {mercenaireD} et {marchandD}, qui veut tout décider.\nEnjeu : survivre jusqu'au matin.",
+  a1:"À {cimetiere}, une silhouette titubante attaque un passant. En quelques heures, les morts sont partout. Les coureurs se réfugient dans une maison avec {heritierD}, blessé{heritierE}, {mercenaireD} et {marchandD}, qui veut tout décider.\nEnjeu : survivre jusqu'au matin.",
   a2:"La nuit sera longue. Chaque bruit attire les morts.",
   prep:[
    {t:"Les planches",voir:"Portes et ouvertures cèdent. Il faut clouer, renforcer, boucher.",qui:"{MarchandN} veut se terrer à la cave ; {mercenaireN} veut tenir le rez-de-chaussée.",gagne:"des barricades solides : les morts n'entrent que par un seul point.",rate:"les barricades cèdent au premier assaut."},
@@ -2763,7 +2763,7 @@ Object.assign(OEUVRES_H,{
   prep:[
    {t:"Le périmètre",voir:"Les défenses ont été montées à la hâte : trous dans les barbelés ou les palissades, angles morts.",qui:"{CapitaineD}, sergent couturé de cicatrices, sait exactement quoi faire, mais {officierN} refuse de l'écouter.",gagne:"un périmètre solide : chaque vague perd un tiers de ses créatures avant d'atteindre les défenseurs.",rate:"le périmètre cède dès la première vague."},
    {t:"Les galeries",voir:"Sous le poste, des galeries fraîchement creusées s'enfoncent dans l'obscurité.",qui:"{SavantD} veut descendre étudier les créatures, et a besoin d'une escorte.",gagne:"savoir que les créatures obéissent à une reine, et que sans elle, elles se dispersent.",rate:"les créatures surgissent du sol en pleine exploration.",renc:{k:"meute",diff:"facile",nom:"Insectes guerriers"}},
-   {t:"Les recrues",voir:"Les recrues ont vu leur premier mort, et la peur gagne le poste.",qui:"{TemoinD}, une recrue courageuse, peut entraîner les autres si on la soutient.",gagne:"des recrues qui tiennent leur position au lieu de fuir.",rate:"au climax, la moitié des recrues s'enfuient."}],
+   {t:"Les recrues",voir:"Les recrues ont vu leur premier mort, et la peur gagne le poste.",qui:"{TemoinN}, une recrue courageuse, peut entraîner les autres si on la soutient.",gagne:"des recrues qui tiennent leur position au lieu de fuir.",rate:"au climax, la moitié des recrues s'enfuient."}],
   a3:"Première vague, en pleine nuit : les créatures arrivent par milliers. {OfficierN} ordonne une contre-attaque absurde, et des recrues tombent.",r3:{k:"meute",diff:"equilibre",nom:"Insectes guerriers"},
   a4:"Au cœur de la deuxième nuit, le sol s'ouvre au milieu du poste : la reine sort de terre, entourée de sa garde, pour percer les défenses.",
   si:["S'ils ont un périmètre solide : sa garde est réduite d'un tiers.","S'ils savent qu'elle dirige l'essaim : l'abattre disperse toutes les créatures.","Si les recrues tiennent : elles retiennent une partie de la garde pendant que les coureurs visent la reine."],
@@ -2863,14 +2863,14 @@ Object.assign(OEUVRES_H,{
  housecards:{g:"intrigue",t:["Le château de cartes","L'ascension","Le pouvoir à tout prix"],
   persos:{politicien:"un homme politique brillant et sans scrupules"},
   pitch:"{PoliticienD} a été écarté d'un poste qu'on lui avait promis. Depuis, il prépare sa revanche : manipuler, compromettre, écarter un à un tous ceux qui sont entre lui et le sommet. Les coureurs sont engagés par {espionD}, qui a compris son jeu, pour l'arrêter avant le vote décisif.",
-  a1:"{EspionN} montre aux coureurs ce qu'{ilespion} sait : un adversaire {dpoliticienN} s'est suicidé la semaine dernière, mais rien ne colle. Le vote a lieu dans cinq jours, au {palais}.\nPaie : {rec}.",
+  a1:"{EspionN} montre aux coureurs ce qu'{ilespion} sait : un adversaire {dpoliticienN} s'est suicidé la semaine dernière, mais rien ne colle. Le vote a lieu dans cinq jours, à {palais}.\nPaie : {rec}.",
   a2:"Chaque pas compte, et {politicienN} a des yeux partout.",
   prep:[
    {t:"Le suicide",voir:"Le mort était un homme fragile, que quelqu'un a poussé à boire.",qui:"{TemoinD}, son chauffeur ou son domestique, a vu {politicienN} chez lui la dernière nuit.",gagne:"un témoin du dernier soir.",rate:"le témoin est payé pour se taire."},
    {t:"L'homme de main",voir:"{PoliticienN} a un homme de confiance, qui fait le sale travail.",qui:"{MercenaireD} est fidèle, mais commence à avoir peur.",gagne:"{mercenaireN} prêt{mercenaireE} à témoigner, en échange de sa protection.",rate:"{mercenaireN} prévient {politicienN}.",renc:{k:"humains",diff:"facile",siRate:1}},
    {t:"Les alliés",voir:"Les soutiens {dpoliticienN} sont achetés, ou tenus par des secrets.",qui:"{NobleD} est tenu par un secret honteux.",gagne:"un allié influent, qui retournera des voix au moment du vote.",rate:"{nobleN} reste sous la coupe {dpoliticienN}."}],
   a3:"{PoliticienN} contre-attaque : {espionN} est discrédité{espionE}, puis disparaît. Les coureurs sont accusés de l'avoir fait taire.",r3:{k:"humains",diff:"equilibre"},
-  a4:"Le jour du vote, au {palais}, {politicienN} est sur le point de l'emporter. C'est le dernier moment pour révéler la vérité.",
+  a4:"Le jour du vote, à {palais}, {politicienN} est sur le point de l'emporter. C'est le dernier moment pour révéler la vérité.",
   si:["S'ils ont le témoin : le meurtre {dpoliticienN} devient une accusation publique.","Si {mercenaireN} témoigne : tout le système s'effondre.","S'ils ont l'allié : les voix basculent."],
   opts:["Révéler la vérité devant l'assemblée.","Faire chanter {politicienN} à son tour.","Laisser {politicienN} gagner, et le faire tomber plus tard."],
   r4:{k:"humains",diff:"equilibre"},
@@ -2899,7 +2899,7 @@ Object.assign(OEUVRES_H,{
 /* ============ Chasse ============ */
 Object.assign(OEUVRES_H,{
  dents:{g:"chasse",t:["Les dents","La ville qui nie","Il nous faudra un plus gros bateau"],
-  pitch:"Une bête énorme rôde dans les eaux, ou les forêts, autour de {village}, et a déjà tué deux personnes. {NobleD} refuse de fermer quoi que ce soit : {fete} approche et rapporte trop d'argent. Les coureurs, avec {chasseurD}, un vieux chasseur bourru, partent à la chasse.",
+  pitch:"Une bête énorme rôde dans les eaux, ou les forêts, autour de {village}, et a déjà tué deux personnes. {NobleD} refuse de fermer quoi que ce soit : {fete} approche et rapporte trop d'argent. Les coureurs, avec {chasseurN}, un vieux chasseur bourru, partent à la chasse.",
   a1:"{CapitaineD} appelle les coureurs : un corps déchiqueté a été retrouvé, et {nobleN} parle d'un accident. {SavantD}, venu de la ville, est formel : c'est une bête, et elle reviendra.\nPaie : {rec}, et une prime pour la bête.",
   a2:"La bête frappe chaque jour plus près de la foule. Trois pistes avant la chasse.",
   prep:[
@@ -2909,7 +2909,7 @@ Object.assign(OEUVRES_H,{
   a3:"En pleine chasse, la bête attaque l'embarcation, ou le campement. Le matériel est perdu, et un compagnon tombe.",r3:{k:"bete",diff:"equilibre"},
   a4:"Le navire coule, ou le camp brûle. Il ne reste plus qu'à affronter la bête avec ce qu'on a sous la main.",
   si:["Si la foule est à l'abri : personne d'autre ne mourra pendant le combat.","Si {chasseurN} est là : il sacrifie sa vie pour blesser gravement la bête.","S'ils savent l'attirer : ils choisissent le lieu du combat, et un piège les attend."],
-  opts:["Faire exploser la bête avec {explosif}, coincé dans sa gueule.","L'attirer dans un piège.","La blesser assez pour qu'elle fuie."],
+  opts:["Détruire la bête avec {explosif}, coincé dans sa gueule.","L'attirer dans un piège.","La blesser assez pour qu'elle fuie."],
   r4:{k:"bete",diff:"rude"},
   sec:["{NobleN} savait que la bête était là depuis des semaines.","La bête n'est pas seule : un petit l'accompagne."],
   fiches:[["La bête","bete"],["Le chasseur","chasseur"],["Le savant","savant"],["Le notable","noble"]]},
@@ -2966,7 +2966,7 @@ Object.assign(OEUVRES_H,{
 
  fugitif:{g:"chasse",t:["Le fugitif","L'innocent","L'homme au bras mutilé"],
   persos:{fugitif:"un médecin accusé du meurtre de sa compagne",manchot:"un homme de main au bras mutilé"},
-  pitch:"{FugitifD} s'est évadé pendant son transfert. Les coureurs sont engagés pour le retrouver. Mais plus ils avancent, plus il paraît innocent : il ne fuit pas au hasard, il cherche {manchotD}, le vrai tueur, payé par {nobleD} pour faire taire quelqu'un qui en savait trop.",
+  pitch:"{FugitifD} s'est évadé pendant son transfert. Les coureurs sont engagés pour le retrouver. Mais plus ils avancent, plus il paraît innocent : il ne fuit pas au hasard, il cherche {manchotN}, le vrai tueur, payé par {nobleD} pour faire taire quelqu'un qui en savait trop.",
   a1:"{CapitaineD} confie la traque aux coureurs : {fugitifN} s'est évadé lors d'un accident, et une prime est offerte, mort ou vif. Dans le dossier, un détail : il a toujours affirmé avoir vu un homme au bras mutilé sur les lieux du crime.\nPaie : {rec}.",
   a2:"Le fugitif a une longueur d'avance, et semble savoir où il va.",
   prep:[
@@ -2993,7 +2993,7 @@ Object.assign(OEUVRES_H,{
    {t:"Le créateur",voir:"{CreateurN} vit dans une tour, protégé.",qui:"{AssistantD}, son fidèle assistant, très seul, peut être convaincu.",gagne:"un moyen d'entrer dans la tour avant {chefN}.",rate:"{chefN} manipule l'assistant pour entrer."}],
   a3:"{ChefN} retrouve {createurN} et le tue, faute d'avoir obtenu plus de vie.",r3:false,
   a4:"Sous la pluie, sur les toits, {chefN} chasse les coureurs, qui deviennent ses proies. Sa fin approche : il le sait.",
-  si:["S'ils ont un test fiable : ils ont déjà arrêté les autres fugitifs ; {chefN} est seul.","S'ils connaissaient le lieu de rencontre : ils peuvent sauver {createurN}, et changer l'histoire.","S'ils ont convaincu l'assistant : {chefN} a été retardé, et sa fin est encore plus proche."],
+  si:["S'ils ont un test fiable : ils ont déjà arrêté les autres fugitifs ; {chefN} est seul.","S'ils connaissaient le lieu de rencontre : ils arrivent juste après le meurtre, et recueillent les derniers mots de {createurN}.","S'ils ont convaincu l'assistant : {chefN} a été retardé, et sa fin est encore plus proche."],
   opts:["Le combattre sur les toits (arts du mouvement contre 15 à chaque tour pour ne pas tomber).","Tenir jusqu'à ce que sa vie s'éteigne (4 tours).","L'écouter : il a des choses à dire avant de mourir."],
   r4:{seul:true,k:"perso",role:"chef",b:["veteran","lieutenant","chevalier"],diff:"rude"},
   sec:["L'un des coureurs, ou celui qui les a engagés, est lui-même artificiel, sans le savoir.","{CreateurN} pouvait prolonger leur vie, mais a refusé."],
@@ -3145,15 +3145,17 @@ const EPITHETES={sorcier:["l'instigateur","l'instigatrice"],lieutenant:["le chef
 function genreAnt(a){const m=/^(Elles?|Ils?)\b/.exec(a.secret||"");return m?({Elle:"f",Elles:"fp",Il:"m",Ils:"mp"})[m[1]]:"m"}
 function designations(c){const g=genreAnt(c.a);const f=g[0]==="f",pl=g.length>1;const b=c.a.b;
   const ep=EPITHETES[b]?EPITHETES[b][f?1:0]:(f?"l'ennemie":"l'ennemi");
-  return {a2:pl?(f?"elles":"eux"):ep,il:pl?(f?"elles":"ils"):(f?"elle":"il"),lui:pl?(f?"elles":"eux"):(f?"elle":"lui")}}
+  return {ae:(f&&!pl)?"e":"",a2:pl?(f?"elles":"eux"):ep,il:pl?(f?"elles":"ils"):(f?"elle":"il"),lui:pl?(f?"elles":"eux"):(f?"elle":"lui")}}
 function eltDef(e){if(!e)return null;const d=e.id==="libre"?ELT_LIBRE:ELEMENTS[e.id];if(!d)return null;return Object.assign({},d,{nom:e.id==="libre"?e.nom:d.nom})}
 function varsElt(c){const e=c.elt&&eltDef(c.elt);if(!e)return {};const n=e.nom;return {elt:n,delt:deX(n),aelt:aX(n)}}
 /* Éléments imposés choisis par le Conteur : 2 au plus, dont éventuellement un élément libre */
 function eltsChoisis(o){return [];const l=(o.elts||[]).filter(k=>ELEMENTS[k]).map(k=>({id:k}));const lib="";
   if(lib){let n=lib.toLowerCase().replace(/^une\s+/,"la ").replace(/^un\s+([aeiouyéèêh])/,"l'$1").replace(/^un\s+/,"le ").replace(/^des\s+/,"les ");if(!/^(le|la|les|l')\s?/.test(n))n=(/^[aeiouyéèêh]/.test(n)?"l'":"le ")+n;l.unshift({id:"libre",nom:n})}return l.slice(0,2)}
+/* Accord du verbe avec une faction : « les Clans… » est pluriel, « la Guilde… » singulier. */
+const accFac=(n,sg,pl)=>/^(les|des)\s/i.test(n||"")?pl:sg;
 function varsCtx(c,extra){const t=TBY[(P().av&&P().av.theme)||P().theme];const l=c.l||c.l1,a=nomCourt(c.a);const F=(c.f||[]).map(i=>t.facP[i].nom);
   const sec=c.a.secret.charAt(0).toLowerCase()+c.a.secret.slice(1);
-  return Object.assign(designations(c),varsElt(c),{lc:c.lc||c.l1,comm:c.comm,comm2:"le commanditaire",o2:c.o2||"l'objet convoité",a,dea:deX(a),aa:aX(a),sec,o:c.o,p:c.p,l0:c.l0||(c.lieux&&c.lieux[0]),l1:c.l1,l,dl:deX(l),jl:"jusqu'"+aX(l),F1:F[0]||"",F2:F[1]||"",F3:F[2]||"",amb:c.amb,l6:c.lieux?c.lieux[6]:c.l1,proie:c.proie?`« ${c.proieNom} »`:"la bête"},extra||{})}
+  return Object.assign(designations(c),varsElt(c),{lc:c.lc||c.l1,comm:c.comm,comm2:"le commanditaire",o2:c.o2||"l'objet convoité",a,dea:deX(a),aa:aX(a),sec,o:c.o,p:c.p,l0:c.l0||(c.lieux&&c.lieux[0]),l1:c.l1,l,dl:deX(l),jl:"jusqu'"+aX(l),F1:F[0]||"",F2:F[1]||"",F3:F[2]||"",F1c:cap(F[0]||""),F1t:accFac(F[0],"tente","tentent"),F2n:accFac(F[1],"négocie","négocient"),F3a:accFac(F[2],"attend son heure","attendent leur heure"),amb:c.amb,l6:c.lieux?c.lieux[6]:c.l1,proie:c.proie?`« ${c.proieNom} »`:"la bête"},extra||{})}
 function remplir(s,c,extra,brut){if(c.l0orig&&c.l0===c.l1&&/\{l0\}|\{L0\}/.test(s)&&/\{l1\}|\{L1\}|\{lc\}/.test(s))c=Object.assign({},c,{l0:c.l0orig});if(c.elt){const k=c.l0===c.l1?"l0|l1|lieu|lc":"l1|lieu|lc";s=s.replace(new RegExp("(?<!jusqu')\\bà \\{("+k+")\\}","g"),"dans {$1}").replace(new RegExp("À \\{("+k+")\\}","g"),"Dans {$1}").replace(/sur la place de \{l0\}/g,c.l0===c.l1?"au pied de {l0}":"sur la place de {l0}")}const v=varsCtx(c,extra);if(c.F)v.F=c.F;let out=s;
   for(let k=0;k<3;k++){const av=out;out=out.replace(/\{(\w+)\}/g,(m,key)=>{if(v[key]!=null)return "\u0001"+v[key];const lo=key.charAt(0).toLowerCase()+key.slice(1);if(v[lo]!=null)return "\u0001"+cap(v[lo]);return m});if(av===out)break}
   out=contracter(out);return brut?out:out.replace(/(^|\n)(\d+\. |– )?([a-zàâçéèêëîïôûùüÿœ])/g,(m,a,b,c)=>a+(b||"")+c.toUpperCase())}
@@ -3166,6 +3168,9 @@ function tirerMission(){const k=pick(["obj","obj","pers","autre"]);const l=k==="
 function texteMission(m,c){const l=m.k==="obj"?COMMUN.missionsObj:m.k==="pers"?COMMUN.missionsPers:COMMUN.missionsAutres;return remplir(l[m.i%l.length],c)}
 const recompense=()=>(de(6)+4)*10;
 
+/* Clé d'une faction : décale le tirage jusqu'à la première clé que les factions précédentes n'ont pas prise. */
+function cleFaction(r,j){const av=P().av,bs=((av&&av.blocs)||[]).filter(x=>x.k==="faction"&&x.r).sort((x,y)=>x.j-y.j),pris=[];
+  for(const x of bs){let k=x.r.cle%6;while(pris.includes(k))k=(k+1)%6;if(x.j===j)return k;pris.push(k)}return r.cle%6}
 const BLOCS={
  /* ---- one-shot ---- */
  accroche:{titre:"Accroche",tirer:()=>({m:tirerMission(),rec:recompense()}),
@@ -3236,7 +3241,10 @@ const BLOCS={
  h_a4:{titre:"Le climax",tirer:(j,c)=>{if(histoire(c).r4)return {sp:rencH(c,histoire(c).r4)};const r={diff:"rude"};r.troupe=tirerRencontre("rude",{lead:{b:c.a.b},pool:poolH(c)}).troupe;return r},
   texte:(r,c)=>{const h=histoire(c),e=c.elt&&eltDef(c.elt);return texteH(c,h.a4+(e?"\nPendant ce temps : "+e.climax+".":"")+(h.si?"\nCe que les pistes changent :\n"+h.si.map(x=>"– "+x).join("\n"):"")+"\nCe que les coureurs peuvent tenter :\n"+h.opts.map(o=>"– "+o).join("\n"))},
   rencDe:(r,c)=>r.sp?r.sp:histoire(c).bete&&c.proie?{lead:c.proie,troupe:null,diff:"rude"}:{lead:{nom:cap(nomCourt(c.a)),b:c.a.b,desc:""},troupe:r.troupe,diff:r.diff},renc:true},
- h_sec:{titre:"Le secret",tirer:()=>({}),texte:(r,c)=>{const l=histoire(c).sec;return texteH(c,l[(c.sec||0)%l.length])+"\nÀ révéler au climax, ou quand les joueurs croient avoir tout compris."}},
+ h_sec:{titre:"Le secret",tirer:()=>({v:R(99)}),texte:(r,c)=>{const l=histoire(c).sec;return texteH(c,l[(c.sec||0)%l.length])+"\nÀ révéler au climax, ou quand les joueurs croient avoir tout compris."+indicesH(c,r)}},
+ h_liens:{titre:"Liens avec les coureurs",tirer:(j,c)=>{if(!c.ho||!c.noms)return {};const roles=shuffle((histoire(c).fiches||[]).map(f=>f[1]).filter((k,i,a)=>c.noms[k]&&a.indexOf(k)===i));return {roles:roles.slice(0,4),t:shuffle(LIENS_H.map((_,i)=>i)),g:R(LIENS_G.length),l:R(LIENS_L.length)}},
+  texte:(r,c)=>{if(!r.roles)return "";const ls=r.roles.map((k,i)=>"– "+LIENS_H[r.t[i%LIENS_H.length]].replace("%N",`${c.noms[k].nom} (${c.noms[k].d.split(",")[0]})`));
+   ls.push("– "+texteH(c,LIENS_L[r.l%LIENS_L.length]));ls.push("– "+texteH(c,LIENS_G[r.g%LIENS_G.length]));return ls.join("\n")}},
  /* ---- V2 : structure calquée en 4 actes ---- */
  acte1:{titre:"Situation initiale",tirer:()=>({v:R(99),vars:varsTirage(),rec:recompense()}),
   texte:(r,c,t)=>BLOCS.acc.texte(r,c,t)+"\n"+remplir("Ce qui cloche : {signe}.\nPremière image à décrire : {amb}.",c,r.vars)},
@@ -3253,7 +3261,7 @@ const BLOCS={
  faction:{titre:"Faction",tirer:()=>({cle:R(99),x:R(99)}),
   texte:(r,c,t,j)=>{const F=t.facP[c.f[j]];const autre=t.facP[c.f[(j+1)%c.f.length]];
    const cles=[`elle détient ${c.o}.`,`son chef doit une faveur ${aX(nomCourt(c.a))}.`,`elle a un espion chez ${autre.nom}.`,`elle cache ${t.personnes[r.x%t.personnes.length]}.`,`elle prépare un coup contre ${c.lieux[r.x%c.lieux.length]}.`,`deux chefs s'y disputent le pouvoir ; l'un d'eux paierait cher de l'aide.`];
-   return `Ce qu'elle veut : ${F.veut}.\nPoint clé : ${cles[r.cle%cles.length]}`}},
+   return `Ce qu'elle veut : ${F.veut}.\nPoint clé : ${cles[cleFaction(r,j)]}`}},
  lieu:{titre:"Lieu",tirer:()=>({amb:0,q:0,o:R(99)}),
   texte:(r,c,t,j)=>{const quoi=[t.objets[(j+r.o)%t.objets.length],t.personnes[(j+r.o)%t.personnes.length],"un poste "+deX(t.facP[c.f[j%3]].nom),"les traces "+deX(nomCourt(c.a)),"un abri sûr pour souffler"];
    const ia=(j+(c.oa||0)+r.amb)%t.ambiances.length, iq=(j+(c.oq||0)+r.q)%quoi.length;return `${COMMUN.lieuxCampagne[j%7]} : ${c.lieux[j%c.lieux.length]}.\n${cap(t.ambiances[ia])}. On y trouve ${quoi[iq]}.`}},
@@ -3356,7 +3364,19 @@ function nouvelleHistoire(p,t,c,blocs){c.th=t.id;
   c.sec=R(2);c.rec=recompense();rolesH(c,t);lieuxH(c,t);
   if(histoire(c).bete&&!c.proie){const pr=choisirProie();if(pr){c.proie=pr;c.proieNom=resoudre(pr).nom}}
   const add=(k,j)=>{blocs.push({k,j:j||0,r:BLOCS[k].tirer(j||0,c)})};
-  add("h_pitch");add("h_a1");add("h_a2");[0,1,2].forEach(j=>add("h_prep",j));add("h_a3");add("h_a4");add("h_sec")}
+  add("h_pitch");add("h_a1");add("h_a2");[0,1,2].forEach(j=>add("h_prep",j));add("h_a3");add("h_a4");add("h_sec");add("h_liens")}
+/* Liens possibles entre les coureurs et l'histoire : à proposer aux joueurs, qui en choisissent ou en inventent un. Aucune formulation ne suppose le sort du personnage (vivant, mort ou absent). */
+const LIENS_H=["Tu as déjà croisé %N, il y a des années : la rencontre n'a laissé un bon souvenir à personne.","Tu dois une faveur à %N, et on pourrait bientôt te la réclamer.","Tu as rendu service à %N autrefois, et ce service n'a jamais été oublié.","Un de tes proches connaît bien %N et t'en a longuement parlé.","Tu as entendu parler de %N, et ce qu'on en dit t'a rendu méfiant dès le départ.","%N t'a un jour menti, et tu ne l'as appris que bien plus tard."];
+const LIENS_L=["Lieu familier : {l1}. Tu y as vécu quelque temps, et on s'y souvient de toi.","Lieu familier : {l1}. Tu y as laissé une affaire non réglée.","Lieu inquiétant : {l1}. On t'en a parlé avant de partir, et ce que tu en sais est peut-être faux."];
+const LIENS_G=["Tu as déjà travaillé pour {comm}, qui t'a payé… ou pas.","Quelqu'un t'a recommandé auprès de {comm}, et tu ne sais pas encore pourquoi.","Tu as une dette envers {comm}, et ce travail est l'occasion de l'effacer."];
+/* Indices du secret : trois degrés, placés dans les actes pour que le secret ne reste jamais bloqué sur un jet raté. */
+function indicesH(c,r){const h=histoire(c),pr=h.prep||[],v=((r&&r.v)||0)+(c.sec||0);const roles=(h.fiches||[]).map(f=>f[1]).filter(k=>c.noms&&c.noms[k]);
+  const A=roles.length?c.noms[roles[v%roles.length]].nom:"l'un des personnages",B=roles.length>1?c.noms[roles[(v+1)%roles.length]].nom:"un témoin";
+  const tp=pr.length?texteH(c,pr[v%pr.length].t):"une piste";
+  const I1=[`${A} évite le sujet dès qu'on l'aborde, et change de conversation.`,`un détail du décor ne colle pas avec ce que dit ${A} : un objet déplacé, une trace récente.`,`${A} en dit un peu trop, puis se reprend.`];
+  const I2=[`un témoignage contredit la version officielle sur un horaire ou un lieu.`,`un objet ou un document prouve que ${B} n'a pas dit toute la vérité.`,`${B} lâche une phrase qui n'a de sens que si le secret est vrai.`];
+  const I3=[`une preuve concrète, cachée là où personne ne regarde, et ${A} ne peut plus la nier.`,`un lieu ou un objet précis confirme tout : place-le d'avance, et laisse les joueurs le trouver.`,`${B} craque quand on lui présente la preuve, et avoue.`];
+  return "\nIndices à distiller (le secret ne doit jamais rester bloqué) :\n– Évident, sans jet, dès l'acte I : "+I1[v%3]+"\n– Moyen, en réussissant la piste « "+tp+" » (offert d'office à l'acte III si elle a échoué) : "+I2[(v+1)%3]+"\n– Difficile, à l'acte III ou au climax, sur une fouille ou un bon jet : "+I3[(v+2)%3]}
 function accorder(s,g){return g==="f"?s.replace(/\bil\b/g,"elle").replace(/\bIl\b/g,"Elle").replace(/\bcelui\b/g,"celle"):s.replace(/\belle a\b/g,"il a")}
 function twistDef(id){for(const l of V2_TWISTS)for(const x of l)if(x.id===id)return x;for(const g in V2_TWISTS_G)for(const x of V2_TWISTS_G[g])if(x.id===id)return x;return V2_TWISTS[2][0]}
 function choisirTwist(j,c,excl){excl=excl||{ids:[],e:[]};const p=P();const vus=new Set(p.twistsVus||[]);const surp=c.surprise||"revisite";
@@ -3581,7 +3601,8 @@ function rendreHistoire(p,av,t,c,decal){const B=av.blocs;const f=k=>B.map((b,ix)
    ${!c.ho?`<p class="banniere no-print"><span>Cette œuvre${c.inspi&&OEUVRES_H[c.inspi]?" n'a pas encore son vocabulaire dans cet univers":" n'a pas encore son histoire propre"} : l'aventure vient de l'ancienne version, plus générique.</span></p>`:""}
    ${sc("h_pitch","En deux mots",true,c.ho?null:"Une autre histoire du même type")}
   </div>`;
-  h+=acte("I","Le point de départ",sc("h_a1","",false));
+  const LK=un("h_liens");
+  h+=acte("I","Le point de départ",sc("h_a1","",false)+(c.ho&&LK[0]&&LK[0].r.roles?`<div class="scene"><div class="scene-h"><span class="sub">Liens possibles avec les coureurs · à proposer aux joueurs</span><button class="de no-print" data-act="relancer" data-ix="${LK[1]}" title="D'autres liens" aria-label="D'autres liens">🎲</button></div>${editable(texteBloc(LK[0]),`data-bloc="${LK[1]}"`)}</div>`:""));
   const [a2]=un("h_a2");
   if(c.ho)h+=acte("II","Trois pistes à explorer",`<p class="small muted" style="margin:0 0 8px">Dans l'ordre que choisissent les joueurs, ou pas du tout. Ce qu'ils y gagnent sert au climax : le texte du climax le rappelle.</p>`+sc("h_a2","",false)+f("h_prep").map(([b,ix])=>sc2(b,ix,"ABC"[b.j]+" · "+histoire(c).prep[b.j].t)).join(""));
   else h+=acte("II","Les préparatifs",sc("h_a2","",false)+f("h_prep").map(([b,ix])=>{const d=histoire(c).prep[b.j];const ok=!!(av.atouts&&av.atouts[ix]);return sc2(b,ix,"ABC"[b.j]+" · "+d.t)+`<div class="rangee no-print" style="margin:-2px 0 8px 17px"><button class="mini${ok?" primary":""}" data-atout="${ix}" aria-pressed="${ok}">${ok?"✓ Réussi":"Réussi ?"}</button></div>`}).join("")
@@ -3998,7 +4019,7 @@ function resGrp(gi,html){const el=document.querySelector(`[data-res="${gi}"]`);i
 function specDepuis(w){const p=P();if(w==="best")return BEST.renc;const [k,a,n]=w.split(":");
   if(k==="bloc")return specBloc(p.av.blocs[+a]);
   if(k==="table"){const e=p.av.blocs[+a].r.e[+n];const c=p.av.c;return e.ant?{lead:{nom:cap(nomCourt(c.a)),b:c.a.b,desc:c.a.secret},troupe:e.sp.troupe,diff:"mortel"}:e.sp}}
-function confirmer(b,msg){if(b.dataset.arme==="1")return true;const ancien=b.textContent;b.dataset.arme="1";b.textContent=msg;setTimeout(()=>{if(b.isConnected){b.dataset.arme="";b.textContent=ancien}},3000);return false}
+function confirmer(b,msg){if(b.dataset.arme==="1")return true;const ancien=b.textContent;b.dataset.arme="1";b.textContent=msg;setTimeout(()=>{if(b.isConnected){b.dataset.arme="";b.textContent=ancien}},6000);return false}
 function copier(txt,msg){(navigator.clipboard?navigator.clipboard.writeText(txt):Promise.reject()).then(()=>toast(msg)).catch(()=>{const z=$("zoneCode");z.hidden=false;z.value=txt;z.select();toast("Copie le texte affiché.")})}
 
 document.addEventListener("input",e=>{const el=e.target;const p=P();
