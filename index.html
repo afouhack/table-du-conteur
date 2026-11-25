@@ -186,6 +186,18 @@ details.capx dd{margin:0 0 4px}
 
 /* Générateurs */
 .gen{display:flex;flex-direction:column;gap:8px}
+.opt{display:inline-block;margin-left:6px;padding:1px 8px;border:1px solid var(--accent);border-radius:10px;font-family:var(--f-label);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);vertical-align:middle;font-weight:400}
+.rcarte{border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:5px;padding:8px 10px;background:var(--bg)}
+.rcarte.sombre{border-left-color:#a02020}
+.rcarte .rt{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.rcarte .rde{font-family:var(--f-display);font-size:22px;color:var(--accent)}
+.rcarte ol{list-style:none;margin:4px 0;padding:0}
+.rcarte li{margin:2px 0}
+.rcarte li i{font-style:normal;font-family:var(--f-label);font-size:12px;letter-spacing:.05em;color:var(--accent);margin-right:4px}
+.reglesm{margin:0;padding-left:1.1em;display:flex;flex-direction:column;gap:6px}
+.mdé{min-width:52px;min-height:52px;font-family:var(--f-display);font-size:24px}
+.mdé.max{border-color:var(--accent);box-shadow:inset 0 0 0 2px var(--accent)}
+.derap{padding:6px 8px;border-left:3px solid #a02020;background:color-mix(in srgb,#a02020 10%,transparent)}
 .sortie{background:var(--bg);border:1px solid var(--line);border-radius:5px;padding:10px 12px;min-height:3em;display:flex;flex-direction:column;gap:4px}
 .sortie:empty{display:none}
 .sortie b{font-weight:600}
@@ -224,6 +236,7 @@ body.a-accueil{--nav-h:0px}
 .accueil{display:flex;flex-direction:column;gap:16px}
 .carte-nouv{flex-direction:row;align-items:center;gap:16px;text-align:left;font-family:var(--f-body);letter-spacing:0;border:2px dashed var(--accent);padding:18px 20px;cursor:pointer}
 .carte-nouv .gros{color:var(--accent);font-size:44px}
+.carte-nouv.sec{border-style:solid;border-width:1px;border-color:var(--line)}
 .carte-nouv:hover{background:var(--accent-soft)}
 .parties{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr));gap:10px}
 .partie-c{border:1px solid var(--line);border-left:4px solid var(--pc,var(--accent));border-radius:6px;background:var(--bg);display:flex;flex-direction:column;gap:2px;padding:4px 6px 6px}
@@ -296,6 +309,67 @@ body.a-accueil{--nav-h:0px}
 .chip.incoh{opacity:.7;border-style:dashed}
 .groupe-oeuvres{margin:8px 0 2px}.groupe-oeuvres .chips{margin-top:4px}
 
+
+.liste-b{display:flex;flex-direction:column;gap:6px}
+.bl{border:1px solid var(--line);border-radius:8px;background:var(--surface);overflow:hidden}
+.bl.ouvert{border-color:var(--accent)}
+.bl-r{display:flex;align-items:stretch}
+.bl-main{flex:1;min-width:0;display:flex;flex-direction:column;align-items:flex-start;gap:3px;text-align:left;border:0;border-radius:0;background:transparent;padding:10px 12px;letter-spacing:0;min-height:60px}
+.bl-n{font-family:var(--f-display);font-size:19px;line-height:1.15}
+.bl-n .bl-s{font-style:normal;color:var(--spark);font-size:14px}
+.bl-enc{font-family:var(--f-small);font-size:12px;background:var(--accent);color:var(--accent-ink);border-radius:999px;padding:1px 8px;vertical-align:middle}
+.bl-st{display:flex;flex-wrap:wrap;gap:2px 12px;font-family:var(--f-small);font-size:14px;color:var(--muted)}
+.bl-st b{color:var(--ink);font-weight:600}
+.bl-cap{font-family:var(--f-small);font-size:13px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+.bl-d{display:flex;flex-direction:column;align-items:flex-end;justify-content:space-between;gap:6px;padding:8px 8px 8px 0}
+.bl-add{min-width:48px;min-height:44px;font-size:22px;padding:0 12px}
+.bl-det{padding:0 10px 10px}
+.bl-det .crea{border:0;padding:0;box-shadow:none;background:transparent}
+.bq input{width:100%}
+.filtres{overflow-x:auto;scrollbar-width:none;margin:6px 0}
+.filtres::-webkit-scrollbar{display:none}
+.filtres .seg{width:max-content}
+.filtres .seg button{white-space:nowrap}
+/* ---- UX : en-tête compact, import Forge, combat, saut ---- */
+body:not(.a-accueil) .eyebrow,body:not(.a-accueil) .bolt{display:none}
+body:not(.a-accueil) .tete{flex-direction:row;flex-wrap:wrap;align-items:center;gap:4px 12px}
+body:not(.a-accueil) h1{font-size:26px}
+body:not(.a-accueil) .resume{margin:0;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:13px;padding:4px 10px}
+body:not(.a-accueil) .wrap{gap:12px}
+.barre-pli{margin-bottom:-4px}
+.barre-pli button{min-height:32px}
+.forge-box{margin-top:8px;padding:10px;border:1px dashed var(--line);border-radius:8px;display:flex;flex-direction:column;gap:8px}
+.forge-box textarea{width:100%;min-height:80px;font-family:var(--f-small);font-size:14px}
+.cfiche{font-family:var(--f-small);font-size:13px;color:var(--muted);grid-column:1/-1;margin-top:-2px}
+.cfiche b{color:var(--ink);font-weight:600}
+.saut{position:sticky;top:calc(env(safe-area-inset-top,0px) + 4px);z-index:15;display:flex;gap:6px;overflow-x:auto;padding:6px;background:var(--surface);border:1px solid var(--line);border-radius:8px;scrollbar-width:none}
+.saut::-webkit-scrollbar{display:none}
+.saut button{flex:none;min-height:36px;padding:6px 12px;font-size:14px;white-space:nowrap}
+.saut button[aria-current="true"]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.vue .bloc{scroll-margin-top:64px}
+@media (min-width:761px){.saut{top:64px}}
+#v-combat button:not(.chip){min-height:44px}
+#v-combat button.mini{padding:9px 12px;font-size:14px}
+#v-combat .coup input{min-height:44px}
+#v-combat .pv{min-width:52px;min-height:52px}
+#v-combat .chip{min-height:40px;padding:6px 12px}
+.barre-combat{position:fixed;left:0;right:0;bottom:calc(var(--nav-h) + env(safe-area-inset-bottom,0px));z-index:19;display:none;align-items:center;gap:10px;padding:8px max(12px,env(safe-area-inset-left,0px));background:var(--surface);border-top:2px solid var(--accent);box-shadow:0 -4px 14px rgba(0,0,0,.18)}
+body.avec-barre .barre-combat{display:flex}
+body.avec-barre{padding-bottom:calc(110px + var(--nav-h) + env(safe-area-inset-bottom,0px))}
+#v-combat > .barre-pli{display:none}
+body:not(.a-accueil) .resume{display:flex;align-items:center;gap:8px;padding:3px 10px 3px 3px;min-height:36px;max-width:100%;border:1px solid var(--line)}
+.resume .retour{flex:none;background:var(--accent);color:var(--accent-ink);border-radius:999px;padding:5px 11px;font-family:var(--f-label);font-size:13px;letter-spacing:.04em;font-weight:700}
+.resume .res-t{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+body.avec-barre .toast{top:calc(env(safe-area-inset-top,0px) + 70px);bottom:auto}
+.statut-c{padding:10px 12px;border:1px solid var(--line);border-radius:8px;background:var(--surface);display:flex;flex-direction:column;gap:4px}
+.statut-c .init-res{margin:0}
+#v-combat .seg{margin:6px 0}
+#v-combat button.large{width:100%;margin:4px 0}
+.fin-c{align-items:center}
+.barre-combat{bottom:0}
+.barre-combat .bc-t{flex:1;min-width:0;font-family:var(--f-small);font-size:14px;line-height:1.25}
+.barre-combat .bc-t b{display:block;font-family:var(--f-display);font-size:18px;font-weight:400}
+.barre-combat button{flex:none;min-height:48px;padding:8px 18px;white-space:nowrap}
 </style>
 </head>
 <body>
@@ -304,7 +378,7 @@ body.a-accueil{--nav-h:0px}
     <span class="eyebrow">Coureurs d'Orages · outils du Conteur</span>
     <h1>Table du Conteur</h1>
     <svg class="bolt" viewBox="0 0 420 14" aria-hidden="true"><polyline points="0,7 120,7 132,1 140,12 150,3 158,7 420,7" fill="none" stroke="currentColor" stroke-width="2"/></svg>
-    <button class="resume" id="resume" type="button" data-go="accueil" title="Revenir aux parties"></button>
+    <button class="resume" id="resume" type="button" data-go="accueil" title="Revenir à l'accueil et aux parties" aria-label="Revenir à l'accueil"></button>
   </header>
 
   <nav class="onglets" id="onglets" aria-label="Sections">
@@ -3036,6 +3110,72 @@ const THEMES=FORGE.map(f=>Object.assign({},f,TH[f.id],{
 }));
 const TBY=Object.fromEntries(THEMES.map(t=>[t.id,t]));
 
+const RUNES=[
+ {id:"flamme",n:"Rune de Flamme",de:8,r:"plongée une heure dans un vrai feu.",
+  t:["Une flamme de bougie, allume une torche.","Torche vive : 1d8 de dégâts à une cible proche.","Gerbe de feu : 2d8 sur une zone (une pièce), le décor s'enflamme.","Brasier : 3d8 sur une grande zone, très difficile à éteindre."]},
+ {id:"foudre",n:"Rune de Foudre",de:10,r:"laissée une nuit d'orage sur un point haut.",
+  t:["Étincelle : on lâche un objet métallique.","Éclair : 1d8 de dégâts à une cible.","2d8 de dégâts, l'armure métallique ne protège pas.","3d8 en chaîne sur jusqu'à trois cibles proches."]},
+ {id:"vent",n:"Rune de Vent",de:8,r:"une nuit entière au sommet d'une colline ou à une fenêtre grande ouverte.",
+  t:["Souffle léger : éteint une flamme, disperse une fumée.","Bourrasque qui repousse une cible ; une chute est ralentie.","Renverse des créatures de taille humaine ; le groupe a l'avantage à la fuite ou à la poursuite 1d6 tours.","Tempête locale, 1d6 tours : tout est repoussé et les projectiles déviés."]},
+ {id:"pierre",n:"Rune de Pierre",de:8,r:"enterrée en pleine terre un jour et une nuit.",
+  t:["Fissure ou éboulis léger, ouvre un passage minuscule.","Peau de pierre : +2 en armure pendant 1d6 tours.","Ouvre ou ferme une paroi de roche large comme une porte, 1d6 tours.","Scelle un couloir ou une pièce de roche pendant 1d6 heures."]},
+ {id:"eau",n:"Rune d'Eau",de:8,r:"trempée une nuit dans une eau vive (source, torrent).",
+  t:["Purifie une gourde, éteint une torche.","Soigne 1 dé de vie de la cible (une cible blessée seulement).","Soigne 1 dé de vie + niveau du lanceur, ou le groupe respire sous l'eau 1d6 heures.","Soigne 2 dés de vie + niveau, ou purge un poison."]},
+ {id:"ombre",n:"Rune d'Ombre",de:10,r:"gardée une nuit entière sans aucune lumière.",
+  t:["Ombre épaisse autour du lanceur, il éteint une lumière proche.","Invisibilité du lanceur 1d6 tours, brisée par une attaque.","Invisibilité du lanceur et d'un allié 1d6 tours, avantage pour la surprise.","Manteau d'ombre pour tout le groupe pendant 1d6 heures."]},
+ {id:"voix",n:"Rune de Voix",de:8,r:"on la fait résonner dans un lieu clos et silencieux (crypte, cave) en y disant un secret à voix haute.",
+  t:["Comprend une phrase d'une langue inconnue, calme une bête.","Comprend toutes les langues pendant 1d6 heures, parle à un animal.","Message à distance, ou change l'attitude d'une créature (jet).","Une créature faible obéit à un ordre simple, ou un cadavre répond à une question."]},
+ {id:"sang",n:"Rune de Sang",de:12,sombre:"le porteur perd des PV égaux à la moitié du résultat gardé (arrondi au supérieur).",
+  r:"le sang d'un adversaire tué de sa main, rune au poing, ou 1d6 PV sacrifiés par le porteur.",
+  t:["Retrouve la trace de quelqu'un grâce à une goutte de sang.","Arme affamée : +1d4 de dégâts pendant 1d6 tours.","3d8 de dégâts à une cible, ou domine un esprit faible 1d6 tours.","4d8 de dégâts, ou contrôle total d'une créature pendant 1d6 heures."]}
+];
+const PALIERS_M=["Faible","Moyen","Fort","Prodigieux"],PLAGES_M=["1-3","4-6","7-9","10+"],LADDER_M=[20,12,10,8,6,4];
+const REGLES_MAGIE=[
+ "Module optionnel : seul le Magicien s'en sert. Son dé de vie est réduit d'une taille.",
+ "Une rune est un objet porté : un emplacement par niveau, six au plus. Son dé d'usure descend : d20, d12, d10, d8, d6, d4, puis vide.",
+ "Les effets listés sont des propositions : le joueur peut proposer au Conteur un autre usage de sa rune (l'Eau soigne, mais peut aussi frapper comme le feu). Le Conteur tranche.",
+ "Pour s'en servir, le Magicien lance autant de dés d'usure que son niveau et en garde un seul.",
+ "Le dé gardé donne la force de l'effet : 1-3 faible, 4-6 moyen, 7-9 fort, 10 et plus prodigieux.",
+ "Si un des dés lancés montre le maximum de la rune, elle s'use d'un cran.",
+ "Si le dé gardé est lui-même au maximum : dérapage, le Conteur complique la scène.",
+ "Recharger : complète, la rune revient à son dé de départ ; incomplète, elle ne remonte que d'un cran.",
+ "Rite d'élévation : +1 cran (d12 au plus), une fois par rune, réservé au Magicien. Échec : −1 cran ; un 1 naturel brise la rune. Le d20 est réservé à l'Artefact légendaire."
+];
+const DERAPAGES=["La magie se retourne : une cible non voulue est touchée, souvent un allié proche.","Effet démesuré : bien plus fort ou plus large que prévu, avec des dégâts autour.","Bruit, lumière ou odeur : tout le voisinage est alerté.","La rune brûle, gèle ou mord la main du porteur : petite blessure, objet lâché.","Un coût en plus : la rune perd un cran supplémentaire.","Quelque chose remarque le porteur : un esprit, une créature, une personne."];
+const palM=v=>v>=10?3:v>=7?2:v>=4?1:0;
+const cranBas=d=>{const i=LADDER_M.indexOf(d);return i<0||i===LADDER_M.length-1?0:LADDER_M[i+1]};
+const cranHaut=(d,max)=>{if(!d)return max>=4?4:0;const i=LADDER_M.indexOf(d);if(i<=0)return d;return LADDER_M[i-1]<=max?LADDER_M[i-1]:d};
+const MAG={rune:"flamme",de:8,rang:3,jet:null,out:"",sortie:""};
+const runeDef=id=>RUNES.find(r=>r.id===id)||RUNES[0];
+function runeAuHasard(){const pool=[];RUNES.forEach(r=>{const w=r.de===8?4:r.de===10?2:1;for(let k=0;k<w;k++)pool.push(r)});return pick(pool)}
+function carteRuneT(r){return `<div class="rcarte${r.sombre?" sombre":""}"><div class="rt"><b>${esc(r.n)}</b><span class="rde">d${r.de}</span></div><ol>${r.t.map((x,k)=>`<li><i>${PLAGES_M[k]} ${PALIERS_M[k]}</i> ${esc(x)}</li>`).join("")}</ol>${r.sombre?`<p class="small"><b>Coût :</b> ${esc(r.sombre)}</p>`:""}<p class="small muted"><b>Recharge :</b> ${esc(r.r)}</p></div>`}
+function reglesMagieHTML(){return `<ul class="reglesm">${REGLES_MAGIE.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>`}
+function blocsMagie(){
+  const r=runeDef(MAG.rune),vide=!MAG.de;
+  return `<div class="bloc gen"><div class="bloc-h"><h2>Runes <span class="opt">optionnel</span></h2><small>Magie à dés d'usure : pour tes magiciens et tes trouvailles.</small></div>
+   <div class="rangee"><button class="primary" data-act="mag-tirer">Tirer une rune</button><button data-act="mag-mage">Magicien PNJ</button><button data-act="mag-derap">Dérapage (1d6)</button></div>
+   <div class="sortie" id="sRune">${MAG.out||""}</div>
+   <span class="sub">Lancer une rune</span>
+   <label>Rune<select id="magRune">${RUNES.map(x=>`<option value="${x.id}"${x.id===MAG.rune?" selected":""}>${esc(x.n)} (d${x.de})</option>`).join("")}</select></label>
+   <div class="rangee"><span class="small">Rang (dés lancés)</span><div class="stepper"><button data-act="mag-rang" data-v="-1" aria-label="Un dé de moins">−</button><output>${MAG.rang}</output><button data-act="mag-rang" data-v="1" aria-label="Un dé de plus">＋</button></div></div>
+   <div class="rangee"><span class="small">Dé d'usure</span><div class="seg">${[12,10,8,6,4].map(d=>`<button data-act="mag-de" data-v="${d}" aria-pressed="${MAG.de===d}">d${d}</button>`).join("")}<button data-act="mag-de" data-v="0" aria-pressed="${vide}">vide</button></div></div>
+   <div class="rangee"><button class="primary" data-act="mag-lancer"${vide?" disabled":""}>Lancer</button><button class="mini" data-act="mag-recharge" data-v="1">Recharge complète</button><button class="mini" data-act="mag-recharge" data-v="0">Incomplète</button></div>
+   <div class="sortie" id="sMag">${MAG.sortie||""}</div></div>
+  <div class="bloc"><div class="bloc-h"><h2>Règles de la magie <span class="opt">optionnel</span></h2><small>Résumé du module, à portée de main.</small></div>${reglesMagieHTML()}</div>`}
+function magieJet(){
+  if(!MAG.de)return;const dice=Array.from({length:MAG.rang},()=>de(MAG.de));MAG.jet={de:MAG.de,dice,rune:MAG.rune};
+  MAG.sortie=`<p class="small">${MAG.rang} d${MAG.de} : touche le dé que le magicien garde.</p><div class="des">${dice.map((v,i)=>`<button class="mdé${v===MAG.de?" max":""}" data-act="mag-garde" data-i="${i}">${v}</button>`).join("")}</div>`;
+}
+function magieGarde(i){
+  const j=MAG.jet;if(!j)return;const kept=j.dice[i],r=runeDef(j.rune),pal=palM(kept),usure=j.dice.includes(j.de),derap=kept===j.de;
+  let nouv=j.de;if(usure)nouv=cranBas(j.de);
+  const lignes=[`<p><b>Dé gardé : ${kept}</b> sur d${j.de} : <b>${PALIERS_M[pal]}</b>.</p>`,`<p>${esc(r.t[pal])}</p>`];
+  if(r.sombre)lignes.push(`<p class="small"><b>Coût :</b> ${esc(r.sombre)} Ici : ${Math.ceil(kept/2)} PV.</p>`);
+  if(derap)lignes.push(`<p class="derap"><b>Dérapage.</b> ${esc(DERAPAGES[R(6)])}</p>`);
+  lignes.push(usure?`<p class="small">Un dé montre ${j.de} : la rune ${nouv?`passe de d${j.de} à <b>d${nouv}</b>`:`<b>est vide</b>`}.</p>`:`<p class="small">Aucun dé au maximum : la rune ne s'use pas.</p>`);
+  MAG.sortie=lignes.join("");MAG.jet=null;MAG.de=nouv;
+}
+
 /* ============ État ============ */
 const LS="table-du-conteur-v1";
 let DB={cur:null,parties:{},perso:[]};
@@ -3043,7 +3183,7 @@ try{const x=JSON.parse(localStorage.getItem(LS)||"null");if(x&&x.parties)DB=Obje
 function sauver(){try{localStorage.setItem(LS,JSON.stringify(DB))}catch(e){}}
 function groupeNeuf(n,niv){return Array.from({length:n},(_,i)=>({id:uid(),nom:"Coureur "+(i+1),niv,actif:true}))}
 function nouvellePartie(o={}){
-  const p={id:uid(),nom:"",theme:o.theme||"fantasy",type:o.type||"oneshot",surprise:o.surprise||"revisite",genres:(o.genres||[]).slice(),inspis:(o.inspis||[]).slice(),elts:(o.elts||[]).slice(),surnat:o.surnat!=null?o.surnat:true,diff:"equilibre",
+  const p={id:uid(),nom:"",theme:o.theme||"fantasy",type:o.type||"oneshot",surprise:o.surprise||"revisite",genres:(o.genres||[]).slice(),inspis:(o.inspis||[]).slice(),elts:(o.elts||[]).slice(),surnat:o.surnat!=null?o.surnat:true,magie:!!o.magie,diff:"equilibre",
     groupe:groupeNeuf(o.n||4,o.niv||1),av:null,combat:{tour:0,init:null,grp:[],log:[]},notes:"",journal:[],pnjs:[],cree:Date.now(),vu:Date.now()};
   syncGroupe(p);DB.parties[p.id]=p;DB.cur=p.id;sauver();return p;
 }
@@ -3057,7 +3197,8 @@ function puissance(){const a=P().groupe.filter(c=>c.actif);return Math.max(1,a.r
 function texteGroupe(p){p=p||P();const a=p.groupe.filter(c=>c.actif);if(!a.length)return "aucun coureur présent";
   const nv=[...new Set(a.map(c=>c.niv))].sort((x,y)=>x-y);return `${a.length} coureur${a.length>1?"s":""}, niveau${nv.length>1?"x":""} ${nv.length>1?nv[0]+" à "+nv[nv.length-1]:nv[0]}`}
 const T=()=>TBY[P().theme]||THEMES[0];
-const nomPartie=p=>(p.av&&p.av.titre)||p.nom||("Partie "+TBY[p.theme].nom.toLowerCase());
+const nomPartie=p=>(p.av&&p.av.titre)||p.nom||(p.libre?"Partie sans histoire":"Partie "+TBY[p.theme].nom.toLowerCase());
+const typeLib=q=>q.libre&&!q.av?"sans histoire":(q.type==="oneshot"?"one-shot":"campagne");
 
 /* ============ Créatures ============ */
 /* ref : {th,i} adversaire du thème · {b} base du livre / figurant · {p} créature perso · {nom,b,desc} adversaire nommé */
@@ -3428,35 +3569,64 @@ function texteBloc(b){if(b.t!=null)return b.t;const av=P().av;const t=TBY[av.the
 function specBloc(b){const av=P().av,t=TBY[av.theme];const B=BLOCS[b.k];if(!B.renc)return null;return B.rencDe?B.rencDe(b.r,av.c,t,b.j,b.n):b.r.renc}
 
 /* ============ Rendu : Partie ============ */
-function rendreResume(){const p=P();if(!p){$("resume").hidden=true;return}const t=T();$("resume").innerHTML=ONGLET==="accueil"?"":`<span aria-hidden="true">⌂</span> <b>${esc(nomPartie(p))}</b> · ${esc(t.nom)} · ${texteGroupe(p)} · ${p.type==="oneshot"?"one-shot":"campagne"}`;$("resume").hidden=ONGLET==="accueil";
+function rendreResume(){const p=P();if(!p){$("resume").hidden=true;return}const t=T();$("resume").innerHTML=ONGLET==="accueil"?"":`<span class="retour" aria-hidden="true">‹ Accueil</span><span class="res-t"><b>${esc(nomPartie(p))}</b> · ${esc(t.nom)} · ${texteGroupe(p)} · ${typeLib(p)}</span>`;$("resume").hidden=ONGLET==="accueil";
   document.documentElement.style.setProperty("--th-font",STY[t.id][0]+", var(--f-display)");document.documentElement.style.setProperty("--th-acc",STY[t.id][1]);
   const n=P().combat.grp.filter(g=>g.pv.some(v=>v>0)).length;const bt=document.querySelector('[data-tab="combat"]');let s=bt.querySelector(".pastille");
   if(n){if(!s){s=document.createElement("span");s.className="pastille";bt.appendChild(s)}s.textContent=n}else if(s)s.remove()}
+/* Import depuis la Forge de Coureurs : code collé ou fichier .coureur.json */
+let FORGEUI={ouvert:false,msg:""};
+function lireForge(texte){
+  texte=String(texte||"").trim();let o=null;
+  try{o=JSON.parse(texte)}catch(e){try{o=JSON.parse(decodeURIComponent(escape(atob(texte.replace(/\s+/g,"")))))}catch(e2){o=null}}
+  if(!o)return null;
+  if(o.format==="forge-de-coureurs"&&o.coureur)return [o.coureur];
+  if(Array.isArray(o.liste))return o.liste;
+  if(o.fiche&&o.id)return [o];
+  return null;
+}
+function versCoureur(x){const f=x.fiche||{};
+  const runes=(Array.isArray(x.runes)&&x.runes.some(Boolean)?x.runes.filter(Boolean).map(r=>({n:r.n||r.id,de:r.de||r.dep||8})):(f.rune?[{n:f.rune,de:8}]:[]));
+  return {nom:f.nom||"Coureur",niv:Math.max(1,Math.min(6,+f.niveau||1)),
+    f:{id:x.id,pv:f.pvMax||null,def:f.def!=null?f.def:null,dh:f.dhMax||null,mvt:f.mvt!=null?f.mvt:null,dons:(f.donsNoms||[]).slice(),runes}}}
+function importerForge(texte){
+  const l=lireForge(texte);
+  if(!l||!l.length||!l.every(x=>x&&x.fiche&&x.id)){FORGEUI.msg="Ce code n'est pas reconnu. Dans la Forge : ouvre la feuille de jeu du coureur, puis « Copier son code ».";return false}
+  const p=P();let nv=0,maj=0;
+  l.map(versCoureur).forEach(c=>{
+    let g=p.groupe.find(x=>x.f&&x.f.id===c.f.id);
+    if(g){g.nom=c.nom;g.niv=c.niv;g.f=c.f;maj++;return}
+    g=p.groupe.find(x=>!x.f&&/^Coureur \d+$/.test(x.nom));
+    if(g){g.nom=c.nom;g.niv=c.niv;g.f=c.f;g.actif=true}else p.groupe.push({id:uid(),nom:c.nom,niv:c.niv,actif:true,f:c.f});
+    nv++});
+  syncGroupe(p);sauver();
+  FORGEUI.msg=(nv?nv+" coureur"+(nv>1?"s":"")+" importé"+(nv>1?"s":""):"")+(nv&&maj?", ":"")+(maj?maj+" mis à jour":"")+" : "+l.map(x=>x.fiche.nom).join(", ")+".";
+  return true;
+}
+const ficheCoureur=c=>c.f?`<div class="cfiche"><b>${c.f.pv?c.f.pv+" PV":""}</b>${c.f.def!=null?" · Déf. "+c.f.def:""}${c.f.dh?" · "+c.f.dh+" DH":""}${c.f.runes&&c.f.runes.length?" · "+c.f.runes.map(r=>esc(String(r.n).replace(/^./,m=>m.toUpperCase()))+" d"+r.de).join(", "):""}${c.f.dons&&c.f.dons.length?`<br>${c.f.dons.map(esc).join(" · ")}`:""}</div>`:"";
 function groupeHTML(p,compact){
   return `<div class="coureurs">${p.groupe.map((c,i)=>`<div class="coureur${c.actif?"":" absent"}">
      <input data-cnom="${i}" value="${esc(c.nom)}" aria-label="Nom du coureur ${i+1}">
      <div class="stepper petit"><button data-cniv="${i}" data-d="-1" aria-label="Niveau moins un"${c.niv<=1?" disabled":""}>−</button><output aria-label="Niveau">niv. ${c.niv}</output><button data-cniv="${i}" data-d="1" aria-label="Niveau plus un"${c.niv>=6?" disabled":""}>＋</button></div>
      <button class="mini${c.actif?"":" ghost"}" data-cact="${i}" aria-pressed="${c.actif}" title="Toucher pour changer">${c.actif?"✓ Présent":"Absent"}</button>
-     <button class="mini ghost danger" data-csup="${i}" aria-label="Retirer ${esc(c.nom)}">✕</button></div>`).join("")}</div>
-   <div class="rangee"><button class="mini" data-act="c-ajout">＋ Ajouter un coureur</button><button class="mini" data-act="c-monte"${p.groupe.some(c=>c.actif&&c.niv<6)?"":" disabled"}>Les présents montent d'un niveau</button></div>
+     <button class="mini ghost danger" data-csup="${i}" aria-label="Retirer ${esc(c.nom)}">✕</button>${ficheCoureur(c)}</div>`).join("")}</div>
+   <div class="rangee"><button class="mini" data-act="c-ajout">＋ Ajouter un coureur</button><button class="mini" data-act="c-forge">⇩ Importer de la Forge</button><button class="mini" data-act="c-monte"${p.groupe.some(c=>c.actif&&c.niv<6)?"":" disabled"}>Les présents montent d'un niveau</button></div>
+   ${FORGEUI.ouvert?`<div class="forge-box"><p class="small">Dans la <a href="https://afouhack.github.io/Forge-de-Coureurs/" target="_blank" rel="noopener">Forge de Coureurs</a> : feuille de jeu du coureur → « Copier son code ». Colle-le ici, ou charge un fichier .coureur.json. Tu peux importer plusieurs coureurs à la suite.</p><textarea id="forgeCode" placeholder="Colle le code d'un coureur ici" aria-label="Code d'un coureur de la Forge"></textarea><div class="rangee"><button class="primary mini" data-act="forge-ok">Importer</button><button class="mini" data-act="forge-fichier">Charger un fichier…</button><button class="mini ghost" data-act="forge-annuler">Fermer</button></div><input type="file" id="forgeFichier" accept=".json,application/json,text/plain" hidden></div>`:""}${FORGEUI.msg?`<p class="small" role="status" style="margin-top:6px">${esc(FORGEUI.msg)}</p>`:""}
    <p class="small muted">${p.groupe.some(c=>c.actif)?`Présents : ${texteGroupe(p)}. ${compact?"":`Une rencontre équilibrée tourne autour de ${exemple()}.`}`:"Personne n'est présent : marque au moins un coureur."}</p>`}
 function rendrePartie(){
   const p=P(),t=T();
   $("v-partie").innerHTML=`
+  ${p.libre&&!p.av?`<div class="bloc"><label>Nom de la partie<input data-pnom value="${esc(p.nom)}" placeholder="${esc(nomPartie(Object.assign({},p,{nom:""})))}" aria-label="Nom de la partie"></label></div>`:""}
   <div class="bloc"><div class="bloc-h"><h2>Le groupe</h2><small>Il fixe la difficulté des rencontres, et peut changer à tout moment.</small></div>
     ${groupeHTML(p)}
     <p class="small muted">Un joueur absent ce soir : marque-le « Absent ». Un coureur mort : retire-le et ajoute son remplaçant au niveau que tu choisis. Une montée de niveau : touche « ＋ ». Les rencontres de l'aventure et du combat suivent aussitôt.</p>
   </div>
-  <div class="bloc"><div class="bloc-h"><h2>Réglages de la partie</h2></div>
-    <div class="grille2">
-      <div class="gen"><span class="sub">Type de partie</span><div class="seg"><button data-type="oneshot" aria-pressed="${p.type==="oneshot"}">One-shot</button><button data-type="campagne" aria-pressed="${p.type==="campagne"}">Campagne</button></div>
-        <p class="small muted">${p.type==="oneshot"?"Une séance : cinq scènes, de l'accroche à la confrontation.":"Plusieurs séances : fil rouge, factions, sept lieux et des chapitres."}</p></div>
-      <div class="gen"><span class="sub">Ambiance</span><label class="toggle"><input type="checkbox" id="surnat"${p.surnat?" checked":""}> Créatures surnaturelles</label>
-        <p class="small muted">Décoche pour un monde sans monstres : seuls restent humains, bêtes et machines.</p></div>
-    </div>
-    <span class="sub">Thème</span>
-    <div class="themes">${THEMES.map(x=>`<button class="theme" data-theme="${x.id}" aria-pressed="${x.id===p.theme}"><b style="font-family:${esc(STY[x.id][0])},var(--f-display)">${esc(x.nom)}</b><span>${esc(x.acc)}</span></button>`).join("")}</div>
-    <div class="rangee fin"><button class="primary" data-go="aventure">${p.av?"Voir l'aventure":"Créer l'aventure"} →</button></div>
+  <div class="bloc"><div class="bloc-h"><h2>Réglages de la partie</h2><small>${p.libre&&!p.av?"Sans histoire":esc(t.nom)+" · "+(p.type==="oneshot"?"one-shot":"campagne")}</small></div>
+    <div class="gen"><span class="sub">Ambiance</span><label class="toggle"><input type="checkbox" id="surnat"${p.surnat?" checked":""}> Créatures surnaturelles</label>
+        <p class="small muted">Décoche pour un monde sans monstres : seuls restent humains, bêtes et machines.</p>
+        <label class="toggle"><input type="checkbox" id="magie"${p.magie?" checked":""}> Module magie à runes <span class="opt">optionnel</span></label>
+        <p class="small muted">Ajoute en jeu les runes, leurs règles et un lanceur de dés d'usure pour tes magiciens.</p></div>
+    ${p.libre&&!p.av?`<span class="sub">Univers (règle le bestiaire)</span>
+    <div class="themes">${THEMES.map(x=>`<button class="theme" data-theme="${x.id}" aria-pressed="${x.id===p.theme}"><b style="font-family:${esc(STY[x.id][0])},var(--f-display)">${esc(x.nom)}</b><span>${esc(x.acc)}</span></button>`).join("")}</div>`:""}
   </div>`;
 }
 
@@ -3465,6 +3635,17 @@ let NOUV=null;
 function rendreAccueil(){
   const ids=Object.keys(DB.parties).sort((a,b)=>(DB.parties[b].vu||DB.parties[b].cree)-(DB.parties[a].vu||DB.parties[a].cree));
   const v=$("v-accueil");
+  if(NOUV&&NOUV.libre){const n=NOUV,t=TBY[n.theme];if(n.ouverte==null)n.ouverte=-1;
+    v.innerHTML=`<div class="bloc assistant"><div class="bloc-h"><h2>Partie sans histoire</h2><button class="mini ghost" data-act="nouv-annuler">Annuler</button></div>
+     <p class="small muted">Ton scénario, ton rythme : l'appli garde le groupe, le bestiaire, le combat et les outils. Aucune aventure n'est générée.</p>
+     <label>Nom de la partie<input id="nLibreNom" value="${esc(n.nom||"")}" placeholder="Ex. Les Mines de Karr" maxlength="60" autocomplete="off"></label>
+     ${n.ouverte===0?`<section class="pas ouvert" aria-label="Univers"><div class="pas-h"><span class="num">1</span><h3>Univers</h3></div><div class="pas-corps"><div class="themes">${THEMES.map(x=>`<button class="theme" data-ntheme="${x.id}" aria-pressed="${x.id===n.theme}"><b style="font-family:${esc(STY[x.id][0])},var(--f-display)">${esc(x.nom)}</b><span>${esc(x.acc)}</span></button>`).join("")}</div></div></section>`
+      :`<button class="pas ferme" data-npas="0" aria-label="Modifier : Univers"><span class="num">1</span><span class="pas-t">Univers</span><span class="pas-res"><b style="font-family:${esc(STY[n.theme][0])},var(--f-display)">${esc(t.nom)}</b> <span class="muted">· ${esc(t.acc)}</span></span><span class="pas-mod">Modifier</span></button>`}
+     <section class="pas ouvert" aria-label="Le groupe"><div class="pas-h"><span class="num">2</span><h3>Le groupe</h3></div><div class="pas-corps">
+       <div class="rangee"><span class="small">Coureurs</span><div class="stepper"><button data-nn="-1" aria-label="Un coureur de moins">−</button><output>${n.n}</output><button data-nn="1" aria-label="Un coureur de plus">＋</button></div></div>
+       <div class="rangee"><span class="small">Niveau</span><div class="seg">${[1,2,3,4,5,6].map(k=>`<button data-nniv="${k}" aria-pressed="${k===n.niv}">${k}</button>`).join("")}</div></div>
+       <p class="small muted">Tu pourras nommer chaque coureur ensuite.</p></div></section>
+     <div class="rangee fin lancer"><button class="primary" data-act="nouv-libre">Commencer →</button></div></div>`;return}
   if(NOUV){const n=NOUV;const camp=n.type==="campagne";const t=TBY[n.theme];
     /* Assistant en étapes : l'étape ouverte montre ses choix ; les autres se résument en une ligne. */
     const gs=typesDe(n),is=camp?[]:(n.inspis||[]).filter(k=>INSPI[k]),es=eltsChoisis(n).map(x=>eltDef(x).nom);
@@ -3475,25 +3656,27 @@ function rendreAccueil(){
       corps:`<div class="rangee"><span class="small">Coureurs</span><div class="stepper"><button data-nn="-1" aria-label="Un coureur de moins">−</button><output>${n.n}</output><button data-nn="1" aria-label="Un coureur de plus">＋</button></div></div>
        <div class="rangee"><span class="small">Niveau</span><div class="seg">${[1,2,3,4,5,6].map(k=>`<button data-nniv="${k}" aria-pressed="${k===n.niv}">${k}</button>`).join("")}</div></div>
        <p class="small muted">Tu pourras nommer chaque coureur et changer son niveau ensuite.</p>`,suivant:1},
-     {k:"type",t:"Type de partie",res:`${camp?"Campagne":"One-shot"} · ${n.surnat?"avec":"sans"} surnaturel`,
+     {k:"type",t:"Type de partie",res:`${camp?"Campagne":"One-shot"} · ${n.surnat?"avec":"sans"} surnaturel${n.magie?" · magie":""}`,
       corps:`<div class="seg"><button data-ntype="oneshot" aria-pressed="${!camp}">One-shot</button><button data-ntype="campagne" aria-pressed="${camp}">Campagne</button></div>
        <p class="small muted">${camp?"Plusieurs séances, avec factions et chapitres.":"Une séance, de l'accroche à la confrontation."}</p>
-       <label class="toggle"><input type="checkbox" id="nSurnat"${n.surnat?" checked":""}> Créatures surnaturelles</label>`,suivant:1},
+       <label class="toggle"><input type="checkbox" id="nSurnat"${n.surnat?" checked":""}> Créatures surnaturelles</label>
+       <label class="toggle"><input type="checkbox" id="nMagie"${n.magie?" checked":""}> Module magie à runes <span class="opt">optionnel</span></label>`,suivant:1},
      camp?null:{k:"oeuvres",t:"L'œuvre",res:(is.length?"Dans l'esprit de « "+esc(INSPI[is[0]].ref.split(",")[0])+" »":"Au hasard"),corps:choixComplet(n,"n",camp,n.theme,"oeuvres"),suivant:1},
-    ].filter(Boolean);
+    ].filter(Boolean).filter(e=>!n.libre||e.k==="theme"||e.k==="groupe");
     if(n.ouverte==null)n.ouverte=0;if(n.ouverte>=etapes.length)n.ouverte=-1;
-    v.innerHTML=`<div class="bloc assistant"><div class="bloc-h"><h2>Nouvelle partie</h2><button class="mini ghost" data-act="nouv-annuler">Annuler</button></div>
+    v.innerHTML=`<div class="bloc assistant"><div class="bloc-h"><h2>${n.libre?"Partie sans histoire":"Nouvelle aventure"}</h2><button class="mini ghost" data-act="nouv-annuler">Annuler</button></div>
      ${etapes.map((e,i)=>i===n.ouverte?`<section class="pas ouvert" aria-label="${esc(e.t)}"><div class="pas-h"><span class="num">${i+1}</span><h3>${esc(e.t)}</h3></div>
-       <div class="pas-corps">${e.corps}</div>${e.suivant?`<div class="rangee fin"><button class="primary mini" data-npas="${i+1}">${i===etapes.length-1?"Terminer":"Valider"} →</button></div>`:""}</section>`
+       <div class="pas-corps">${e.corps}</div>${e.suivant&&i<etapes.length-1?`<div class="rangee fin"><button class="primary mini" data-npas="${i+1}">Valider →</button></div>`:""}</section>`
       :`<button class="pas ferme" data-npas="${i}" aria-label="Modifier : ${esc(e.t)}"><span class="num">${i<n.ouverte||n.ouverte<0?"✓":i+1}</span><span class="pas-t">${esc(e.t)}</span><span class="pas-res">${e.res}</span><span class="pas-mod">Modifier</span></button>`).join("")}
-     <div class="rangee fin lancer"><button class="primary" data-act="nouv-go">Lancer la partie →</button></div>
-     <p class="small muted">Tu peux lancer à tout moment : les étapes non vues gardent leur valeur par défaut. L'aventure est tirée tout de suite ; son titre se change dans l'onglet Aventure.</p></div>`;return}
+     <div class="rangee fin lancer">${n.libre?`<button class="primary" data-act="nouv-libre">Commencer →</button>`:`<button class="primary" data-act="nouv-go">Lancer la partie →</button>`}</div>
+     ${n.libre?`<p class="small muted">Choisis l'univers (il règle le bestiaire) et le groupe. Tu pourras nommer chaque coureur, et la partie sera enregistrée dans « Parties en cours ».</p>`:`<p class="small muted">Tu peux lancer à tout moment : les étapes non vues gardent leur valeur par défaut. L'aventure est tirée tout de suite ; son titre se change dans l'onglet Aventure.</p>`}</div>`;return}
   v.innerHTML=`<div class="accueil">
-   <button class="bloc carte-nouv" data-act="nouv"><span class="gros">＋</span><span><h2>Nouvelle partie</h2><span class="small muted">Thème, groupe, one-shot ou campagne : l'aventure est prête en trois choix.</span></span></button>
+   <button class="bloc carte-nouv" data-act="nouv-libre-ouvrir"><span class="gros">⚔</span><span><h2>Jouer sans histoire</h2><span class="small muted">Tu as déjà ton scénario ? Garde le groupe, le bestiaire, le combat et les outils. Aucune aventure n'est générée.</span></span></button>
+   <button class="bloc carte-nouv sec" data-act="nouv"><span class="gros">＋</span><span><h2>Générer une aventure</h2><span class="small muted">Thème, groupe, one-shot ou campagne : une histoire prête en quelques choix.</span></span></button>
    <div class="bloc"><div class="bloc-h"><h2>Parties en cours</h2><small>${ids.length?ids.length+" partie"+(ids.length>1?"s":""):""}</small></div>
     ${ids.length?`<div class="parties">${ids.map(id=>{const q=DB.parties[id],t=TBY[q.theme];return `<div class="partie-c" style="--pc:${STY[q.theme][1]}">
       <button class="ouvrir" data-ouvrir="${id}"><b style="font-family:${esc(STY[q.theme][0])},var(--f-display)">${esc(nomPartie(q))}</b>
-       <span class="small muted">${esc(t.nom)} · ${q.type==="oneshot"?"one-shot":"campagne"} · ${texteGroupe(q)}</span>
+       <span class="small muted">${esc(t.nom)} · ${typeLib(q)} · ${texteGroupe(q)}</span>
        <span class="small muted">${q.journal.length?q.journal.length+" séance"+(q.journal.length>1?"s":"")+" au journal · ":""}ouverte ${quand(q.vu||q.cree)}</span></button>
       <button class="mini ghost danger" data-suppr="${id}" aria-label="Supprimer ${esc(nomPartie(q))}">Supprimer</button></div>`}).join("")}</div>`
      :`<p class="small muted">Aucune pour l'instant.</p>`}
@@ -3515,12 +3698,12 @@ function editable(txt,attr){return `<p class="txt" contenteditable="plaintext-on
 function rendreAventure(){
   const p=P(),av=p.av,v=$("v-aventure");
   const choix=blocChoix(p,av);
-  if(!av){v.innerHTML=`<div class="bloc vide"><h2>Pas encore d'aventure</h2><p>Thème ${esc(T().nom)}, ${texteGroupe(p)}, ${p.type==="oneshot"?"one-shot":"campagne"}.</p><p class="small muted">Choisis un type ci-dessus. Tout se relance ensuite élément par élément, et chaque texte se retouche au doigt.</p></div>`;v.innerHTML=choix+v.innerHTML;return}
+  if(!av){v.innerHTML=`<div class="bloc vide"><h2>${p.libre?"Partie sans histoire":"Pas encore d'aventure"}</h2><p>Thème ${esc(T().nom)}, ${texteGroupe(p)}${p.libre?"":`, ${p.type==="oneshot"?"one-shot":"campagne"}`}.</p><p class="small muted">${p.libre?"Tu joues ton propre scénario : le bestiaire, le combat et les outils sont prêts. Pour une histoire toute faite, crée une nouvelle partie depuis l'accueil.":"Cette partie n'a pas d'aventure."} Tout se relance ensuite élément par élément, et chaque texte se retouche au doigt.</p></div>`;return}
   const t=TBY[av.theme],c=av.c;
   const decal=av.theme!==p.theme||av.type!==p.type;
   if(c.v3){v.innerHTML=choix+rendreHistoire(p,av,t,c,decal);return}
   let h=`<div class="bloc av">
-   ${decal?`<div class="banniere no-print"><span>Cette aventure a été tirée en ${esc(t.nom)}, ${av.type==="oneshot"?"one-shot":"campagne"}. Les réglages de la partie ont changé depuis.</span><button class="mini" data-act="av-neuve">Nouvelle aventure</button></div>`:""}
+   ${decal?`<div class="banniere no-print"><span>Cette aventure a été tirée en ${esc(t.nom)}, ${av.type==="oneshot"?"one-shot":"campagne"}. Les réglages de la partie ont changé depuis ; pour une autre aventure, crée-en une depuis l'accueil.</span></div>`:""}
    <div class="bloc-h"><span class="sub">${esc(t.nom)} · ${av.type==="oneshot"?"one-shot":"campagne"} · ${texteGroupe(p)}</span>
     <span class="rangee no-print"><button class="mini" data-act="imprimer">Imprimer</button></span></div>
    <div class="scene-h"><h2 class="av-titre txt" contenteditable="plaintext-only" data-edit="titre">${esc(av.titre)}</h2></div>
@@ -3583,9 +3766,11 @@ function choixComplet(o,cible,camp,theme,seul){
     ${["Lieux","Machines","Nature","Événements"].map(ct=>`<div class="rangee" style="align-items:baseline"><span class="small muted" style="min-width:7.5em">${ct}</span><div class="chips">${comm.filter(([k,e])=>e.cat===ct).map(chip).join("")}</div></div>`).join("")}
     <details class="autres-univ"><summary class="small muted">Éléments des autres univers</summary>${THEMES.filter(t=>t.id!==theme).map(t=>`<div class="rangee" style="align-items:baseline"><span class="small muted" style="min-width:7.5em">${esc(t.nom)}</span><div class="chips">${autres.filter(([k,e])=>e.th===t.id).map(chip).join("")}</div></div>`).join("")}</details></div>`;
   if(seul==="types")return pT;if(seul==="oeuvres")return pO;if(seul==="elts")return pE;return pO}
-function blocChoix(p,av){const camp=p.type==="campagne";
+function blocChoix(p,av){return "";
+  const camp=p.type==="campagne";
+  if(p.libre&&!av&&!CHOIX_OUVERT)return `<div class="bloc no-print type-resume"><div class="rangee"><span class="small muted">Pas d'aventure dans cette partie.</span><span style="flex:1"></span><button class="mini ghost" data-act="choix-ouvrir">Générer une aventure…</button></div></div>`;
   if(av&&!CHOIX_OUVERT){return `<div class="bloc no-print type-resume"><div class="rangee"><span class="sub">${av.c.v3?"L'œuvre":"Type d'aventure"}</span><b>${esc(av.c.v3&&av.c.inspi?"« "+INSPI[av.c.inspi].ref.split(",")[0]+" »":libelleType(av.c)||"—")}</b><span style="flex:1"></span><button class="mini" data-act="choix-ouvrir">Changer</button><button class="mini" data-act="av-neuve">Nouvelle aventure</button></div></div>`}
-  return `<div class="bloc no-print"><div class="bloc-h"><h2>Préparer l'aventure</h2><span class="rangee">${camp?"":`<button class="primary mini" data-act="av-neuve">${av?"Tirer avec cette œuvre":"Tirer l'aventure"}</button>`}${av?`<button class="mini ghost" data-act="choix-fermer">Fermer</button>`:""}</span></div>
+  return `<div class="bloc no-print"><div class="bloc-h"><h2>Préparer l'aventure</h2><span class="rangee">${camp?"":`<button class="primary mini" data-act="av-neuve">${av?"Tirer avec cette œuvre":"Tirer l'aventure"}</button>`}${av||p.libre?`<button class="mini ghost" data-act="choix-fermer">Fermer</button>`:""}</span></div>
    ${camp?`<p class="small muted">La campagne se tire d'après l'univers : fil rouge, factions, lieux et chapitres.</p>`:choixComplet(p,"p",camp,p.theme)}
    <div class="rangee fin"><button class="primary" data-act="av-neuve">${av?"Nouvelle aventure avec ces choix":"Tirer l'aventure"}</button></div></div>`}
 function choixGenres(cur,attr){return `<div class="genres"><button class="genre" data-${attr}="hasard" aria-pressed="${cur==="hasard"}"><b>Au hasard</b><span>Un type tiré au sort</span></button>${Object.entries(GENRES).map(([k,g])=>`<button class="genre" data-${attr}="${k}" aria-pressed="${cur===k}"><b>${esc(g.nom)}</b><span>${esc(g.desc)}</span></button>`).join("")}</div>`}
@@ -3594,7 +3779,7 @@ function rendreHistoire(p,av,t,c,decal){const B=av.blocs;const f=k=>B.map((b,ix)
   const acte=(n,titre,corps)=>`<div class="bloc acte"><div class="bloc-h"><h2><span class="acte-n">Acte ${n}</span> ${esc(titre)}</h2></div>${corps}</div>`;
   const ins=[c.inspi,c.inspi2].filter(k=>k&&INSPI[k]);
   let h=`<div class="bloc av">
-   ${decal?`<div class="banniere no-print"><span>Cette aventure a été tirée en ${esc(t.nom)}, ${av.type==="oneshot"?"one-shot":"campagne"}. Les réglages de la partie ont changé depuis.</span><button class="mini" data-act="av-neuve">Nouvelle aventure</button></div>`:""}
+   ${decal?`<div class="banniere no-print"><span>Cette aventure a été tirée en ${esc(t.nom)}, ${av.type==="oneshot"?"one-shot":"campagne"}. Les réglages de la partie ont changé depuis ; pour une autre aventure, crée-en une depuis l'accueil.</span></div>`:""}
    <div class="bloc-h"><span class="sub">${esc(t.nom)} · ${esc(GENRES[c.genre].nom)} · ${texteGroupe(p)}</span><span class="rangee no-print"><button class="mini" data-act="imprimer">Imprimer</button></span></div>
    <div class="scene-h"><h2 class="av-titre txt" contenteditable="plaintext-only" data-edit="titre">${esc(av.titre)}</h2></div>
    ${ins.length?`<p class="adn"><b>Dans l'esprit de ${ins.map(k=>"« "+esc(INSPI[k].ref.split(",")[0])+" »").join(" et ")}.</b> ${esc(remplir(ins.map(k=>INSPI[k].adn).join(" "),c,varsH(c)))}</p>`:""}${transpoHTML(c,av.theme)}
@@ -3681,7 +3866,7 @@ function tableHTML(b,ix,t,c){const E=b.r.e;
 function ficheMini(c){if(!c)return "";return `<p class="small muted">${c.dv} DV (d${c.d}) · Att. ${c.att} · Déf. ${c.def} · ${c.pv} PV · ${c.na} att. (${c.dmg}) · ${c.cap.join(", ")}</p>`}
 
 /* ============ Rendu : Bestiaire ============ */
-let BEST={filtre:"theme",q:"",diff:null,renc:null,nb:{}};
+let BEST={filtre:"theme",q:"",diff:null,renc:null,nb:{},ouvert:null,tri:"danger"};
 function listeBestiaire(){
   const t=T(),p=P();let l=[];
   if(BEST.filtre==="theme")l=t.advP.filter(a=>p.surnat||!a.surnat).map(a=>({th:t.id,i:a.i}));
@@ -3691,9 +3876,16 @@ function listeBestiaire(){
   else l=DB.perso.map(c=>({p:c.id}));
   let cs=l.map(resoudre).filter(Boolean);
   if(BEST.q){const q=BEST.q.toLowerCase();cs=cs.filter(c=>(c.nom+" "+c.desc+" "+c.cap.join(" ")).toLowerCase().includes(q))}
-  return cs.sort((a,b)=>a.dv-b.dv||a.nom.localeCompare(b.nom));
+  return BEST.tri==="nom"?cs.sort((a,b)=>a.nom.localeCompare(b.nom)):cs.sort((a,b)=>menace(a)-menace(b)||a.nom.localeCompare(b.nom));
 }
 const refKey=r=>JSON.stringify(r);
+function ligneCrea(c){
+  const k=refKey(c.ref),ouv=BEST.ouvert===k,m=menace(c),cb=P().combat.grp.find(g=>g.nom===c.nom&&vivants(g)),enc=cb?vivants(cb):0;
+  return `<div class="bl${ouv?" ouvert":""}"><div class="bl-r"><button class="bl-main" data-act="bopen" data-k='${esc(k)}' aria-expanded="${ouv}"><span class="bl-n">${esc(c.nom)}${c.surnat?` <i class="bl-s" title="Surnaturel">✦</i>`:""}${enc?` <span class="bl-enc">en combat ×${enc}</span>`:""}</span>
+    <span class="bl-st"><span>PV <b>${c.pv}</b></span><span>Att. <b>${c.att}</b></span><span>Déf. <b>${c.def}</b></span><span><b>${c.na>1?c.na+"× ":""}${esc(c.dmg)}</b></span>${vileniePar(c)?`<span>Vil. <b>${vileniePar(c)}</b></span>`:""}</span>
+    <span class="bl-cap">${c.cap.length?esc(c.cap.slice(0,3).join(" · ")):"Aucune capacité"}</span></button>
+   <span class="bl-d">${badge(niveauDe(m))}<button class="primary bl-add" data-act="ajout-combat" data-k='${esc(k)}' aria-label="Ajouter ${esc(c.nom)} au combat" title="Ajouter au combat">＋</button></span></div>
+   ${ouv?`<div class="bl-det">${ficheCrea(c)}</div>`:""}</div>`}
 function ficheCrea(c){
   const k=refKey(c.ref);const n=BEST.nb[k]||1;const m=menace(c);const p=P();
   const seul=niveauDe(m);
@@ -3712,18 +3904,21 @@ function rendreBestiaire(){
   const t=T(),p=P();const cs=listeBestiaire();
   const f=(k,l)=>`<button data-bf="${k}" aria-pressed="${BEST.filtre===k}">${l}</button>`;
   $("v-bestiaire").innerHTML=`
+  <div class="bloc"><div class="bloc-h"><h2>Bestiaire</h2><small>${cs.length} fiche${cs.length>1?"s":""}</small></div>
+    <label class="bq"><span class="sr">Chercher</span><input id="qBest" type="search" placeholder="Chercher un nom, une capacité…" value="${esc(BEST.q)}"></label>
+    <div class="filtres"><div class="seg">${f("theme",esc(t.nom))}${f("livre","Livre")}${f("animal","Animaux")}${f("dino","Dinosaures")}${f("mythe","Mythiques")}${f("figurants","Figurants")}${f("perso","Mes créatures")}</div></div>
+    <div class="rangee"><span class="small muted">Trier par</span><div class="seg"><button data-btri="danger" aria-pressed="${BEST.tri==="danger"}">Danger ↑</button><button data-btri="nom" aria-pressed="${BEST.tri==="nom"}">A–Z</button></div></div>
+    <details class="apropos"><summary class="small muted">D'où viennent ces fiches ?</summary>
+    ${BEST.filtre==="theme"?`<p class="small muted">Les adversaires du thème reprennent les profils du livre (ou des figurants construits avec sa méthode, p. 28) sous un autre habit, comme le livre le propose pour le minotaure.</p>`:""}
+    ${["dino","mythe","animal"].includes(BEST.filtre)?`<p class="small muted">${esc(CAT_BESTIAIRE[BEST.filtre])} : profils construits avec la méthode du livre (attaque = 12 + DV, −1 dès 5 DV, −2 dès 9 DV ; défense = 10 + armure ; 2 attaques dès 5 DV, 3 dès 9 DV). Les plus redoutables ont des dés de vilenie.</p>`:""}
+    ${BEST.filtre==="figurants"?`<p class="small muted">Profils construits avec la méthode du livre : attaque = 12 + DV (−1 dès 5 DV, −2 dès 9 DV), défense = 10 + armure.</p>`:""}
+    </details>
+    ${cs.length?`<div class="liste-b">${cs.map(ligneCrea).join("")}</div>`:`<p class="vide">${BEST.filtre==="perso"?"Aucune créature maison. Crée la première ci-dessous.":"Rien ne correspond."}</p>`}
+  </div>
   <div class="bloc"><div class="bloc-h"><h2>Rencontre sur mesure</h2><small>Pour ${texteGroupe(p)}, en ${esc(t.nom)}.</small></div>
     <div class="rangee"><div class="seg">${Object.entries(DIFFS).map(([k,[l]])=>`<button data-rd="${k}" aria-pressed="${(BEST.diff||p.diff)===k}">${l}</button>`).join("")}</div><button class="primary" data-act="tirer-renc">Tirer une rencontre</button></div>
     ${BEST.renc?`<div id="rencB">${rencHTML(BEST.renc,"best")}</div>`:""}
     <p class="small muted">Estimation maison : le livre ne cherche pas l'équilibre (« pas d'équilibre forcé », p. 57). Le repère sert à doser, pas à garantir l'issue.</p>
-  </div>
-  <div class="bloc"><div class="bloc-h"><h2>Bestiaire</h2><small>${cs.length} fiche${cs.length>1?"s":""}</small></div>
-    <div class="rangee"><div class="seg">${f("theme",esc(t.nom))}${f("livre","Livre")}${f("animal","Animaux")}${f("dino","Dinosaures")}${f("mythe","Mythiques")}${f("figurants","Figurants")}${f("perso","Mes créatures")}</div>
-      <label style="flex:1 1 180px"><span class="sr">Chercher</span><input id="qBest" type="search" placeholder="Chercher : horde, feu, chien…" value="${esc(BEST.q)}"></label></div>
-    ${BEST.filtre==="theme"?`<p class="small muted">Les adversaires du thème reprennent les profils du livre (ou des figurants construits avec sa méthode, p. 28) sous un autre habit, comme le livre le propose pour le minotaure.</p>`:""}
-    ${["dino","mythe","animal"].includes(BEST.filtre)?`<p class="small muted">${esc(CAT_BESTIAIRE[BEST.filtre])} : profils construits avec la méthode du livre (attaque = 12 + DV, −1 dès 5 DV, −2 dès 9 DV ; défense = 10 + armure ; 2 attaques dès 5 DV, 3 dès 9 DV). Les plus redoutables ont des dés de vilenie.</p>`:""}
-    ${BEST.filtre==="figurants"?`<p class="small muted">Profils construits avec la méthode du livre : attaque = 12 + DV (−1 dès 5 DV, −2 dès 9 DV), défense = 10 + armure.</p>`:""}
-    ${cs.length?`<div class="cartes">${cs.map(ficheCrea).join("")}</div>`:`<p class="vide">${BEST.filtre==="perso"?"Aucune créature maison. Crée la première ci-dessous.":"Rien ne correspond."}</p>`}
   </div>
   ${formCreation()}`;
 }
@@ -3766,39 +3961,51 @@ function frapper(g,dmg){
   if(!vivants(g))journal(`Tous les ${g.nom} sont vaincus.`);
 }
 function rendreCombat(){
-  const cb=C(),p=P();
-  const ir=cb.init;
+  const cb=C(),p=P(),ir=cb.init,actif=cb.grp.length>0;
   const enJeu=cb.grp.reduce((s,g)=>s+vivants(g)*menace(Object.assign({},g,{pv:g.pvMax})),0);
-  const face=`<div class="bloc"><div class="bloc-h"><h2>Face à ton groupe</h2>${enJeu?`<span>Ce combat : ${badge(niveauDe(enJeu))}</span>`:""}</div>
-   <div class="chips">${p.groupe.map((c,i)=>`<button class="chip" data-cact="${i}" aria-pressed="${c.actif}" title="Toucher pour marquer présent ou absent">${esc(c.nom)} · ${c.niv}</button>`).join("")}<button class="chip" data-go="partie">Modifier…</button></div>
-   <p class="small muted">${texteGroupe(p)}. Un coureur tombe ou quitte la table ? Touche son nom : les propositions et la jauge s'ajustent.</p>
-   <div class="rangee"><div class="seg">${Object.entries(DIFFS).map(([k,[l]])=>`<button data-pd="${k}" aria-pressed="${(PROP.diff||p.diff)===k}">${l}</button>`).join("")}</div><button class="primary" data-act="proposer">${PROP.liste.length?"Autres propositions":"Proposer des combats"}</button></div>
-   ${PROP.liste.map((sp,i)=>`<div class="renc">${texteRencontre(sp)}<span style="flex:1"></span><button class="mini" data-act="prop-go" data-i="${i}">→ Combat</button></div>`).join("")}
-  </div>`;
-
-  let h=`<div class="bloc"><div class="init">
-    <div>${ir?`<p class="init-res ${ir.v>=4?"pj":"adv"}">${ir.v>=4?"Les coureurs agissent d'abord":"Les adversaires agissent d'abord"}<small>Tour ${cb.tour} · d6 = ${ir.v} (4 ou plus : les coureurs ; 3 ou moins : leurs adversaires). Ce dé ne se modifie jamais.</small></p>`:`<p class="init-res">Initiative de groupe<small>Un joueur lance 1d6 au début de chaque tour : 4 ou plus, les coureurs agissent d'abord, dans l'ordre de leur choix.</small></p>`}</div>
-    <button class="primary" data-act="tour" style="padding:12px 16px">${cb.tour?"Tour suivant":"Premier tour"}<br><span class="small">lancer le d6</span></button>
-   </div>
-   ${ir&&ir.na?`<p class="small">${ir.na}</p>`:""}
-   <div class="rangee"><button class="mini" data-go="bestiaire">＋ Ajouter depuis le bestiaire</button><button class="mini" data-act="ajout-rapide">＋ Adversaire rapide</button>${cb.grp.length?`<button class="mini ghost danger" data-act="fin-combat">Fin du combat</button>`:""}
-    <span style="flex:1"></span><label class="toggle small"><input type="checkbox" id="veille"${VEILLE?" checked":""}> Écran allumé</label></div>
-   <form id="formRapide" class="rangee" hidden><label style="flex:2 1 140px">Nom<input name="nom" required placeholder="Garde du pont"></label><label style="flex:1 1 60px">PV<input name="pv" type="number" min="1" value="9" inputmode="numeric"></label><label style="flex:1 1 60px">Att.<input name="att" type="number" value="14" inputmode="numeric"></label><label style="flex:1 1 60px">Déf.<input name="def" type="number" value="13" inputmode="numeric"></label><label style="flex:1 1 60px">Nombre<input name="n" type="number" min="1" max="20" value="1" inputmode="numeric"></label><button class="primary" type="submit">Ajouter</button></form>
-  </div>`;
-  if(!cb.grp.length)h=face+h;else h+=face;
-  if(!cb.grp.length)h+=`<div class="bloc vide"><p>Aucun adversaire en jeu.</p><p class="small">Choisis une proposition ci-dessus, ou ajoute des adversaires depuis l'aventure (→ Combat), le bestiaire ou en saisie rapide.</p></div>`;
-  else h+=`<div class="groupes">${cb.grp.map(grpHTML).join("")}</div>`;
-  h+=`<div class="grille2"><div class="bloc"><h3>Journal du combat</h3><div class="journal">${cb.log.map(l=>`<span>${esc(l)}</span>`).join("")||"<span>Rien pour l'instant.</span>"}</div></div>
-   <div class="bloc aide"><h3>Rappels de combat</h3><dl>
+  const ajout=`<div class="chips">${p.groupe.map((c,i)=>`<button class="chip" data-cact="${i}" aria-pressed="${c.actif}" title="Toucher pour marquer présent ou absent">${esc(c.nom)} · ${c.niv}</button>`).join("")}</div>
+   <p class="small muted">Face à ${texteGroupe(p)}. Touche un nom pour le marquer absent : les propositions s'ajustent.</p>
+   <div class="seg">${Object.entries(DIFFS).map(([k,[l]])=>`<button data-pd="${k}" aria-pressed="${(PROP.diff||p.diff)===k}">${l}</button>`).join("")}</div>
+   <button class="primary large" data-act="proposer">${PROP.liste.length?"Autres propositions":"Proposer des adversaires"}</button>
+   ${PROP.liste.map((sp,i)=>`<div class="renc">${texteRencontre(sp)}<span style="flex:1"></span><button class="mini" data-act="prop-go" data-i="${i}">＋ Ajouter</button></div>`).join("")}
+   <p class="sub" style="margin-top:6px">Ou compose toi-même</p>
+   <div class="rangee"><button class="mini" data-go="bestiaire">＋ Depuis le bestiaire</button><button class="mini" data-act="ajout-rapide">＋ Adversaire rapide</button></div>
+   <form id="formRapide" class="rangee" hidden><label style="flex:2 1 140px">Nom<input name="nom" required placeholder="Garde du pont"></label><label style="flex:1 1 60px">PV<input name="pv" type="number" min="1" value="9" inputmode="numeric"></label><label style="flex:1 1 60px">Att.<input name="att" type="number" value="14" inputmode="numeric"></label><label style="flex:1 1 60px">Déf.<input name="def" type="number" value="13" inputmode="numeric"></label><label style="flex:1 1 60px">Nombre<input name="n" type="number" min="1" max="20" value="1" inputmode="numeric"></label><button class="primary" type="submit">Ajouter</button></form>`;
+  let h="";
+  if(!actif){
+    h+=`<div class="bloc"><div class="bloc-h"><h2>Préparer le combat</h2></div>${ajout}</div>`;
+  }else{
+    h+=`<div class="statut-c">${ir?`<p class="init-res ${ir.v>=4?"pj":"adv"}">Tour ${cb.tour} · ${ir.v>=4?"les coureurs agissent d'abord":"les adversaires agissent d'abord"}<small>d6 = ${ir.v} : 4 ou plus, les coureurs ; 3 ou moins, leurs adversaires.</small></p>`:`<p class="init-res">Prêt à combattre<small>Touche « Premier tour » en bas : un joueur lance 1d6 pour l'initiative.</small></p>`}
+      ${ir&&ir.na?`<p class="small">${ir.na}</p>`:""}<p class="small muted">Ce combat : ${badge(niveauDe(enJeu))}</p></div>`;
+    h+=`<div class="groupes">${cb.grp.map(grpHTML).join("")}</div>`;
+    h+=`<div class="bloc"><div class="bloc-h"><h2>Ajouter des adversaires</h2></div>${ajout}</div>`;
+    h+=`<div class="rangee fin-c"><label class="toggle small"><input type="checkbox" id="veille"${VEILLE?" checked":""}> Garder l'écran allumé</label><span style="flex:1"></span><button class="ghost danger" data-act="fin-combat">Fin du combat</button></div>`;
+    h+=`<div class="bloc"><h3>Journal du combat</h3><div class="journal">${cb.log.map(l=>`<span>${esc(l)}</span>`).join("")||"<span>Rien pour l'instant.</span>"}</div></div>`;
+  }
+  h+=`<div class="bloc aide"><h3>Rappels de combat</h3><dl>
     <dt>Attaque d'un coureur</dt><dd>1d20 + niveau contre la défense de l'adversaire.</dd>
     <dt>Défense d'un coureur</dt><dd>1d20 + armure contre l'attaque de l'adversaire. Débordé par le nombre : désavantage.</dd>
     <dt>Dés d'héroïsme</dt><dd>Un DH dépensé sur une attaque réussie s'ajoute aussi aux dégâts.</dd>
     <dt>Frappe vicieuse</dt><dd>Cible surprise ou de dos : avantage et +1d4 dégâts. Vaut aussi pour un jet spectaculaire ou une arme bien choisie.</dd>
     <dt>Élever les enjeux</dt><dd>Une manœuvre hors règles ? Propose un pari : un bénéfice si le jet réussit, un risque s'il échoue.</dd>
     <dt>Rangs serrés</dt><dd>Créatures anonymes : un seul total de PV ; chaque fois qu'assez de dégâts tombent, une créature meurt et le surplus passe à la suivante.</dd>
-    <dt>Le vase Ming</dt><dd>Entre un combat propre et un combat où les tables cassent et les épées volent, choisis le chaos.</dd></dl></div></div>`;
-  $("v-combat").innerHTML=h;
+    <dt>Le vase Ming</dt><dd>Entre un combat propre et un combat où les tables cassent et les épées volent, choisis le chaos.</dd></dl></div>`;
+  $("v-combat").innerHTML=h;barreCombat();
 }
+function barreCombat(){
+  let el=document.getElementById("barreCombat");
+  if(!el){el=document.createElement("div");el.id="barreCombat";el.className="barre-combat no-print";document.body.appendChild(el)}
+  const cb=P()?C():null,on=ONGLET==="combat"&&cb&&cb.grp.length>0;
+  document.body.classList.toggle("avec-barre",!!on);
+  if(!on){el.innerHTML="";document.body.style.paddingBottom="";veilleAuto(false);return}
+  const vivs=cb.grp.reduce((s,g)=>s+vivants(g),0),ir=cb.init;
+  el.innerHTML=`<div class="bc-t"><b>${cb.tour?"Tour "+cb.tour:"Avant le 1er tour"}</b>${ir?(ir.v>=4?"Coureurs d'abord":"Adversaires d'abord"):vivs+" adversaire"+(vivs>1?"s":"")}</div><button class="primary" data-act="tour">${cb.tour?"Tour suivant":"Premier tour"}</button>`;
+  placerBarre();veilleAuto(true);
+}
+function placerBarre(){const el=document.getElementById("barreCombat");if(!el||!document.body.classList.contains("avec-barre"))return;
+  const nav=$("onglets"),fixe=getComputedStyle(nav).position==="fixed",nh=fixe?nav.getBoundingClientRect().height:0;
+  el.style.bottom=nh+"px";document.body.style.paddingBottom=(nh+el.getBoundingClientRect().height+24)+"px"}
+window.addEventListener("resize",placerBarre);
 function grpHTML(g,gi){
   const cb=C();const v=vivants(g);const flamme=g.cap.includes("Projection de flammes");const flBloque=g.flamme===cb.tour-1&&cb.tour>0;
   return `<article class="grp${v?"":" vaincu"}" data-g="${gi}">
@@ -3822,9 +4029,10 @@ function rendreOutils(){
    <div class="rangee"><button class="primary" data-act="g-pnj">Tirer un personnage</button><button data-act="g-nom">Juste un nom</button>${p.av&&p.av.type==="campagne"?`<button data-act="faction-cachee2">Faction cachée (1d12)</button>`:""}</div>
    <div class="sortie" id="sPnj"></div></div>
   <div class="bloc gen"><div class="bloc-h"><h2>Butin</h2><small>Selon le thème et le niveau.</small></div>
-   <div class="rangee"><button class="primary" data-act="g-butin">Fouiller</button><button data-act="g-parch">Un ${esc(T().sortsUn)}</button></div>
+   <div class="rangee"><button class="primary" data-act="g-butin">Fouiller</button><button data-act="g-parch">Un ${esc(T().sortsUn)}</button>${p.magie?`<button data-act="mag-butin">Une rune</button>`:""}</div>
    <div class="sortie" id="sButin"></div>
    <p class="small muted">Lisibles au niveau ${p.niveau} : ${accesSorts(p.niveau)?`sorts de niveau ${[1,2,3].filter(n=>n<=accesSorts(p.niveau)).join(", ")}`:"aucun (dès le niveau 2)"}.</p></div>
+  ${p.magie?blocsMagie():""}
   <div class="bloc gen"><div class="bloc-h"><h2>Danger</h2><small>Piège, chute, poison… échelle du livre.</small></div>
    <div class="rangee"><button class="primary" data-act="g-danger">Tirer un danger</button></div><div class="sortie" id="sDanger"></div>
    <p class="small muted">Peut tuer un homme : 1d8 · un cheval : 2d8 · un ogre : 4d8. Rarement plus.</p></div>
@@ -3843,6 +4051,7 @@ function rendreOutils(){
    <dt>Critiques (option)</dt><dd>d20 naturel de 18 ou plus : spectaculaire ; 3 ou moins : échec critique.</dd>
    <dt>Récupération</dt><dd>Repos long de 8 h, une fois par 24 h : tous les DH reviennent, les DV peuvent être relancés.</dd>
    <dt>Dés de vilenie</dt><dd>Créatures légendaires, 1 à 6 dés : retirer 1d6 au jet d'un joueur, ou ajouter 1d6 aux dégâts.</dd>
+   ${p.magie?`<dt>Magie (optionnel)</dt><dd>Magicien : autant de dés d'usure que son niveau, il en garde un. 1-3 faible, 4-6 moyen, 7-9 fort, 10+ prodigieux. Un dé au maximum : la rune baisse d'un cran. Dé gardé au maximum : dérapage.</dd>`:""}
    <dt>Progression</dt><dd>Tu décides : après un moment clé, une séance ou un scénario. Six niveaux.</dd></dl></div>
   </div>`;
 }
@@ -3865,18 +4074,18 @@ function rendreNotes(){
 
 /* ============ Sections repliables ============ */
 const PLI_KEY=LS+"-plies";let PLIES={};try{PLIES=JSON.parse(localStorage.getItem(PLI_KEY)||"{}")||{}}catch(e){}
-const PLI_DEFAUT=["Rappels de combat","Aide-mémoire","Inventer une créature","Appareil et sauvegarde","Journal du combat","Figures"];
+const PLI_DEFAUT=["Ajouter des adversaires","Rencontre sur mesure","Rappels de combat","Aide-mémoire","Inventer une créature","Appareil et sauvegarde","Journal du combat","Figures"];
 function titreBloc(b){const h=b.querySelector(":scope > .bloc-h > h2, :scope > h3, :scope > .bloc-h > h3");if(!h||h.isContentEditable)return null;return h}
 function pliables(vue){const v=$("v-"+vue);if(!v)return;const blocs=[...v.querySelectorAll(".bloc")].filter(b=>titreBloc(b));
   blocs.forEach(b=>{const h=titreBloc(b);const k=vue+"|"+h.textContent.replace(/^\d+\s*/,"").trim();b.classList.add("pliable");b.dataset.pli=k;
    const plie=PLIES[k]!=null?PLIES[k]:PLI_DEFAUT.includes(h.textContent.trim());b.classList.toggle("replie",plie);
    const tete=h.closest(".bloc-h")||h;tete.classList.add("tete-pli");tete.setAttribute("role","button");tete.tabIndex=0;tete.setAttribute("aria-expanded",String(!plie))});
-  let bar=v.querySelector(":scope > .barre-pli");if(blocs.length>=3){if(!bar){bar=document.createElement("div");bar.className="barre-pli no-print";bar.innerHTML=`<button class="mini ghost" data-pliall="1">Tout replier</button><button class="mini ghost" data-pliall="0">Tout déplier</button>`;v.prepend(bar)}}else if(bar)bar.remove()}
+  let bar=v.querySelector(":scope > .barre-pli");if(blocs.length>=3){if(!bar){bar=document.createElement("div");bar.className="barre-pli no-print";bar.innerHTML=`<button class="mini ghost" data-pliall="1"></button>`;v.prepend(bar)}if(bar){const b1=bar.firstChild,plie=blocs.every(b=>b.classList.contains("replie"));b1.dataset.pliall=plie?"0":"1";b1.textContent=plie?"Tout déplier":"Tout replier"}}else if(bar)bar.remove()}
 function basculerPli(b,etat){const plie=etat!=null?etat:!b.classList.contains("replie");b.classList.toggle("replie",plie);PLIES[b.dataset.pli]=plie;
   const t=b.querySelector(".tete-pli");if(t)t.setAttribute("aria-expanded",String(!plie));try{localStorage.setItem(PLI_KEY,JSON.stringify(PLIES))}catch(e){}}
 document.addEventListener("click",e=>{const t=e.target.closest(".tete-pli");if(!t||e.target.closest("button,input,select,textarea,a,[contenteditable]"))return;const b=t.closest(".pliable");if(b)basculerPli(b)},true);
 document.addEventListener("keydown",e=>{if((e.key==="Enter"||e.key===" ")&&e.target.classList&&e.target.classList.contains("tete-pli")){e.preventDefault();basculerPli(e.target.closest(".pliable"))}});
-document.addEventListener("click",e=>{const b=e.target.closest("[data-pliall]");if(!b)return;const v=b.closest(".vue");v.querySelectorAll(".pliable").forEach(x=>basculerPli(x,b.dataset.pliall==="1"))});
+document.addEventListener("click",e=>{const b=e.target.closest("[data-pliall]");if(!b)return;const v=b.closest(".vue");v.querySelectorAll(".pliable").forEach(x=>basculerPli(x,b.dataset.pliall==="1"));pliables(v.id.slice(2))});
 
 /* Toute vue redessinée (même partiellement) retrouve ses sections repliables */
 const OBS=new MutationObserver(ms=>{const vs=new Set(ms.map(m=>m.target.closest&&m.target.closest(".vue")).filter(Boolean));vs.forEach(v=>{if(!v.querySelector(".pliable")||[...v.querySelectorAll(".bloc")].some(b=>titreBloc(b)&&!b.classList.contains("pliable")))pliables(v.id.slice(2))})});
@@ -3885,11 +4094,30 @@ document.querySelectorAll(".vue").forEach(v=>OBS.observe(v,{childList:true}));
 /* ============ Navigation et rendu ============ */
 let ONGLET="accueil";
 const RENDUS={accueil:rendreAccueil,partie:rendrePartie,aventure:rendreAventure,bestiaire:rendreBestiaire,combat:rendreCombat,outils:rendreOutils,notes:rendreNotes};
-function rendre(){if(!P()&&ONGLET!=="accueil")ONGLET="accueil";document.body.classList.toggle("a-accueil",ONGLET==="accueil");rendreResume();RENDUS[ONGLET]();pliables(ONGLET);
+function barreSaut(){
+  document.querySelectorAll(".saut").forEach(x=>x.remove());
+  if(ONGLET!=="aventure")return;const v=$("v-aventure");
+  const blocs=[...v.querySelectorAll(":scope > .bloc")].filter(b=>b.querySelector(":scope > .bloc-h > h2, :scope > h3, :scope > .bloc-h > h3"));
+  if(blocs.length<4)return;
+  const lab=(b,i)=>{const n=b.querySelector(".acte-n");if(n)return n.textContent.trim();const h=b.querySelector("h2,h3");let t=(h?h.textContent:"").replace(/^\d+\s*/,"").trim();return t.length>16?t.slice(0,15)+"…":t||("Bloc "+(i+1))};
+  const bar=document.createElement("nav");bar.className="saut no-print";bar.setAttribute("aria-label","Aller à une partie de l'aventure");
+  bar.innerHTML=blocs.map((b,i)=>`<button type="button" data-saut="${i}">${esc(lab(b,i))}</button>`).join("");
+  v.prepend(bar);
+}
+document.addEventListener("click",e=>{const b=e.target.closest("[data-saut]");if(!b)return;const v=$("v-aventure");
+  const bl=[...v.querySelectorAll(":scope > .bloc")].filter(x=>x.querySelector(":scope > .bloc-h > h2, :scope > h3, :scope > .bloc-h > h3"))[+b.dataset.saut];if(!bl)return;
+  if(bl.classList.contains("replie"))basculerPli(bl,false);
+  bl.scrollIntoView({behavior:matchMedia("(prefers-reduced-motion:reduce)").matches?"auto":"smooth",block:"start"})});
+function sautActif(){const bar=document.querySelector(".saut");if(!bar||ONGLET!=="aventure")return;
+  const bl=[...$("v-aventure").querySelectorAll(":scope > .bloc")].filter(x=>x.querySelector(":scope > .bloc-h > h2, :scope > h3, :scope > .bloc-h > h3"));let k=0;
+  bl.forEach((x,i)=>{if(x.getBoundingClientRect().top<=120)k=i});
+  bar.querySelectorAll("button").forEach((x,i)=>{const on=i===k;x.setAttribute("aria-current",String(on));if(on&&x.offsetParent){const r=x.getBoundingClientRect(),br=bar.getBoundingClientRect();if(r.left<br.left||r.right>br.right)bar.scrollTo({left:x.offsetLeft-20,behavior:"auto"})}})}
+window.addEventListener("scroll",()=>{if(ONGLET==="aventure")requestAnimationFrame(sautActif)},{passive:true});
+function rendre(){if(!P()&&ONGLET!=="accueil")ONGLET="accueil";document.body.classList.toggle("a-accueil",ONGLET==="accueil");rendreResume();RENDUS[ONGLET]();pliables(ONGLET);{const q=P(),ba=document.querySelector('[data-tab="aventure"]');if(ba)ba.hidden=!!(q&&q.libre&&!q.av);if(ONGLET==="aventure"&&q&&q.libre&&!q.av){ONGLET="partie";return rendre()}}barreSaut();sautActif();if(ONGLET!=="combat")barreCombat();
   document.querySelectorAll(".vue").forEach(v=>v.classList.toggle("active",v.id==="v-"+ONGLET));
   document.querySelectorAll("[data-tab]").forEach(b=>b.setAttribute("aria-current",b.dataset.tab===ONGLET?"page":"false"))}
 function aller(o){ONGLET=o;if(o!=="accueil"){P().vu=Date.now();sauver()}rendre();window.scrollTo({top:0})}
-function ouvrir(id){DB.cur=id;BEST.renc=null;PROP.liste=[];P().vu=Date.now();sauver();aller(P().av?"aventure":"partie")}
+function ouvrir(id){CHOIX_OUVERT=false;DB.cur=id;BEST.renc=null;PROP.liste=[];P().vu=Date.now();sauver();aller(P().av?"aventure":"partie")}
 
 /* ============ Événements ============ */
 document.addEventListener("click",e=>{
@@ -3901,16 +4129,22 @@ document.addEventListener("click",e=>{
   if(d.cniv!=null){const c=p.groupe[+d.cniv];c.niv=Math.max(1,Math.min(6,c.niv+(+d.d)));syncGroupe(p);sauver();rendre();return}
   if(d.cact!=null){const c=p.groupe[+d.cact];c.actif=!c.actif;syncGroupe(p);sauver();rendre();toast(`${c.nom} : ${c.actif?"présent":"absent"}.`);return}
   if(d.csup!=null){if(!confirmer(b,"Sûr ?"))return;p.groupe.splice(+d.csup,1);syncGroupe(p);sauver();rendre();return}
+  if(d.act==="c-forge"){FORGEUI.ouvert=!FORGEUI.ouvert;FORGEUI.msg="";rendre();return}
+  if(d.act==="forge-annuler"){FORGEUI.ouvert=false;FORGEUI.msg="";rendre();return}
+  if(d.act==="forge-fichier"){const i=document.getElementById("forgeFichier");if(i)i.click();return}
+  if(d.act==="forge-ok"){const t=document.getElementById("forgeCode");if(importerForge(t?t.value:"")){FORGEUI.ouvert=false}rendre();if(FORGEUI.ouvert){const t2=document.getElementById("forgeCode");if(t2){t2.value=t?t.value:"";}}return}
   if(d.act==="c-ajout"){const niv=p.niveau||1;p.groupe.push({id:uid(),nom:"Coureur "+(p.groupe.length+1),niv,actif:true});syncGroupe(p);sauver();rendre();return}
   if(d.act==="c-monte"){p.groupe.forEach(c=>{if(c.actif&&c.niv<6)c.niv++});syncGroupe(p);sauver();rendre();toast("Les coureurs présents montent d'un niveau.");return}
   /* Accueil */
   if(d.act==="nouv"){NOUV={theme:(p&&p.theme)||"fantasy",n:4,niv:1,type:"oneshot",surnat:true,surprise:"revisite",genres:[],inspis:[],elts:[]};rendreAccueil();window.scrollTo({top:0});return}
+  if(d.act==="nouv-libre-ouvrir"){NOUV={theme:(p&&p.theme)||"fantasy",n:4,niv:1,type:"oneshot",surnat:true,surprise:"revisite",genres:[],inspis:[],elts:[],libre:true};rendreAccueil();window.scrollTo({top:0});return}
   if(d.act==="nouv-annuler"){NOUV=null;rendreAccueil();return}
-  if(d.ntheme){NOUV.theme=d.ntheme;if(d.ntheme==="medieval")NOUV.surnat=false;NOUV.ouverte=1;rendreAccueil();return}
+  if(d.ntheme){NOUV.theme=d.ntheme;if(d.ntheme==="medieval")NOUV.surnat=false;NOUV.ouverte=NOUV.libre?-1:1;rendreAccueil();return}
   if(d.npas!=null){NOUV.ouverte=+d.npas;rendreAccueil();const o=document.querySelector(".pas.ouvert");if(o)o.scrollIntoView({block:"start",behavior:"smooth"});else document.querySelector(".lancer")?.scrollIntoView({block:"center",behavior:"smooth"});return}
   if(d.nn){NOUV.n=Math.max(1,Math.min(8,NOUV.n+(+d.nn)));rendreAccueil();return}
   if(d.nniv){NOUV.niv=+d.nniv;rendreAccueil();return}
   if(d.ntype){NOUV.type=d.ntype;rendreAccueil();return}
+  if(d.act==="nouv-libre"){const q=nouvellePartie(NOUV);q.libre=true;q.nom=(NOUV.nom||"").trim();NOUV=null;BEST.renc=null;PROP.liste=[];aller("partie");return}
   if(d.act==="nouv-go"){nouvellePartie(NOUV);NOUV=null;nouvelleAventure();BEST.renc=null;PROP.liste=[];aller("aventure");return}
   if(d.ouvrir){ouvrir(d.ouvrir);return}
   if(d.suppr){if(!confirmer(b,"Toucher encore pour supprimer"))return;delete DB.parties[d.suppr];if(DB.cur===d.suppr)DB.cur=Object.keys(DB.parties)[0]||null;sauver();rendreAccueil();toast("Partie supprimée.");return}
@@ -3972,8 +4206,10 @@ document.addEventListener("click",e=>{
   if(d.bf){BEST.filtre=d.bf;rendreBestiaire();return}
   if(d.rd){BEST.diff=d.rd;p.diff=d.rd;sauver();rendreBestiaire();return}
   if(d.act==="tirer-renc"){BEST.renc=tirerRencontre(BEST.diff||p.diff);rendreBestiaire();return}
+  if(d.act==="bopen"){BEST.ouvert=BEST.ouvert===d.k?null:d.k;rendreBestiaire();pliables("bestiaire");barreSaut();return}
+  if(d.btri){BEST.tri=d.btri;rendreBestiaire();pliables("bestiaire");return}
   if(d.act==="nb"){BEST.nb[d.k]=Math.max(1,Math.min(20,(BEST.nb[d.k]||1)+(+d.d)));rendreBestiaire();return}
-  if(d.act==="ajout-combat"){const c=resoudre(JSON.parse(d.k));ajouterCombat(c,BEST.nb[d.k]||1);rendreResume();toast(`${(BEST.nb[d.k]||1)>1?(BEST.nb[d.k])+" × ":""}${c.nom} : ajouté au combat.`);return}
+  if(d.act==="ajout-combat"){const c=resoudre(JSON.parse(d.k));ajouterCombat(c,BEST.nb[d.k]||1);rendreResume();rendreBestiaire();pliables("bestiaire");toast(`${(BEST.nb[d.k]||1)>1?(BEST.nb[d.k])+" × ":""}${c.nom} : ajouté au combat.`);return}
   if(d.act==="suppr-perso"){DB.perso=DB.perso.filter(c=>c.id!==d.id);sauver();rendreBestiaire();return}
   if(d.cr){CREA.dv=Math.max(1,Math.min(10,CREA.dv+(+d.d)));rendreBestiaire();return}
   if(d.crd){CREA.d=+d.crd;rendreBestiaire();return}
@@ -4001,6 +4237,14 @@ document.addEventListener("click",e=>{
   if(d.act==="etat"){const i=g.etats.indexOf(d.e);if(i>=0)g.etats.splice(i,1);else g.etats.push(d.e);sauver();rendreCombat();return}
   if(d.act==="capinfo"){const el=document.querySelector(`[data-capres="${d.g}"]`);const t=`${d.c} : ${CAPACITES[d.c]}`;if(!el.hidden&&el.textContent===t)el.hidden=true;else{el.textContent=t;el.hidden=false}return}
   /* En jeu */
+  if(d.act==="mag-tirer"||d.act==="mag-butin"){const r=runeAuHasard();MAG.out=carteRuneT(r);const tg=d.act==="mag-butin"?$("sButin"):$("sRune");tg.innerHTML=MAG.out;if(d.act==="mag-butin")MAG.out="";return}
+  if(d.act==="mag-mage"){const n=genPNJ();const rg=Math.max(1,Math.min(6,p.niveau||1));const nb=1+(rg>=3?1:0)+(rg>=5?1:0);const rs=Array.from({length:nb},()=>runeAuHasard());MAG.out=`<p><b>${esc(textePNJ(n))}</b></p><p>Magicien de rang ${rg} : lance ${rg} dé${rg>1?"s":""} d'usure. Porte ${rs.map(r=>`<b>${esc(r.n)}</b> (d${r.de})`).join(", ")}.</p>`;$("sRune").innerHTML=MAG.out;return}
+  if(d.act==="mag-derap"){const k=R(6);MAG.out=`<p><b>Dérapage ${k+1} :</b> ${esc(DERAPAGES[k])}</p>`;$("sRune").innerHTML=MAG.out;return}
+  if(d.act==="mag-rang"){MAG.rang=Math.max(1,Math.min(6,MAG.rang+(+d.v)));MAG.jet=null;MAG.sortie="";rendreOutils();return}
+  if(d.act==="mag-de"){MAG.de=+d.v;MAG.jet=null;MAG.sortie="";rendreOutils();return}
+  if(d.act==="mag-lancer"){magieJet();rendreOutils();return}
+  if(d.act==="mag-garde"){magieGarde(+d.i);rendreOutils();return}
+  if(d.act==="mag-recharge"){const r=runeDef(MAG.rune);MAG.de=d.v==="1"?r.de:cranHaut(MAG.de,r.de);MAG.jet=null;MAG.sortie=`<p class="small">Recharge ${d.v==="1"?"complète":"incomplète"} : la rune est à ${MAG.de?"d"+MAG.de:"vide"}.</p>`;rendreOutils();return}
   if(d.act==="g-pnj"){const n=genPNJ();const t=textePNJ(n);$("sPnj").innerHTML=`<p>${esc(t)}</p><div class="rangee fin"><button class="mini" data-act="garder-pnj">Garder dans les notes</button></div>`;$("sPnj").dataset.t=t;return}
   if(d.act==="g-nom"){$("sPnj").innerHTML=`<p class="gros" style="font-size:24px">${esc(genNom())}</p>`;return}
   if(d.act==="garder-pnj"){p.pnjs.unshift({t:$("sPnj").dataset.t});sauver();b.disabled=true;b.textContent="Gardé";return}
@@ -4023,6 +4267,8 @@ function confirmer(b,msg){if(b.dataset.arme==="1")return true;const ancien=b.tex
 function copier(txt,msg){(navigator.clipboard?navigator.clipboard.writeText(txt):Promise.reject()).then(()=>toast(msg)).catch(()=>{const z=$("zoneCode");z.hidden=false;z.value=txt;z.select();toast("Copie le texte affiché.")})}
 
 document.addEventListener("input",e=>{const el=e.target;const p=P();
+  if(el.id==="nLibreNom"){NOUV.nom=el.value;return}
+  if(el.dataset.pnom!=null){p.nom=el.value;sauver();rendreResume();return}
   if(el.dataset.cnom!=null){p.groupe[+el.dataset.cnom].nom=el.value;sauver();return}
   if(el.id==="qBest"){BEST.q=el.value;const pos=el.selectionStart;rendreBestiaire();const q=$("qBest");q.focus();q.setSelectionRange(pos,pos);return}
   if(el.id==="cNom"){CREA.nom=el.value;return}
@@ -4030,6 +4276,9 @@ document.addEventListener("input",e=>{const el=e.target;const p=P();
 });
 document.addEventListener("change",e=>{const el=e.target;const p=P();
   if(el.id==="nSurnat"){NOUV.surnat=el.checked;return}
+  if(el.id==="nMagie"){NOUV.magie=el.checked;rendreAccueil();return}
+  if(el.id==="magie"){p.magie=el.checked;sauver();rendre();return}
+  if(el.id==="magRune"){MAG.rune=el.value;MAG.de=runeDef(el.value).de;MAG.jet=null;MAG.sortie="";rendreOutils();return}
   if(el.dataset.toutes){const o=el.dataset.toutes==="n"?NOUV:p;o.toutes=el.checked;if(el.dataset.toutes==="n")rendreAccueil();else{sauver();rendreAventure()}return}
   if(el.id==="eltLibre"){p.eltLibre=el.value;sauver();rendreAventure();return}
   if(el.id==="nEltLibre"){NOUV.eltLibre=el.value;rendreAccueil();return}
@@ -4037,7 +4286,7 @@ document.addEventListener("change",e=>{const el=e.target;const p=P();
   if(el.id==="nGenre2"){NOUV.genre2=el.value;rendreAccueil();return}
   if(el.id==="surnat"){p.surnat=el.checked;BEST.renc=null;sauver();rendre();return}
   if(el.dataset.surplus!=null){C().grp[+el.dataset.surplus].surplus=el.checked;sauver();return}
-  if(el.id==="veille"){veille(el.checked);return}
+  if(el.id==="veille"){VEILLE_AUTO=false;if(!el.checked)VEILLE_REFUS=true;veille(el.checked);return}
 });
 /* Textes retouchés à la main : enregistrés en quittant le champ */
 document.addEventListener("focusout",e=>{const el=e.target;if(!el.isContentEditable)return;const p=P();const v=el.innerText.trim();
@@ -4056,6 +4305,11 @@ document.addEventListener("submit",e=>{if(e.target.id!=="formRapide")return;e.pr
 /* Garder l'écran allumé pendant le combat */
 let VEILLE=null;
 async function veille(on){try{if(on&&"wakeLock"in navigator){VEILLE=await navigator.wakeLock.request("screen");toast("L'écran reste allumé.")}else if(VEILLE){await VEILLE.release();VEILLE=null}}catch(err){toast("Ce navigateur ne peut pas garder l'écran allumé.")}}
+document.addEventListener("change",e=>{const el=e.target;if(el.id!=="forgeFichier"||!el.files[0])return;const rd=new FileReader();
+  rd.onload=()=>{if(importerForge(rd.result))FORGEUI.ouvert=false;rendre()};rd.onerror=()=>{FORGEUI.msg="Ce fichier n'a pas pu être lu.";rendre()};rd.readAsText(el.files[0])});
+let VEILLE_REFUS=false,VEILLE_AUTO=false;
+function veilleAuto(on){if(on){if(!VEILLE&&!VEILLE_REFUS&&"wakeLock"in navigator){VEILLE_AUTO=true;navigator.wakeLock.request("screen").then(w=>{VEILLE=w;const c=document.getElementById("veille");if(c)c.checked=true}).catch(()=>{VEILLE_REFUS=true})}}
+  else if(VEILLE&&VEILLE_AUTO){VEILLE.release().catch(()=>{});VEILLE=null;VEILLE_AUTO=false}}
 document.addEventListener("visibilitychange",()=>{if(VEILLE&&document.visibilityState==="visible")veille(true)});
 
 rendre();
